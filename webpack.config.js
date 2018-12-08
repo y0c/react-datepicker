@@ -10,7 +10,7 @@ const dirSrc = path.join(__dirname, 'src');
 const dirExamples = path.join(__dirname, 'examples');
 const dirAssets = path.join(__dirname, 'assets');
 
-const appHtmlTitle = 'Webpack Boilerplate';
+const appHtmlTitle = 'DatePicker Examples';
 
 /**
  * Webpack Configuration
@@ -20,15 +20,10 @@ module.exports = {
 		vendor: [
 			'lodash'
 		],
-		bundle: path.join(dirExamples, 'example')
+		bundle: path.join(dirExamples, 'example.tsx')
 	},
 	resolve: {
-		modules: [
-			dirNode,
-			dirSrc,
-			dirAssets,
-			dirExamples
-		]
+		extensions: ['.ts', '.tsx', '.js', '.jsx']
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -44,7 +39,7 @@ module.exports = {
 		rules: [
 			// BABEL
 			{
-				test: /\.js$/,
+				test: /\.js$|.tsx$|.ts$|.jsx$/,
 				loader: 'babel-loader',
 				exclude: /(node_modules)/,
 				options: {
