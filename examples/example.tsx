@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import DatePicker from '../src/DatePicker';
+import Calendar from '../src/Calendar';
 
-console.log(DatePicker);
+console.log(Calendar);
 
 
-ReactDOM.render(<DatePicker/>, document.getElementById('root'));
+ReactDOM.render(<Calendar/>, document.getElementById('root'));
