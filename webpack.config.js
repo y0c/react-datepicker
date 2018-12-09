@@ -81,6 +81,10 @@ module.exports = {
 					}
 				]
 			},
+			{
+        loader: "url-loader",
+        test: /\.(svg|eot|ttf|woff|woff2)?$/
+      },
 
 			// IMAGES
 			{

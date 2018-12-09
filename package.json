@@ -14,8 +14,8 @@
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
   "dependencies": {
-    "babel-preset-react": "^6.24.1",
     "lodash": "4.17.10",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
@@ -27,8 +27,10 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/moment": "^2.13.0",
     "@types/react": "^16.7.13",
     "@types/react-dom": "^16.0.11",
+    "@types/lodash": "^4.14.118",
     "babel-loader": "8.0.0",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-preset-env": "1.7.0",
@@ -40,7 +42,7 @@
     "node-sass": "4.9.3",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
-    "url-loader": "1.1.1",
+    "url-loader": "^1.1.2",
     "webpack": "4.17.1",
     "webpack-cli": "3.1.0",
     "webpack-dev-server": "3.1.7",
