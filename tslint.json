@@ -1,5 +1,5 @@
 {
-  "extends": [],
+  "extends": ["tslint-config-airbnb"],
   "defaultSeverity": "warning",
   "linterOptions": {
     "exclude": [
