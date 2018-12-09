@@ -1,0 +1,43 @@
+@import "icon.scss";
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.calendar{
+  width: 300px;
+  border: 1px solid #ddd;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 6px;
+    &--title {
+      font-size: 18px;
+    }
+    &--button{
+      outline: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px; 
+    }
+  }
+
+  &__body {
+    &--table{
+      width: 100%;
+      text-align: center;
+
+      td{
+        height: 40px;
+        &.today{
+          color: green;
+        }
+      }
+    } 
+  }
+}
