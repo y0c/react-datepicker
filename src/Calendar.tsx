@@ -71,7 +71,8 @@ class Calendar extends React.Component<Props, State>{
   render() {
     const {
       headerFormat,
-      customDayClass
+      customDayClass,
+      customDayText
     } = this.props;
 
     const {
@@ -92,6 +93,7 @@ class Calendar extends React.Component<Props, State>{
           selected={selected}
           onSelect={this.handleSelect}
           customDayClass={customDayClass}
+          customDayText={customDayText}
         />
       </div>
     )

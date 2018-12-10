@@ -34,6 +34,7 @@ html {
   &__body {
     &--table{
       width: 100%;
+      table-layout:fixed;
       text-align: center;
     } 
   }
@@ -46,6 +47,10 @@ html {
     }
     &--selected{
       background: material-color('blue', '200');
+    }
+    &--text{
+      display: block;
+      font-size: 12px; 
     }
   }
 }

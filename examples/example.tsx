@@ -11,4 +11,11 @@ ReactDOM.render(<Calendar
 
     return classMap[date.format('YYYYMMDD')];
   }}
+  customDayText={ date => {
+    const textMap = {
+      "20181201": "개천절"
+    }  
+    
+    return textMap[date.format('YYYYMMDD')];
+  }}
 />, document.getElementById('root'));
