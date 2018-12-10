@@ -1,8 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Calendar from '../src/Calendar';
+import './example.css';
 
-console.log(Calendar);
+ReactDOM.render(<Calendar
+  customDayClass={ date => {
+    const classMap = {
+      "20181201": "calendar__day--custom1"
+    }
 
-
-ReactDOM.render(<Calendar/>, document.getElementById('root'));
+    return classMap[date.format('YYYYMMDD')];
+  }}
+/>, document.getElementById('root'));

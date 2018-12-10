@@ -9,22 +9,29 @@ moment.locale('ko');
 
 interface Props {
   headerFormat?: string
+  multiSelect?: boolean
+  onSelect?: (selected: moment.Moment[]) => void
+  customDayClass?: (date: moment.Moment) => string | string[]
+  customDayText?: (date: moment.Moment) => string
 }
 
 interface State {
   current: moment.Moment
+  selected: moment.Moment[]
 }
 
 class Calendar extends React.Component<Props, State>{
 
   public static defaultProps = {
-    headerFormat: "YYYY년 MM월"
+    headerFormat: "YYYY년 MM월",
+    multiSelect: false
   }
 
   constructor(props: Props){
     super(props);
     this.state = {
-      current: moment() 
+      current: moment(),
+      selected: []
     };
   }
 
@@ -40,15 +47,36 @@ class Calendar extends React.Component<Props, State>{
     });
   }
 
+  handleSelect = (value: moment.Moment) => {
+    const {
+      multiSelect,
+      onSelect
+    } = this.props;
+    const selected = !multiSelect ? 
+        [value] : 
+        this.state.selected.concat([value]);
+
+    if(onSelect !== undefined){
+      onSelect(selected);
+    }
+
+    this.setState({
+      ...this.state,
+      selected
+    });
+  }
+
 
 
   render() {
     const {
-      headerFormat
+      headerFormat,
+      customDayClass
     } = this.props;
 
     const {
-      current
+      current,
+      selected
     } = this.state;
 
 
@@ -61,6 +89,9 @@ class Calendar extends React.Component<Props, State>{
         />
         <CalendarBody
           current={current} 
+          selected={selected}
+          onSelect={this.handleSelect}
+          customDayClass={customDayClass}
         />
       </div>
     )
