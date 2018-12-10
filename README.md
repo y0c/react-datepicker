@@ -2,9 +2,24 @@
 
 > A Simple React DatePicker Component
 
-## Feature to be implemented 
+## Built With
 
-- [ ] Select Day
+* TypeScript
+* Sass
+* React
+* Momen
+
+## Dependency 
+
+* [Moment](https://momentjs.com)
+
+## 📋 Todo 
+
+- [x] Custom Day Text 
+- [x] Custom Day Class
+- [x] Select Day
+- [x] Mutiple Select
+- [x] Today Check
+- [x] i18n(with moment locale)
 - [ ] Select Range
-- [ ] i18n 
-- [ ] Custom Day Text 
+
