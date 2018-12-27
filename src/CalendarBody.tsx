@@ -5,8 +5,8 @@ import Day from './Day';
 
 interface Props{
   current: moment.Moment
-  selected: moment.Moment[]
-  onSelect: (value: moment.Moment) => void
+  selected?: moment.Moment[]
+  onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
 }
@@ -29,8 +29,8 @@ class CalendarBody extends React.Component<Props> {
       classArr.push('calendar__day--today');
     }
 
-    if(selected.filter(v => isDayEqual(v, currentDate)).length) {
-      classArr.push('calendar__day--selected')
+    if(this.isSelected(value)) {
+      classArr.push(`calendar__day--selected`);
     }
 
     if( customDayClass !== undefined ) {
@@ -51,18 +51,24 @@ class CalendarBody extends React.Component<Props> {
     return customDayText(currentDate);
   }
 
-  handleSelect = (value: string) => {
-    const { current, onSelect } = this.props;
-    if(value.trim())
-      onSelect(moment(current).date(parseInt(value)))
+  isSelected = (value: string):boolean => {
+    const { selected, current } = this.props;
+    const currentDate = moment(current).date(parseInt(value));
+    if( selected === undefined || value === undefined) return false;
+    return selected.filter(v => isDayEqual(v, currentDate)).length > 0;
   }
 
+  handleChange = (value: string) => {
+    const { onChange, current } = this.props;
+    if(onChange)
+      onChange(moment(current).date(parseInt(value)));
+  }
 
   render() {
     const {
       current,
       selected,
-      onSelect
+      onChange
     } = this.props;
 
     const dayMatrix = getDayMatrix(current.year(), current.month());
@@ -81,13 +87,13 @@ class CalendarBody extends React.Component<Props> {
           <tbody>
             {
               dayMatrix.map((row,i) => (
-                <tr key={i}>
+              <tr key={i}>
                   {
                     row.map((col,j) => (
                       <Day 
                         customClass={this.getDayClass(col)}
                         customText={this.getDayText(col)}
-                        onSelect={() => this.handleSelect(col)}
+                        onChange={this.handleChange}
                         value={col} 
                         key={i+j}
                       />

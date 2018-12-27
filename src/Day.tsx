@@ -1,21 +1,23 @@
 import * as React from 'react';
+import * as moment from 'moment';
 
 interface Props{
   value: string
   customClass: string
   customText: string
-  onSelect: () => void
+  onChange: (value: string) => void
 }
+
 
 const Day: React.SFC<Props> = ({
   value,
   customClass,
   customText,
-  onSelect
+  onChange
 }) => {
   return (
     <td 
-      onClick={onSelect}
+      onClick={e => onChange(value)} 
       className={`calendar__day ${customClass}`}
     >
       <span>{value}</span>
