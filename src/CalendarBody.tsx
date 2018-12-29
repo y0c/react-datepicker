@@ -6,6 +6,8 @@ import Day from './Day';
 interface Props{
   current: moment.Moment
   selected?: moment.Moment[]
+  startDay?: moment.Moment
+  endDay?: moment.Moment
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
@@ -68,7 +70,8 @@ class CalendarBody extends React.Component<Props> {
     const {
       current,
       selected,
-      onChange
+      onChange,
+      startDay
     } = this.props;
 
     const dayMatrix = getDayMatrix(current.year(), current.month());

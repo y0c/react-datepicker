@@ -5,11 +5,13 @@ import CalendarBody from './CalendarBody';
 import 'moment/locale/ko';
 import '../assets/styles/calendar.scss';
 
-moment.locale('ko');
 
 interface Props {
   headerFormat?: string
   selected?: moment.Moment[]
+  startDay?: moment.Moment
+  endDay?: moment.Moment
+  locale?: string
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
@@ -31,6 +33,7 @@ class Calendar extends React.Component<Props, State>{
     this.state = {
       current: moment(),
     };
+    moment.locale(props.locale);
   }
 
   handlePrev = () => {
@@ -51,7 +54,8 @@ class Calendar extends React.Component<Props, State>{
       customDayClass,
       customDayText,
       selected,
-      onChange
+      onChange,
+      startDay
     } = this.props;
 
     const {
@@ -69,6 +73,7 @@ class Calendar extends React.Component<Props, State>{
         <CalendarBody
           current={current} 
           selected={selected}
+          startDay={startDay}
           onChange={onChange}
           customDayClass={customDayClass}
           customDayText={customDayText}
