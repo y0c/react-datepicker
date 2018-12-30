@@ -8,16 +8,18 @@ interface Props {
 
 interface State {
   selected: moment.Moment[]
+  startDay: moment.Moment
 }
 
 class RangeSelect extends React.Component<Props, State> {
   state = {
-    selected: []
+    selected: [],
+    startDay: moment()
   }
 
   handleChange = (date:moment.Moment) => {
     this.setState({
-      selected: [date]
+      startDay: date
     })
   }
 
@@ -27,6 +29,7 @@ class RangeSelect extends React.Component<Props, State> {
         <Calendar 
           onChange={this.handleChange}
           selected={this.state.selected}
+          startDay={this.state.startDay}
          />
         <Calendar />
       </React.Fragment>

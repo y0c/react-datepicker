@@ -17,23 +17,14 @@ class CalendarBody extends React.Component<Props> {
   constructor(props:Props){
     super(props);
   }
-  getDayClass = (value: string):string => {
-    const { current, selected, customDayClass } = this.props;
-    const now = moment();
-    const currentDate = moment(current).date(parseInt(value));
+  getCustomClass = (date: string):string => {
+    const { current, customDayClass } = this.props;
+    const currentDate = moment(current).date(parseInt(date));
     let classArr:string[] = [];
     
-    if(!value.trim()) return '';
+    if(!date.trim()) return '';
 
     classArr.push(`calendar__day--${currentDate.day()}`);
-
-    if(isDayEqual(currentDate,now)) {
-      classArr.push('calendar__day--today');
-    }
-
-    if(this.isSelected(value)) {
-      classArr.push(`calendar__day--selected`);
-    }
 
     if( customDayClass !== undefined ) {
       const customClass = customDayClass(currentDate);
@@ -44,21 +35,28 @@ class CalendarBody extends React.Component<Props> {
     return classArr.join(' '); 
   }
 
-  getDayText = (value: string):string => {
+  getCustomText = (value: string):string => {
     const { current, customDayText } = this.props;
     const currentDate = moment(current).date(parseInt(value));
-    
     if(customDayText === undefined) return '';
-  
+
     return customDayText(currentDate);
   }
 
-  isSelected = (value: string):boolean => {
-    const { selected, current } = this.props;
-    const currentDate = moment(current).date(parseInt(value));
-    if( selected === undefined || value === undefined) return false;
-    return selected.filter(v => isDayEqual(v, currentDate)).length > 0;
+  isSelected = (date: string):boolean => {
+    const { selected } = this.props;
+    if(selected === undefined) return false;
+    return selected.some(v => this.isDayEqual(date, v));
   }
+
+  isDayEqual = (date: string, compareDate?: moment.Moment):boolean => {
+    const { current } = this.props;
+    const currentDate = moment(current).date(parseInt(date));
+    if(date === ' ') return false;
+    if(compareDate === undefined) return false;
+    return isDayEqual(compareDate, currentDate);
+  } 
+
 
   handleChange = (value: string) => {
     const { onChange, current } = this.props;
@@ -69,9 +67,8 @@ class CalendarBody extends React.Component<Props> {
   render() {
     const {
       current,
-      selected,
-      onChange,
-      startDay
+      startDay,
+      endDay
     } = this.props;
 
     const dayMatrix = getDayMatrix(current.year(), current.month());
@@ -92,12 +89,16 @@ class CalendarBody extends React.Component<Props> {
               dayMatrix.map((row,i) => (
               <tr key={i}>
                   {
-                    row.map((col,j) => (
+                    row.map((date,j) => (
                       <Day 
-                        customClass={this.getDayClass(col)}
-                        customText={this.getDayText(col)}
+                        customClass={this.getCustomClass(date)}
+                        customText={this.getCustomText(date)}
                         onChange={this.handleChange}
-                        value={col} 
+                        start={this.isDayEqual(date, startDay)}
+                        end={this.isDayEqual(date, endDay)}
+                        today={this.isDayEqual(date, current)}
+                        selected={this.isSelected(date)}
+                        value={date} 
                         key={i+j}
                       />
                     ))     

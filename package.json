@@ -14,6 +14,8 @@
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.6",
+    "classnames": "^2.2.6",
     "lodash": "4.17.10",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
