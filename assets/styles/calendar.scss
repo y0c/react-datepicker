@@ -48,6 +48,12 @@ html {
     &--selected{
       background: material-color('blue', '200');
     }
+    &--start {
+      background: material-color('blue', '300');
+    }
+    &--end {
+      background: material-color('blue', '300');
+    }
     &--text{
       display: block;
       font-size: 12px; 
