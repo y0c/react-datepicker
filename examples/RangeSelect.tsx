@@ -8,13 +8,13 @@ interface Props {
 
 interface State {
   selected: moment.Moment[]
-  startDay: moment.Moment
+  startDay?: moment.Moment
 }
 
 class RangeSelect extends React.Component<Props, State> {
   state = {
     selected: [],
-    startDay: moment()
+    startDay: undefined
   }
 
   handleChange = (date:moment.Moment) => {

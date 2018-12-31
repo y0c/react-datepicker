@@ -57,6 +57,17 @@ class CalendarBody extends React.Component<Props> {
     return isDayEqual(compareDate, currentDate);
   } 
 
+  isRange = (date: string):boolean => {
+    const { current, startDay, endDay } = this.props;
+    const currentDate = moment(current).date(parseInt(date));
+    
+    if(date === ' ') return false;
+    if(startDay !== undefined && currentDate.isAfter(startDay)) return true;
+    if(endDay !== undefined && currentDate.isBefore(endDay)) return true;
+
+    return false;
+  }
+
 
   handleChange = (value: string) => {
     const { onChange, current } = this.props;
@@ -96,6 +107,7 @@ class CalendarBody extends React.Component<Props> {
                         onChange={this.handleChange}
                         start={this.isDayEqual(date, startDay)}
                         end={this.isDayEqual(date, endDay)}
+                        range={this.isRange(date)}
                         today={this.isDayEqual(date, current)}
                         selected={this.isSelected(date)}
                         value={date} 

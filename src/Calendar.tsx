@@ -55,7 +55,8 @@ class Calendar extends React.Component<Props, State>{
       customDayText,
       selected,
       onChange,
-      startDay
+      startDay,
+      endDay
     } = this.props;
 
     const {
@@ -74,6 +75,7 @@ class Calendar extends React.Component<Props, State>{
           current={current} 
           selected={selected}
           startDay={startDay}
+          endDay={endDay}
           onChange={onChange}
           customDayClass={customDayClass}
           customDayText={customDayText}

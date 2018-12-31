@@ -54,6 +54,9 @@ html {
     &--end {
       background: material-color('blue', '300');
     }
+    &--range {
+      background: material-color('blue', '100');
+    }
     &--text{
       display: block;
       font-size: 12px; 

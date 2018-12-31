@@ -9,6 +9,7 @@ interface Props{
   onChange: (value: string) => void
   start: boolean
   end: boolean
+  range: boolean
   today: boolean
   selected: boolean
 }
@@ -24,6 +25,7 @@ class Day extends React.Component<Props> {
       selected,
       start,
       end,
+      range,
       today
     } = this.props;
 
@@ -34,7 +36,8 @@ class Day extends React.Component<Props> {
         'calendar__day--start': start,
         'calendar__day--end': end,
         'calendar__day--today': today,
-        'calendar__day--selected': selected
+        'calendar__day--selected': selected,
+        'calendar__day--range': range
       }
     );
     
