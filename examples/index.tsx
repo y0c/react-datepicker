@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Calendar from '../src/Calendar';
-import RangeSelect from './RangeSelect';
+import ExamplePage from './ExamplePage';
 import './example.css';
 
 ReactDOM.render(
 <div>
-  <RangeSelect/>
+  <ExamplePage/>
 </div>
 , document.getElementById('root'));
