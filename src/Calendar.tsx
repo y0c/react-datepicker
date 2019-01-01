@@ -4,7 +4,6 @@ import CalendarHead from './CalendarHead';
 import CalendarBody from './CalendarBody';
 import classNames from 'classnames';
 import 'moment/locale/ko';
-import '../assets/styles/calendar.scss';
 
 
 interface Props {
