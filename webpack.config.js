@@ -20,8 +20,9 @@ module.exports = {
 		vendor: [
 			'lodash'
 		],
-		bundle: path.join(dirExamples, 'example.tsx')
+		bundle: path.join(dirExamples, 'index.tsx')
 	},
+	devtool: '#inline-source-map',
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx']
 	},

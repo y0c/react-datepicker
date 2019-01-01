@@ -1,9 +1,11 @@
 {
-  "name": "react-datepicker",
+  "name": "@y0c/react-datepicker",
   "version": "0.1.0",
   "description": "React Datepicker Component",
   "author": "y0c",
   "license": "MIT",
+  "main": "lib/src/index.js",
+  "types": "lib/src/index.d.ts",
   "homepage": "https://github.com/y0c/react-datepicker",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
@@ -54,7 +56,6 @@
   "bugs": {
     "url": "https://github.com/y0c/react-datepicker/issues"
   },
-  "main": "webpack.config.build.js",
   "keywords": [
     "react",
     "datepicker"

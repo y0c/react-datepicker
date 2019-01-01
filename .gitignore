@@ -8,6 +8,8 @@ log/
 dist/
 node_modules/
 bower_components/
+demo/
+lib/
 
 ## Files
 result.xml
