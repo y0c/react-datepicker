@@ -1,5 +1,4 @@
 @import "icon.scss";
-@import '../../node_modules/sass-material-colors/sass/sass-material-colors';
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
 
@@ -11,6 +10,7 @@ html {
 }
 
 .datepicker {
+  display: inline-block;
   &__container {
     position: relative;
     z-index: 99;
@@ -32,7 +32,7 @@ html {
 
 .calendar{
   width: 250px;
-  border: 1px solid material-color('grey', '300');
+  border: 1px solid #ddd;
   font-family: 'Roboto', sans-serif;
   display:none;
 
@@ -67,24 +67,16 @@ html {
   &__day {
     height: 40px;
     cursor:pointer;
-    &--today{
-      background: material-color('yellow', '200');
-    }
-    &--selected{
-      background: material-color('blue', '200');
-    }
-    &--start {
-      background: material-color('blue', '300');
-    }
-    &--end {
-      background: material-color('blue', '300');
-    }
-    &--range {
-      background: material-color('blue', '100');
-    }
+    &--0 { color:red; }
+    &--6 { color:blue; }
+    &--today{ background: lightyellow; }
+    &--selected{ background: lightblue; }
+    &--start { background: skyblue; }
+    &--end { background: skyblue; }
+    &--range { background: lightblue; }
     &--text{
       display: block;
-      font-size: 12px; 
+      font-size: 10px; 
     }
   }
 }
