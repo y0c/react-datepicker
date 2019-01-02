@@ -1,19 +1,19 @@
-# React Datepicker
+# 📅 React Datepicker
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/%40y0c%2Freact-datepicker.svg)](https://badge.fury.io/js/%40y0c%2Freact-datepicker) 
 > Simple and Reusable DatePicker Component 
 
-## Built With
+## 🔧 Built With
 
 * TypeScript
 * Sass
 * React
 * Moment
 
-## Dependency 
+## 📦 Dependency 
 
 * [Moment](https://momentjs.com)
 
-## Installation 
+## 📲 Installation 
 
 ```sh
 yarn add @y0c/react-datepicker
@@ -21,7 +21,7 @@ yarn add @y0c/react-datepicker
 npm install --save @y0c/react-datepicker
 ```
 
-## Examples 
+## 💡 Examples 
 
 ### Simple Calendar Standalone 
 
@@ -140,7 +140,7 @@ class CalendarExample extends Component {
 ![image](https://user-images.githubusercontent.com/2585676/50604018-ebae5c00-0f00-11e9-9990-205f252f0693.png)
 
 
-## Calendar Component Props Detail 
+## 📋 Calendar Component Props Detail 
 
 | Props          | Description                               | defaultProps  | Type          |
 |----------------|-------------------------------------------|---------------|---------------|
@@ -173,7 +173,7 @@ class CalendarExample extends Component {
 ### Result
 ![image](https://user-images.githubusercontent.com/2585676/50604620-e18d5d00-0f02-11e9-84f2-a0f87f68e41c.png)
 
-## Local Development
+## ⚙️ Local Development
 
 ```sh
 # clone this project
@@ -205,6 +205,6 @@ Open your browser and connect http://localhost:8080
 - [ ] Demo site (Github Pages)
 - [ ] Range Datepicker Input 
 
-## License 
+## 📝 License 
 MIT
 
