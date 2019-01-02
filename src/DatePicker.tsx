@@ -26,15 +26,6 @@ class DatePicker extends React.Component<Props, State> {
     selected: []
   }
 
-  private inputRef = React.createRef<HTMLInputElement>();
-
-  componentDidMount() {
-    const node = this.inputRef.current;
-
-    if(node) {
-      node.addEventListener('click', this.handleCalendar);
-    }
-  }
 
   handleCalendar = () => {
     this.setState({
@@ -68,9 +59,10 @@ class DatePicker extends React.Component<Props, State> {
     return (
       <div className="datepicker">
         <input 
-          ref={this.inputRef}
+          onClick={this.handleCalendar}
           className="datepicker__input" 
           value={inputValue}
+          readOnly
           type="text" 
         />
         <div className="datepicker__container">
