@@ -22,7 +22,6 @@ npm install --save @y0c/react-datepicker
 ```
 
 ## Examples 
----
 
 ### Simple Calendar Standalone 
 
