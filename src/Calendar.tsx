@@ -11,8 +11,6 @@ interface Props {
   selected?: moment.Moment[]
   startDay?: moment.Moment
   endDay?: moment.Moment
-  startText?: string
-  endText?: string
   locale?: string
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
@@ -61,8 +59,6 @@ class Calendar extends React.Component<Props, State>{
       onChange,
       startDay,
       endDay,
-      startText,
-      endText,
       show
     } = this.props;
 
@@ -86,8 +82,6 @@ class Calendar extends React.Component<Props, State>{
           selected={selected}
           startDay={startDay}
           endDay={endDay}
-          startText={startText}
-          endText={endText}
           onChange={onChange}
           customDayClass={customDayClass}
           customDayText={customDayText}
