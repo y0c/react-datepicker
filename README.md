@@ -1,5 +1,5 @@
 # React Datepicker
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/%40y0c%2Freact-datepicker.svg)](https://badge.fury.io/js/%40y0c%2Freact-datepicker) 
 > Simple and Reusable DatePicker Component 
 
 ## Built With
