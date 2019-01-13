@@ -38,8 +38,8 @@ class CalendarBody extends React.Component<Props> {
   getCustomText = (date: string):string => {
     const { current, customDayText, startDay, endDay} = this.props;
     const currentDate = moment(current).date(parseInt(date));
-
-    if(customDayText === undefined) return '';
+    if(!date.trim()) return '';
+    if(!customDayText) return '';
 
     return customDayText(currentDate);
   }
@@ -53,7 +53,7 @@ class CalendarBody extends React.Component<Props> {
   isDayEqual = (date: string, compareDate?: moment.Moment):boolean => {
     const { current } = this.props;
     const currentDate = moment(current).date(parseInt(date));
-    if(date === ' ') return false;
+    if(!date.trim()) return false;
     if(!compareDate) return false;
     return isDayEqual(compareDate, currentDate);
   } 
@@ -62,9 +62,9 @@ class CalendarBody extends React.Component<Props> {
     const { current, startDay, endDay } = this.props;
     const currentDate = moment(current).date(parseInt(date));
     
-    if(date === ' ') return false;
-    if((startDay && currentDate.isAfter(startDay))
-      && (endDay && currentDate.isBefore(endDay))) return true;
+    if(!date.trim()) return false;
+    if((startDay && currentDate.diff(startDay, 'days') > 0 )
+      && (endDay && currentDate.diff(endDay, 'days') < 0)) return true;
 
     return false;
   }
@@ -72,6 +72,7 @@ class CalendarBody extends React.Component<Props> {
 
   handleChange = (value: string) => {
     const { onChange, current } = this.props;
+
     if(onChange)
       onChange(moment(current).date(parseInt(value)));
   }

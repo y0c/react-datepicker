@@ -12,11 +12,9 @@ html {
 .datepicker {
   display: inline-block;
   &__container {
-    position: relative;
-    z-index: 99;
-    .calendar {
+    .calendar__wrapper {
       position: absolute;
-      top: 2px;
+      z-index:9999;
     }
   }
 
@@ -32,12 +30,23 @@ html {
 
 .calendar{
   width: 250px;
-  border: 1px solid #ddd;
   font-family: 'Roboto', sans-serif;
   display:none;
 
-  &.show {
-    display:block;
+  &__list {
+    display:table;
+  }
+
+  &__item {
+    display: table-cell;
+    border: 1px solid #ddd;
+    &:not(:first-child) {
+      border-left: none !important;
+    }
+  }
+
+  &--show {
+    display:inline-block;
   }
 
   &__head {

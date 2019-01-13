@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RangeSelect from './RangeSelect';
-import Calendar from '../src/Calendar';
+import { Calendar, DatePicker } from '../src';
 
 import '../assets/styles/calendar.scss';
 import * as moment from 'moment';
@@ -44,6 +44,7 @@ class ExamplePage extends React.Component<{}, State> {
     };
     if(startDay) textMap[startDay.format('YYYYMMDD')] = "출발일"
     if(endDay) textMap[endDay.format('YYYYMMDD')] = "도착일"
+
     return textMap[value];
   }
 
@@ -51,12 +52,22 @@ class ExamplePage extends React.Component<{}, State> {
     const { startDay, endDay } = this.state;
     return (
       <div className="App">
-        <Calendar
-          onChange={this.handleChange}
-          startDay={startDay}
-          endDay={endDay}
-          customDayText={this.getDayText}
-        />
+        <div>
+          <Calendar
+            onChange={this.handleChange}
+            startDay={startDay}
+            endDay={endDay}
+            customDayText={this.getDayText}
+            showMonthCnt={2}
+          />
+          <Calendar
+          />
+        </div>
+        <div>
+          <DatePicker 
+            showMonthCnt={2}
+          />
+        </div>
       </div>
     );
   }

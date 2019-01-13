@@ -1,35 +1,58 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import Calendar from './Calendar';
+import Calendar from './CalendarContainer';
 
 
 interface Props {
   onChange?: (date: moment.Moment) => void
   inputFormat: string
+  showMonthCnt?: number
 }
 
 interface State {
   inputValue: string
   calendarShow: boolean
   selected: moment.Moment[]
+  position: {
+    top: string,
+    left: string
+  }
 }
 
 class DatePicker extends React.Component<Props, State> {
 
   static defaultProps = {
-    inputFormat: 'YYYY-MM-DD'
+    inputFormat: 'YYYY-MM-DD',
+    showMonthCnt: 1
   }
+  
+  private inputRef: React.RefObject<HTMLInputElement>
 
   state = {
     inputValue: '',
     calendarShow: false,
-    selected: []
+    selected: [],
+    position: {
+      top: '0px',
+      left: '0px'
+    }
+  }
+
+  constructor(props: Props) {
+    super(props);
+    this.inputRef = React.createRef();
   }
 
 
-  handleCalendar = () => {
+  handleCalendar = (e: React.MouseEvent) => {
+    const node = this.inputRef.current;
+    console.log(node);
     this.setState({
-      calendarShow: true
+      calendarShow: true,
+      position: {
+        top: `${node!.offsetTop + node!.clientHeight + 5}px`,
+        left: `${node!.offsetLeft }px`
+      }
     })
   }
 
@@ -46,7 +69,7 @@ class DatePicker extends React.Component<Props, State> {
     });
   }
 
-  hideCalendar = () => {
+  hideCalendar = (e: React.MouseEvent) => {
     this.setState({
       ...this.state,
       calendarShow: false
@@ -54,12 +77,14 @@ class DatePicker extends React.Component<Props, State> {
   }
  
   render() {
-    const { inputValue, calendarShow, selected } = this.state;
+    const { inputValue, calendarShow, selected, position: { top, left } } = this.state;
+    const { showMonthCnt } = this.props;
     
     return (
       <div className="datepicker">
         <input 
-          onClick={this.handleCalendar}
+          onClick={e => this.handleCalendar(e)}
+          ref={this.inputRef}
           className="datepicker__input" 
           value={inputValue}
           readOnly
@@ -70,6 +95,9 @@ class DatePicker extends React.Component<Props, State> {
             show={calendarShow}
             onChange={this.handleChange}
             selected={selected}
+            showMonthCnt={showMonthCnt}
+            top={top}
+            left={left}
           /> 
         </div>
         {
