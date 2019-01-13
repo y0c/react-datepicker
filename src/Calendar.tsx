@@ -6,16 +6,17 @@ import classNames from 'classnames';
 import 'moment/locale/ko';
 
 
-interface Props {
+export interface Props {
   headerFormat?: string
   selected?: moment.Moment[]
   startDay?: moment.Moment
   endDay?: moment.Moment
+  current?: moment.Moment
   locale?: string
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
-  show: boolean
+  show?: boolean
 }
 
 interface State {
@@ -27,13 +28,14 @@ class Calendar extends React.Component<Props, State>{
   public static defaultProps = {
     headerFormat: "YYYY년 MM월",
     multiSelect: false,
-    show: true
+    show: true,
+    current: moment()
   }
 
   constructor(props: Props){
     super(props);
     this.state = {
-      current: moment(),
+      current: props.current!
     };
     moment.locale(props.locale);
   }
@@ -67,7 +69,7 @@ class Calendar extends React.Component<Props, State>{
     } = this.state;
 
     const calendarClass = classNames('calendar', {
-      show
+      'calendar--show': show
     });
 
     return (
