@@ -1,7 +1,6 @@
 import DatePicker from './Datepicker';
-import CalendarContainer from './CalendarContainer';
+import Calendar from './Calendar';
 
-const Calendar = CalendarContainer;
 
 export {
   Calendar,

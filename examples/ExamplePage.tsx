@@ -58,7 +58,7 @@ class ExamplePage extends React.Component<{}, State> {
             startDay={startDay}
             endDay={endDay}
             customDayText={this.getDayText}
-            showMonthCnt={2}
+            showMonthCnt={3}
           />
           <Calendar
           />

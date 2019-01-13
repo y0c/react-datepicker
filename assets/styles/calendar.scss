@@ -12,9 +12,9 @@ html {
 .datepicker {
   display: inline-block;
   &__container {
-    .calendar__wrapper {
+    .calendar {
       position: absolute;
-      z-index:9999;
+      z-index:100;
     }
   }
 
@@ -29,9 +29,12 @@ html {
 }
 
 .calendar{
-  width: 250px;
-  font-family: 'Roboto', sans-serif;
-  display:none;
+
+  &__container {
+    width: 250px;
+    font-family: 'Roboto', sans-serif;
+    display:none;
+  }
 
   &__list {
     display:table;
@@ -62,6 +65,10 @@ html {
       border: none;
       cursor: pointer;
       font-size: 20px; 
+    }
+    &--prev, &--next {
+      width: 35px;
+      min-height:15px;
     }
   }
 

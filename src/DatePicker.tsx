@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import Calendar from './CalendarContainer';
+import Calendar from './Calendar';
 
 
 interface Props {
@@ -46,7 +46,6 @@ class DatePicker extends React.Component<Props, State> {
 
   handleCalendar = (e: React.MouseEvent) => {
     const node = this.inputRef.current;
-    console.log(node);
     this.setState({
       calendarShow: true,
       position: {

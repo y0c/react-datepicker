@@ -1,97 +1,71 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import CalendarHead from './CalendarHead';
-import CalendarBody from './CalendarBody';
-import classNames from 'classnames';
-import 'moment/locale/ko';
+import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
+import { range } from 'lodash';
 
-
-export interface Props {
-  headerFormat?: string
-  selected?: moment.Moment[]
-  startDay?: moment.Moment
-  endDay?: moment.Moment
-  current?: moment.Moment
-  locale?: string
-  onChange?: (date: moment.Moment) => void
-  customDayClass?: (date: moment.Moment) => string | string[]
-  customDayText?: (date: moment.Moment) => string
-  show?: boolean
+interface Props extends ContainerProps{
+  showMonthCnt?: number
+  top?: string
+  left?: string
 }
 
 interface State {
-  current: moment.Moment
+  baseDate: moment.Moment
 }
 
-class Calendar extends React.Component<Props, State>{
+class Calendar extends React.Component<Props, State> {
 
   public static defaultProps = {
-    headerFormat: "YYYY년 MM월",
-    multiSelect: false,
-    show: true,
-    current: moment()
+    showMonthCnt: 1
   }
 
-  constructor(props: Props){
-    super(props);
-    this.state = {
-      current: props.current!
-    };
-    moment.locale(props.locale);
+  state = {
+    baseDate: moment()
   }
 
   handlePrev = () => {
+    const { baseDate } = this.state;
     this.setState({
-      current: this.state.current.subtract(1, 'months')
+      baseDate: baseDate.clone().subtract(1, 'months')
     });
   }
 
   handleNext = () => {
+    const { baseDate } = this.state;
     this.setState({
-      current: this.state.current.add(1, 'months')
+      baseDate: baseDate.clone().add(1, 'months')
     });
   }
 
   render() {
-    const {
-      headerFormat,
-      customDayClass,
-      customDayText,
-      selected,
-      onChange,
-      startDay,
-      endDay,
-      show
-    } = this.props;
-
-    const {
-      current,
-    } = this.state;
-
-    const calendarClass = classNames('calendar', {
-      'calendar--show': show
-    });
+    const { showMonthCnt, top, left } = this.props;
+    const { baseDate } = this.state;
 
     return (
-      <div className={calendarClass}>
-        <CalendarHead
-          onPrev={this.handlePrev} 
-          onNext={this.handleNext} 
-          title={current.format(headerFormat)}
-        />
-        <CalendarBody
-          current={current} 
-          selected={selected}
-          startDay={startDay}
-          endDay={endDay}
-          onChange={onChange}
-          customDayClass={customDayClass}
-          customDayText={customDayText}
-        />
+      <div className="calendar" style={{top, left}}>
+        <div className="calendar__list">
+          {
+            range(showMonthCnt!)
+              .map(idx => (
+                <div 
+                  className="calendar__item"
+                  key={idx}
+                >
+                  <CalendarContainer
+                    current={baseDate.clone().add(idx, 'months')}
+                    prevIcon={idx==0}
+                    nextIcon={idx==(showMonthCnt!-1)} 
+                    onPrev={this.handlePrev}
+                    onNext={this.handleNext}
+                    {...this.props}
+                  />
+                </div>
+              ))
+          }
+        </div>
       </div>
     )
   }
 }
-
 
 export default Calendar;
