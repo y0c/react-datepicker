@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Calendar/> props showMonthCnt correctly 1`] = `
+<div
+  className="calendar"
+  style={
+    Object {
+      "left": undefined,
+      "top": undefined,
+    }
+  }
+>
+  <div
+    className="calendar__list"
+  >
+    <div
+      className="calendar__item"
+      key="0"
+    >
+      <CalendarContainer
+        current={"2018-12-31T15:00:00.000Z"}
+        headerFormat="YYYY년 MM월"
+        nextIcon={false}
+        onNext={[Function]}
+        onPrev={[Function]}
+        prevIcon={true}
+        show={true}
+        showMonthCnt={3}
+      />
+    </div>
+    <div
+      className="calendar__item"
+      key="1"
+    >
+      <CalendarContainer
+        current={"2018-12-31T15:00:00.000Z"}
+        headerFormat="YYYY년 MM월"
+        nextIcon={false}
+        onNext={[Function]}
+        onPrev={[Function]}
+        prevIcon={false}
+        show={true}
+        showMonthCnt={3}
+      />
+    </div>
+    <div
+      className="calendar__item"
+      key="2"
+    >
+      <CalendarContainer
+        current={"2018-12-31T15:00:00.000Z"}
+        headerFormat="YYYY년 MM월"
+        nextIcon={true}
+        onNext={[Function]}
+        onPrev={[Function]}
+        prevIcon={false}
+        show={true}
+        showMonthCnt={3}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Calendar/> props top, left correctly 1`] = `
+<div
+  className="calendar"
+  style={
+    Object {
+      "left": "100px",
+      "top": "100px",
+    }
+  }
+>
+  <div
+    className="calendar__list"
+  >
+    <div
+      className="calendar__item"
+      key="0"
+    >
+      <CalendarContainer
+        current={"2018-12-31T15:00:00.000Z"}
+        headerFormat="YYYY년 MM월"
+        left="100px"
+        nextIcon={true}
+        onNext={[Function]}
+        onPrev={[Function]}
+        prevIcon={true}
+        show={true}
+        showMonthCnt={1}
+        top="100px"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Calendar/> redners with no props 1`] = `
+<div
+  className="calendar"
+  style={
+    Object {
+      "left": undefined,
+      "top": undefined,
+    }
+  }
+>
+  <div
+    className="calendar__list"
+  >
+    <div
+      className="calendar__item"
+      key="0"
+    >
+      <CalendarContainer
+        current={"2019-01-15T14:23:08.585Z"}
+        headerFormat="YYYY년 MM월"
+        nextIcon={true}
+        onNext={[Function]}
+        onPrev={[Function]}
+        prevIcon={true}
+        show={true}
+        showMonthCnt={1}
+      />
+    </div>
+  </div>
+</div>
+`;

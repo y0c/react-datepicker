@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Day/> renders the day with only value 1`] = `
+<td
+  className="calendar__day"
+  onClick={[Function]}
+>
+  <span>
+    4
+  </span>
+</td>
+`;
