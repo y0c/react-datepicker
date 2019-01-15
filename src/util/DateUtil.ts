@@ -26,3 +26,11 @@ export const getDayMatrix = (year?: number, month?: number):string[][] => {
 export const isDayEqual = (day1: moment.Moment, day2: moment.Moment) => {
   return day1.format('YYYYMMDD') === day2.format('YYYYMMDD');
 }
+
+export const isDayRange = (date: moment.Moment, start: moment.Moment, end: moment.Moment) => {
+  date = date.hour(0).minute(0).second(0);
+  start = start.hour(0).minute(0).second(0);
+  end = end.hour(0).minute(0).second(0);
+
+  return date.diff(start, 'days') > 0 && date.diff(end, 'days') < 0;
+}
