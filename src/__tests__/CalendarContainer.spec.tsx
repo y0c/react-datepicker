@@ -6,11 +6,15 @@ import CalendarContainer from '../CalendarContainer';
 import CalendarHead from '../CalendarHead';
 import CalendarBody from '../CalendarBody';
 
+const mockMoment = moment.unix(1546300800);
+
 describe('<CalendarContainer/>', () => {
   
   it('renders with no props', () => {
     const component = shallow(
-      <CalendarContainer />
+      <CalendarContainer 
+        current={mockMoment}
+      />
     );
     
     expect(component).toMatchSnapshot();
@@ -21,6 +25,7 @@ describe('<CalendarContainer/>', () => {
   it('props show correctly', () => {
     const component = shallow(
       <CalendarContainer 
+        current={mockMoment}
         show
       />
     );
@@ -33,8 +38,8 @@ describe('<CalendarContainer/>', () => {
     const component = shallow(
       <CalendarContainer 
         show
-        current={moment('20190101')}
         headerFormat="YYYY/MM/DD"
+        current={mockMoment}
       />
     );
     
@@ -46,16 +51,16 @@ describe('<CalendarContainer/>', () => {
     const en = mount(
       <CalendarContainer 
         show
-        current={moment('20190101')}
         locale="en"
+        current={mockMoment}
       />
     );
     
     const ko = mount(
       <CalendarContainer 
         show
-        current={moment('20190101')}
         locale="ko"
+        current={mockMoment}
       />
     );
     expect(en).toMatchSnapshot();

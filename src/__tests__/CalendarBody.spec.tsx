@@ -4,13 +4,14 @@ import * as moment from 'moment';
 import { shallow, mount } from 'enzyme';
 import CalendarBody from '../CalendarBody';
 
+const mockMoment = moment.unix(1546300800);
+
 describe('<CalendarBody />', () => {
   
   it('props current correctly', () => {
-    const current = moment('20190101');
     const component = shallow(
       <CalendarBody
-        current={current}
+        current={mockMoment}
       />
     );
       
@@ -18,7 +19,6 @@ describe('<CalendarBody />', () => {
   });
 
   it('props selected correctly', () => {
-    const current = moment('20190101');
     const selected = [
       moment('20190102'),
       moment('20190105'),
@@ -27,7 +27,7 @@ describe('<CalendarBody />', () => {
     ];
     const component = mount(
       <CalendarBody
-        current={current}
+        current={mockMoment}
         selected={selected}
       />
     );
@@ -37,13 +37,12 @@ describe('<CalendarBody />', () => {
   });
 
   it('props startDay, endDay correctly', () => {
-    const current = moment('20190101');
-    const startDay = moment('20190105');
-    const endDay = moment('20190111');
+    const startDay = moment('20190105', 'YYYYMMDD');
+    const endDay = moment('20190112', 'YYYYMMDD');
     
     const component = mount(
       <CalendarBody
-        current={current}
+        current={mockMoment}
         startDay={startDay}
         endDay={endDay}
       />
@@ -53,17 +52,16 @@ describe('<CalendarBody />', () => {
     expect(component.find('.calendar__day--start')).toHaveLength(1);
     expect(component.find('.calendar__day--end')).toHaveLength(1);
     expect(component.find('.calendar__day--start > span').text()).toEqual('5');
-    expect(component.find('.calendar__day--end > span').text()).toEqual('11');
-    expect(component.find('.calendar__day--range')).toHaveLength(5);
+    expect(component.find('.calendar__day--end > span').text()).toEqual('12');
+    expect(component.find('.calendar__day--range')).toHaveLength(6);
   });
 
   it('props onChange correctly', () => {
-    const current = moment('20190101');
     const onChange = sinon.spy();
 
     const component = mount(
       <CalendarBody
-        current={current}
+        current={mockMoment}
         onChange={onChange}
       />
     );
@@ -74,7 +72,6 @@ describe('<CalendarBody />', () => {
   });
 
   it('props customDayClass correctly', () => {
-    const current = moment('20190101');
     const customDayClass = (date:moment.Moment) => {
       //custom day class string or array
       const dayClassMap = {
@@ -86,7 +83,7 @@ describe('<CalendarBody />', () => {
 
     const component = mount(
       <CalendarBody
-        current={current}
+        current={mockMoment}
         customDayClass={customDayClass}
       />
     );
@@ -99,7 +96,6 @@ describe('<CalendarBody />', () => {
   });
 
   it('props customDayText correctly', () => {
-    const current = moment('20190101');
     const customDayText = (date:moment.Moment) => {
       //custom day class string or array
       const dayTextMap = {
@@ -111,7 +107,7 @@ describe('<CalendarBody />', () => {
 
     const component = mount(
       <CalendarBody
-        current={current}
+        current={mockMoment}
         customDayText={customDayText}
       />
     );

@@ -5,11 +5,14 @@ import { shallow } from 'enzyme';
 import Calendar from '../Calendar';
 import CalendarContainer from '../CalendarContainer';
 
+const mockMoment = moment.unix(1546300800);
+
 describe('<Calendar/>', () => {
 
   it('redners with no props', () => {
     const component = shallow(
       <Calendar 
+        base={mockMoment}
       />
     );
 
@@ -19,7 +22,7 @@ describe('<Calendar/>', () => {
   it('props showMonthCnt correctly', () => {
     const component = shallow(
       <Calendar 
-        current={moment('20190101')}
+        base={mockMoment}
         showMonthCnt={3}
       />
     );
@@ -38,7 +41,7 @@ describe('<Calendar/>', () => {
   it('props top, left correctly', () => {
     const component = shallow(
       <Calendar 
-        current={moment('20190101')}
+        base={mockMoment}
         top="100px"
         left="100px"
       />
