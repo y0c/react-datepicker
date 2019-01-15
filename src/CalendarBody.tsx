@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import { getDayMatrix, isDayEqual } from './util/DateUtil';
+import { getDayMatrix, isDayEqual, isDayRange } from './util/DateUtil';
 import Day from './Day';
 
 interface Props{
@@ -63,10 +63,9 @@ class CalendarBody extends React.Component<Props> {
     const currentDate = moment(current).date(parseInt(date));
     
     if(!date.trim()) return false;
-    if((startDay && currentDate.diff(startDay, 'days') > 0 )
-      && (endDay && currentDate.diff(endDay, 'days') < 0)) return true;
-
-    return false;
+    if(!startDay || !endDay) return false;
+      
+    return isDayRange(currentDate, startDay, endDay);
   }
 
 
