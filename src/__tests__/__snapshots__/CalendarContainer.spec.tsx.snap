@@ -4,7 +4,7 @@ exports[`<CalendarContainer/> props headerFormat correctly 1`] = `
 <div
   className="calendar__container calendar--show"
 >
-  <CalendarHead
+  <calendarHead
     title="2019/01/01"
   />
   <CalendarBody
@@ -23,7 +23,7 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
   <div
     className="calendar__container calendar--show"
   >
-    <CalendarHead
+    <calendarHead
       title="2019년 01월"
     >
       <div
@@ -41,7 +41,7 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
           className="calendar__head--next"
         />
       </div>
-    </CalendarHead>
+    </calendarHead>
     <CalendarBody
       current={"2019-01-01T00:00:00.000Z"}
     >
@@ -858,7 +858,7 @@ exports[`<CalendarContainer/> props show correctly 1`] = `
 <div
   className="calendar__container calendar--show"
 >
-  <CalendarHead
+  <calendarHead
     title="2019년 01월"
   />
   <CalendarBody
@@ -871,7 +871,7 @@ exports[`<CalendarContainer/> renders with no props 1`] = `
 <div
   className="calendar__container calendar--show"
 >
-  <CalendarHead
+  <calendarHead
     title="2019년 01월"
   />
   <CalendarBody

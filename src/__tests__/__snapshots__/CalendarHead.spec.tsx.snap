@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CalendarHead/> props onPrev, onNext correctly 1`] = `
-<CalendarHead
+<calendarHead
   nextIcon={true}
   onNext={[Function]}
   onPrev={[Function]}
@@ -39,11 +39,11 @@ exports[`<CalendarHead/> props onPrev, onNext correctly 1`] = `
       </button>
     </div>
   </div>
-</CalendarHead>
+</calendarHead>
 `;
 
 exports[`<CalendarHead/> props prevIcon, nextIcon correctly 1`] = `
-<CalendarHead
+<calendarHead
   nextIcon={true}
   prevIcon={true}
   title=""
@@ -77,7 +77,7 @@ exports[`<CalendarHead/> props prevIcon, nextIcon correctly 1`] = `
       </button>
     </div>
   </div>
-</CalendarHead>
+</calendarHead>
 `;
 
 exports[`<CalendarHead/> props title correctly 1`] = `
