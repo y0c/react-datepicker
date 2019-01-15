@@ -4,24 +4,33 @@ import classNames from 'classnames';
 
 interface Props{
   value: string
-  customClass: string
-  customText: string
-  onChange: (value: string) => void
-  start: boolean
-  end: boolean
-  range: boolean
-  today: boolean
-  selected: boolean
+  customClass?: string
+  customText?: string
+  onChange?: (value: string) => void
+  start?: boolean
+  end?: boolean
+  range?: boolean
+  today?: boolean
+  selected?: boolean
 }
 
 class Day extends React.Component<Props> {
+
+  static defaultProps = {
+    value: ''
+  }
+
+  handleChange = () => {
+    const { onChange, value } = this.props;
+    // click event common process add here
+    if(onChange) onChange(value);
+  }
 
   render() {
     const { 
       value, 
       customClass, 
       customText, 
-      onChange, 
       selected,
       start,
       end,
@@ -43,14 +52,19 @@ class Day extends React.Component<Props> {
     
     return (
       <td 
-        onClick={e => onChange(value)} 
+        onClick={this.handleChange} 
         className={dateClass}
       >
         <span>{value}</span>
-        <span className="calendar__day--text">{customText}</span>
+        {
+          customText && (
+            <span className="calendar__day--text">{customText}</span>
+          )
+        }
       </td> 
     )
   }
+
 }
 
 export default Day;
