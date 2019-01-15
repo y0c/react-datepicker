@@ -16,7 +16,8 @@ interface State {
 class Calendar extends React.Component<Props, State> {
 
   public static defaultProps = {
-    showMonthCnt: 1
+    showMonthCnt: 1,
+    current: moment()
   }
 
   state = {

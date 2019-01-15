@@ -1,16 +1,15 @@
 import * as React from 'react';
 
 interface Props{
-  onPrev(): void,
-  onNext(): void,
+  onPrev?: () => void,
+  onNext?: () => void,
   prevIcon?: boolean,
   nextIcon?: boolean,
-  title: string
+  title?: string
 }
 
 const defaultProps = {
-  prevIcon: true,
-  nextIcon: true
+  title: ''
 };
 
 const CalendarHead: React.FunctionComponent<Props> = ({

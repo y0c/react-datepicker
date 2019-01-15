@@ -5,14 +5,13 @@ import CalendarBody from './CalendarBody';
 import classNames from 'classnames';
 import 'moment/locale/ko';
 
-
 export interface InheritProps {
   headerFormat?: string
+  locale?: string
   selected?: moment.Moment[]
   startDay?: moment.Moment
   endDay?: moment.Moment
-  current?: moment.Moment
-  locale?: string
+  current: moment.Moment
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
@@ -22,8 +21,8 @@ export interface InheritProps {
 }
 
 interface PrivateProps {
-  onPrev(): void
-  onNext(): void
+  onPrev?: () => void
+  onNext?: () => void
 }
 
 type Props = InheritProps & PrivateProps
@@ -32,7 +31,6 @@ class CalendarContainer extends React.Component<Props>{
 
   public static defaultProps = {
     headerFormat: "YYYY년 MM월",
-    multiSelect: false,
     show: true,
     current: moment()
   }
@@ -72,10 +70,10 @@ class CalendarContainer extends React.Component<Props>{
           onNext={onNext} 
           prevIcon={prevIcon}
           nextIcon={nextIcon}
-          title={current!.format(headerFormat)}
+          title={current.format(headerFormat)}
         />
         <CalendarBody
-          current={current!} 
+          current={current}
           selected={selected}
           startDay={startDay}
           endDay={endDay}
