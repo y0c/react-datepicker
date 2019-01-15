@@ -18,7 +18,8 @@ exports[`<Calendar/> props showMonthCnt correctly 1`] = `
       key="0"
     >
       <CalendarContainer
-        current={"2018-12-31T15:00:00.000Z"}
+        base={"2019-01-01T00:00:00.000Z"}
+        current={"2019-01-01T00:00:00.000Z"}
         headerFormat="YYYY년 MM월"
         nextIcon={false}
         onNext={[Function]}
@@ -33,7 +34,8 @@ exports[`<Calendar/> props showMonthCnt correctly 1`] = `
       key="1"
     >
       <CalendarContainer
-        current={"2018-12-31T15:00:00.000Z"}
+        base={"2019-01-01T00:00:00.000Z"}
+        current={"2019-02-01T00:00:00.000Z"}
         headerFormat="YYYY년 MM월"
         nextIcon={false}
         onNext={[Function]}
@@ -48,7 +50,8 @@ exports[`<Calendar/> props showMonthCnt correctly 1`] = `
       key="2"
     >
       <CalendarContainer
-        current={"2018-12-31T15:00:00.000Z"}
+        base={"2019-01-01T00:00:00.000Z"}
+        current={"2019-03-01T00:00:00.000Z"}
         headerFormat="YYYY년 MM월"
         nextIcon={true}
         onNext={[Function]}
@@ -80,7 +83,8 @@ exports[`<Calendar/> props top, left correctly 1`] = `
       key="0"
     >
       <CalendarContainer
-        current={"2018-12-31T15:00:00.000Z"}
+        base={"2019-01-01T00:00:00.000Z"}
+        current={"2019-01-01T00:00:00.000Z"}
         headerFormat="YYYY년 MM월"
         left="100px"
         nextIcon={true}
@@ -114,7 +118,8 @@ exports[`<Calendar/> redners with no props 1`] = `
       key="0"
     >
       <CalendarContainer
-        current={"2019-01-15T14:23:08.585Z"}
+        base={"2019-01-01T00:00:00.000Z"}
+        current={"2019-01-01T00:00:00.000Z"}
         headerFormat="YYYY년 MM월"
         nextIcon={true}
         onNext={[Function]}

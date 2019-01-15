@@ -259,7 +259,7 @@ exports[`<CalendarBody /> props current correctly 1`] = `
           range={false}
           selected={false}
           start={false}
-          today={true}
+          today={false}
           value="15"
         />
         <Day
@@ -271,7 +271,7 @@ exports[`<CalendarBody /> props current correctly 1`] = `
           range={false}
           selected={false}
           start={false}
-          today={false}
+          today={true}
           value="16"
         />
         <Day
@@ -494,7 +494,7 @@ exports[`<CalendarBody /> props current correctly 1`] = `
 
 exports[`<CalendarBody /> props customDayClass correctly 1`] = `
 <CalendarBody
-  current={"2018-12-31T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
   customDayClass={[Function]}
 >
   <div
@@ -899,11 +899,11 @@ exports[`<CalendarBody /> props customDayClass correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={true}
+            today={false}
             value="15"
           >
             <td
-              className="calendar__day calendar__day--2  calendar__day--today"
+              className="calendar__day calendar__day--2 "
               onClick={[Function]}
             >
               <span>
@@ -920,11 +920,11 @@ exports[`<CalendarBody /> props customDayClass correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={false}
+            today={true}
             value="16"
           >
             <td
-              className="calendar__day calendar__day--3 "
+              className="calendar__day calendar__day--3  calendar__day--today"
               onClick={[Function]}
             >
               <span>
@@ -1306,7 +1306,7 @@ exports[`<CalendarBody /> props customDayClass correctly 1`] = `
 
 exports[`<CalendarBody /> props customDayText correctly 1`] = `
 <CalendarBody
-  current={"2018-12-31T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
   customDayText={[Function]}
 >
   <div
@@ -1708,11 +1708,11 @@ exports[`<CalendarBody /> props customDayText correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={true}
+            today={false}
             value="15"
           >
             <td
-              className="calendar__day calendar__day--2 calendar__day--today"
+              className="calendar__day calendar__day--2"
               onClick={[Function]}
             >
               <span>
@@ -1728,11 +1728,11 @@ exports[`<CalendarBody /> props customDayText correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={false}
+            today={true}
             value="16"
           >
             <td
-              className="calendar__day calendar__day--3"
+              className="calendar__day calendar__day--3 calendar__day--today"
               onClick={[Function]}
             >
               <span>
@@ -2099,7 +2099,7 @@ exports[`<CalendarBody /> props customDayText correctly 1`] = `
 
 exports[`<CalendarBody /> props onChange correctly 1`] = `
 <CalendarBody
-  current={"2018-12-31T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
   onChange={[Function]}
 >
   <div
@@ -2504,11 +2504,11 @@ exports[`<CalendarBody /> props onChange correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={true}
+            today={false}
             value="15"
           >
             <td
-              className="calendar__day calendar__day--2 calendar__day--today"
+              className="calendar__day calendar__day--2"
               onClick={[Function]}
             >
               <span>
@@ -2525,11 +2525,11 @@ exports[`<CalendarBody /> props onChange correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={false}
+            today={true}
             value="16"
           >
             <td
-              className="calendar__day calendar__day--3"
+              className="calendar__day calendar__day--3 calendar__day--today"
               onClick={[Function]}
             >
               <span>
@@ -2911,7 +2911,7 @@ exports[`<CalendarBody /> props onChange correctly 1`] = `
 
 exports[`<CalendarBody /> props selected correctly 1`] = `
 <CalendarBody
-  current={"2018-12-31T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
   selected={
     Array [
       "2019-01-01T15:00:00.000Z",
@@ -3323,11 +3323,11 @@ exports[`<CalendarBody /> props selected correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={true}
+            today={false}
             value="15"
           >
             <td
-              className="calendar__day calendar__day--2 calendar__day--today"
+              className="calendar__day calendar__day--2"
               onClick={[Function]}
             >
               <span>
@@ -3344,11 +3344,11 @@ exports[`<CalendarBody /> props selected correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={false}
+            today={true}
             value="16"
           >
             <td
-              className="calendar__day calendar__day--3"
+              className="calendar__day calendar__day--3 calendar__day--today"
               onClick={[Function]}
             >
               <span>
@@ -3730,8 +3730,8 @@ exports[`<CalendarBody /> props selected correctly 1`] = `
 
 exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
 <CalendarBody
-  current={"2018-12-31T15:00:00.000Z"}
-  endDay={"2019-01-10T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
+  endDay={"2019-01-11T15:00:00.000Z"}
   startDay={"2019-01-04T15:00:00.000Z"}
 >
   <div
@@ -4042,17 +4042,17 @@ exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
           <Day
             customClass="calendar__day--5"
             customText=""
-            end={true}
+            end={false}
             key="6"
             onChange={[Function]}
-            range={false}
+            range={true}
             selected={false}
             start={false}
             today={false}
             value="11"
           >
             <td
-              className="calendar__day calendar__day--5 calendar__day--end"
+              className="calendar__day calendar__day--5 calendar__day--range"
               onClick={[Function]}
             >
               <span>
@@ -4063,7 +4063,7 @@ exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
           <Day
             customClass="calendar__day--6"
             customText=""
-            end={false}
+            end={true}
             key="7"
             onChange={[Function]}
             range={false}
@@ -4073,7 +4073,7 @@ exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
             value="12"
           >
             <td
-              className="calendar__day calendar__day--6"
+              className="calendar__day calendar__day--6 calendar__day--end"
               onClick={[Function]}
             >
               <span>
@@ -4136,11 +4136,11 @@ exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={true}
+            today={false}
             value="15"
           >
             <td
-              className="calendar__day calendar__day--2 calendar__day--today"
+              className="calendar__day calendar__day--2"
               onClick={[Function]}
             >
               <span>
@@ -4157,11 +4157,11 @@ exports[`<CalendarBody /> props startDay, endDay correctly 1`] = `
             range={false}
             selected={false}
             start={false}
-            today={false}
+            today={true}
             value="16"
           >
             <td
-              className="calendar__day calendar__day--3"
+              className="calendar__day calendar__day--3 calendar__day--today"
               onClick={[Function]}
             >
               <span>

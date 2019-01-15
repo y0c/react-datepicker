@@ -8,14 +8,14 @@ exports[`<CalendarContainer/> props headerFormat correctly 1`] = `
     title="2019/01/01"
   />
   <CalendarBody
-    current={"2018-12-31T15:00:00.000Z"}
+    current={"2019-01-01T00:00:00.000Z"}
   />
 </div>
 `;
 
 exports[`<CalendarContainer/> props locale correctly 1`] = `
 <CalendarContainer
-  current={"2018-12-31T15:00:00.000Z"}
+  current={"2019-01-01T00:00:00.000Z"}
   headerFormat="YYYY년 MM월"
   locale="en"
   show={true}
@@ -43,7 +43,7 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
       </div>
     </CalendarHead>
     <CalendarBody
-      current={"2018-12-31T15:00:00.000Z"}
+      current={"2019-01-01T00:00:00.000Z"}
     >
       <div
         className="calendar__body"
@@ -447,11 +447,11 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
                 range={false}
                 selected={false}
                 start={false}
-                today={true}
+                today={false}
                 value="15"
               >
                 <td
-                  className="calendar__day calendar__day--2 calendar__day--today"
+                  className="calendar__day calendar__day--2"
                   onClick={[Function]}
                 >
                   <span>
@@ -468,11 +468,11 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
                 range={false}
                 selected={false}
                 start={false}
-                today={false}
+                today={true}
                 value="16"
               >
                 <td
-                  className="calendar__day calendar__day--3"
+                  className="calendar__day calendar__day--3 calendar__day--today"
                   onClick={[Function]}
                 >
                   <span>
@@ -862,7 +862,7 @@ exports[`<CalendarContainer/> props show correctly 1`] = `
     title="2019년 01월"
   />
   <CalendarBody
-    current={"2019-01-15T14:23:09.483Z"}
+    current={"2019-01-01T00:00:00.000Z"}
   />
 </div>
 `;
@@ -875,7 +875,7 @@ exports[`<CalendarContainer/> renders with no props 1`] = `
     title="2019년 01월"
   />
   <CalendarBody
-    current={"2019-01-15T14:23:09.483Z"}
+    current={"2019-01-01T00:00:00.000Z"}
   />
 </div>
 `;
