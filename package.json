@@ -11,7 +11,8 @@
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "test": "npx cross-env TZ=Asia/Seoul npx jest",
-    "test:watch": "npx cross-env TZ=Asia/Seoul npx jest --watch"
+    "test:watch": "npx cross-env TZ=Asia/Seoul npx jest --watch",
+    "test:coverage": "yarn test --coverage && codecov"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,15 @@
     "setupFiles": [
       "<rootDir>/test-shim.js",
       "<rootDir>/test-setup.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/src/**/*.{ts,tsx}",
+      "!**/index.ts",
+      "!**/node_modules/**",
+      "!**/lib/**",
+      "!**/examples/**",
+      "!**/vendor/**"
     ],
     "moduleFileExtensions": [
       "ts",
