@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "9"
+
+before_install:
+  - npm i -g npm@latest
+
+script:
+  - yarn test
+
+cache: yarn
