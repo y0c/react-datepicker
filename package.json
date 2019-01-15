@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
-    "test": "npx jest",
-    "test:watch": "npx jest --watch"
+    "test": "npx cross-env TZ=Asia/Seoul npx jest",
+    "test:watch": "npx cross-env TZ=Asia/Seoul npx jest --watch"
   },
   "repository": {
     "type": "git",
