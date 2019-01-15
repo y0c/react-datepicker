@@ -7,6 +7,7 @@
 log/
 dist/
 node_modules/
+coverage/
 bower_components/
 demo/
 lib/
