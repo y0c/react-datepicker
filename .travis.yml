@@ -4,8 +4,12 @@ node_js:
 
 before_install:
   - npm i -g npm@latest
+  - npm install codecov -g
 
 script:
   - yarn test
+
+after_success:
+  - codecov
 
 cache: yarn
