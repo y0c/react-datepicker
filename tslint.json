@@ -1,10 +1,22 @@
 {
-  "extends": ["tslint-config-airbnb"],
-  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-airbnb",
+    "tslint-config-prettier"
+  ],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
-      "node_modules/**/*.ts"
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
     ]
+  },
+  "rules": {
+    "import-name": false,
+    "interface-name": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "variable-name": false,
+    "jsx-boolean-value": false
   }
 }
