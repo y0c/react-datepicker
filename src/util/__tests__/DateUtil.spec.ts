@@ -1,8 +1,7 @@
+import * as moment from 'moment';
 import { getDayMatrix, isDayEqual, isDayRange } from '../DateUtil';
-import moment = require('moment');
 
 describe('DateUtil', () => {
-
   it('func isDayEqual correctly', () => {
     const day1 = moment('20190101').date(1);
     const day2 = moment('20190101').date(2);
@@ -20,10 +19,9 @@ describe('DateUtil', () => {
     const end = moment('20190111').hour(10);
 
     expect(
-      [5,6,7,8,9,10,11]
+      [5, 6, 7, 8, 9, 10, 11]
         .map(date => isDayRange(base.date(date), start, end))
         .filter(date => date)
     ).toHaveLength(5);
   });
-
 });

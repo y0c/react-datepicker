@@ -1,70 +1,50 @@
-import * as React from 'react';
+import * as classNames from 'classnames';
 import * as moment from 'moment';
-import classNames from 'classnames';
+import * as React from 'react';
 
-interface Props{
-  value: string
-  customClass?: string
-  customText?: string
-  onChange?: (value: string) => void
-  start?: boolean
-  end?: boolean
-  range?: boolean
-  today?: boolean
-  selected?: boolean
+interface Props {
+  value: string;
+  customClass?: string;
+  customText?: string;
+  onChange?: (value: string) => void;
+  start?: boolean;
+  end?: boolean;
+  range?: boolean;
+  today?: boolean;
+  selected?: boolean;
 }
 
 class Day extends React.Component<Props> {
+  public static defaultProps = {
+    value: '',
+  };
 
-  static defaultProps = {
-    value: ''
-  }
-
-  handleChange = () => {
+  public handleChange = () => {
     const { onChange, value } = this.props;
     // click event common process add here
-    if(onChange) onChange(value);
-  }
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
-  render() {
-    const { 
-      value, 
-      customClass, 
-      customText, 
-      selected,
-      start,
-      end,
-      range,
-      today
-    } = this.props;
+  public render() {
+    const { value, customClass, customText, selected, start, end, range, today } = this.props;
 
-    const dateClass = classNames(
-      'calendar__day', 
-      customClass, 
-      {
-        'calendar__day--start': start,
-        'calendar__day--end': end,
-        'calendar__day--today': today,
-        'calendar__day--selected': selected,
-        'calendar__day--range': range
-      }
-    );
-    
+    const dateClass = classNames('calendar__day', customClass, {
+      'calendar__day--end': end,
+      'calendar__day--range': range,
+      'calendar__day--selected': selected,
+      'calendar__day--start': start,
+      'calendar__day--today': today,
+    });
+
     return (
-      <td 
-        onClick={this.handleChange} 
-        className={dateClass}
-      >
+      <td onClick={this.handleChange} className={dateClass}>
         <span>{value}</span>
-        {
-          customText && (
-            <span className="calendar__day--text">{customText}</span>
-          )
-        }
-      </td> 
-    )
+        {customText && <span className="calendar__day--text">{customText}</span>}
+      </td>
+    );
   }
-
 }
 
 export default Day;
