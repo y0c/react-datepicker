@@ -4,56 +4,60 @@ import CalendarContainer, { InheritProps as ContainerProps } from './CalendarCon
 import { range } from 'lodash';
 
 interface Props extends ContainerProps{
-  showMonthCnt?: number
+  base: moment.Moment
+  showMonthCnt: number
   top?: string
   left?: string
 }
 
 interface State {
-  baseDate: moment.Moment
+  base: moment.Moment
 }
 
 class Calendar extends React.Component<Props, State> {
 
   public static defaultProps = {
     showMonthCnt: 1,
-    current: moment()
+    base: moment()
   }
 
-  state = {
-    baseDate: moment()
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      base: props.base
+    }
   }
 
   handlePrev = () => {
-    const { baseDate } = this.state;
+    const { base } = this.state;
     this.setState({
-      baseDate: baseDate.clone().subtract(1, 'months')
+      base: base.clone().subtract(1, 'months')
     });
   }
 
   handleNext = () => {
-    const { baseDate } = this.state;
+    const { base } = this.state;
     this.setState({
-      baseDate: baseDate.clone().add(1, 'months')
+      base: base.clone().add(1, 'months')
     });
   }
 
   render() {
     const { showMonthCnt, top, left } = this.props;
-    const { baseDate } = this.state;
+    const { base } = this.state;
 
     return (
       <div className="calendar" style={{top, left}}>
         <div className="calendar__list">
           {
-            range(showMonthCnt!)
+            range(showMonthCnt)
               .map(idx => (
                 <div 
                   className="calendar__item"
                   key={idx}
                 >
                   <CalendarContainer
-                    current={baseDate.clone().add(idx, 'months')}
+                    current={base.clone().add(idx, 'months')}
                     prevIcon={idx==0}
                     nextIcon={idx==(showMonthCnt!-1)} 
                     onPrev={this.handlePrev}

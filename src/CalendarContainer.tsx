@@ -11,7 +11,6 @@ export interface InheritProps {
   selected?: moment.Moment[]
   startDay?: moment.Moment
   endDay?: moment.Moment
-  current: moment.Moment
   onChange?: (date: moment.Moment) => void
   customDayClass?: (date: moment.Moment) => string | string[]
   customDayText?: (date: moment.Moment) => string
@@ -21,6 +20,7 @@ export interface InheritProps {
 }
 
 interface PrivateProps {
+  current: moment.Moment
   onPrev?: () => void
   onNext?: () => void
 }
