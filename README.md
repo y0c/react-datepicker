@@ -4,6 +4,9 @@
 [![codecov](https://codecov.io/gh/y0c/react-datepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/y0c/react-datepicker)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e2a0ba59adb7412eae87/maintainability)](https://codeclimate.com/github/y0c/react-datepicker/maintainability)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![dependencies Status](https://david-dm.org/y0c/react-datepicker/status.svg)](https://david-dm.org/y0c/react-datepicker)
+[![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
+
 
 > Simple and Reusable DatePicker Component 
 
