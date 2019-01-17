@@ -17,7 +17,6 @@ describe('<Calendar/>', () => {
   it('props showMonthCnt correctly', () => {
     const component = shallow(<Calendar base={mockMoment} showMonthCnt={3} />);
 
-    expect(component).toMatchSnapshot();
     expect(component.find('.calendar__item')).toHaveLength(3);
     // first calendar only previcon true
     expect(
@@ -51,7 +50,6 @@ describe('<Calendar/>', () => {
   it('props top, left correctly', () => {
     const component = shallow(<Calendar base={mockMoment} top="100px" left="100px" />);
 
-    expect(component).toMatchSnapshot();
     expect(component.props().style).toHaveProperty('top', '100px');
     expect(component.props().style).toHaveProperty('left', '100px');
   });
