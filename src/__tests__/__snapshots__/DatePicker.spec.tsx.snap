@@ -2627,11 +2627,11 @@ exports[`<DatePicker/> props showMonthCnt correctly 1`] = `
                               range={false}
                               selected={false}
                               start={false}
-                              today={true}
+                              today={false}
                               value="17"
                             >
                               <td
-                                className="calendar__day calendar__day--4 calendar__day--today"
+                                className="calendar__day calendar__day--4"
                                 onClick={[Function]}
                               >
                                 <span>
@@ -2648,11 +2648,11 @@ exports[`<DatePicker/> props showMonthCnt correctly 1`] = `
                               range={false}
                               selected={false}
                               start={false}
-                              today={false}
+                              today={true}
                               value="18"
                             >
                               <td
-                                className="calendar__day calendar__day--5"
+                                className="calendar__day calendar__day--5 calendar__day--today"
                                 onClick={[Function]}
                               >
                                 <span>
