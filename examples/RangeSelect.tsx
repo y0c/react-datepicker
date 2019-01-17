@@ -1,43 +1,36 @@
-import Calendar from '../src/Calendar';
-import * as React from 'react';
 import * as moment from 'moment';
-
-interface Props {
-  
-}
+import * as React from 'react';
+import Calendar from '../src/Calendar';
 
 interface State {
-  selected: moment.Moment[]
-  startDay?: moment.Moment
+  selected: moment.Moment[];
+  startDay?: moment.Moment;
 }
 
-class RangeSelect extends React.Component<Props, State> {
-  state = {
+class RangeSelect extends React.Component<{}, State> {
+  public state = {
     selected: [],
-    startDay: undefined
-  }
+    startDay: undefined,
+  };
 
-  handleChange = (date:moment.Moment) => {
+  public handleChange = (date: moment.Moment) => {
     this.setState({
-      startDay: date
-    })
-  }
+      startDay: date,
+    });
+  };
 
-  render() {
+  public render() {
     return (
       <React.Fragment>
-        <Calendar 
+        <Calendar
           onChange={this.handleChange}
           selected={this.state.selected}
           startDay={this.state.startDay}
-         />
+        />
         <Calendar />
       </React.Fragment>
-
-    )
+    );
   }
-
-} 
+}
 
 export default RangeSelect;
-

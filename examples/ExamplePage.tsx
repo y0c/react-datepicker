@@ -1,54 +1,53 @@
+import * as moment from 'moment';
 import * as React from 'react';
-import RangeSelect from './RangeSelect';
 import { Calendar, DatePicker } from '../src';
+import RangeSelect from './RangeSelect';
 
 import '../assets/styles/calendar.scss';
-import * as moment from 'moment';
 
 interface State {
-  startDay?: moment.Moment
-  endDay?: moment.Moment
+  startDay?: moment.Moment;
+  endDay?: moment.Moment;
 }
 class ExamplePage extends React.Component<{}, State> {
-
-  state ={
+  public state = {
+    endDay: null,
     startDay: null,
-    endDay: null
-  }
+  };
 
-  handleChange = (date) => {
+  public handleChange = date => {
     const { startDay, endDay } = this.state;
-    if(!startDay) {
+    if (!startDay) {
       this.setState({
-        startDay: date
+        startDay: date,
       });
     } else {
-      if(date.isAfter(startDay)) {
+      if (date.isAfter(startDay)) {
         this.setState({
-          endDay: date
+          endDay: date,
         });
       } else {
         this.setState({
-          startDay: date
+          startDay: date,
         });
       }
     }
-  }
+  };
 
-  getDayText = (date) => {
+  public getDayText = date => {
     const value = date.format('YYYYMMDD');
     const { startDay, endDay } = this.state;
-    
+
     const textMap = {
-      "20190101": "신정"
+      '20190101': '신정',
     };
-    if(startDay) textMap[startDay.format('YYYYMMDD')] = "출발일"
-    if(endDay) textMap[endDay.format('YYYYMMDD')] = "도착일"
+    if (startDay) textMap[startDay.format('YYYYMMDD')] = '출발일';
+    if (endDay) textMap[endDay.format('YYYYMMDD')] = '도착일';
 
     return textMap[value];
-  }
+  };
 
-  render() {
+  public render() {
     const { startDay, endDay } = this.state;
     return (
       <div className="App">
@@ -60,13 +59,10 @@ class ExamplePage extends React.Component<{}, State> {
             customDayText={this.getDayText}
             showMonthCnt={3}
           />
-          <Calendar
-          />
+          <Calendar />
         </div>
         <div>
-          <DatePicker 
-            showMonthCnt={2}
-          />
+          <DatePicker showMonthCnt={2} />
         </div>
       </div>
     );
