@@ -3,6 +3,7 @@ import * as React from 'react';
 import Calendar from './Calendar';
 
 interface Props {
+  base: moment.Moment;
   onChange?: (date: moment.Moment) => void;
   inputFormat: string;
   showMonthCnt?: number;
@@ -20,6 +21,7 @@ interface State {
 
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
+    base: moment(),
     inputFormat: 'YYYY-MM-DD',
     showMonthCnt: 1,
   };
@@ -28,8 +30,8 @@ class DatePicker extends React.Component<Props, State> {
     calendarShow: false,
     inputValue: '',
     position: {
-      left: '0px',
-      top: '0px',
+      left: '',
+      top: '',
     },
     selected: [],
   };
@@ -43,11 +45,21 @@ class DatePicker extends React.Component<Props, State> {
 
   public handleCalendar = (e: React.MouseEvent) => {
     const node = this.inputRef.current;
+    let left = 0;
+    let top = 0;
+    let height = 0;
+
+    if (node) {
+      left = node.offsetLeft;
+      top = node.offsetTop;
+      height = node.clientHeight;
+    }
+
     this.setState({
       calendarShow: true,
       position: {
-        left: `${node!.offsetLeft}px`,
-        top: `${node!.offsetTop + node!.clientHeight + 5}px`,
+        left: `${left}px`,
+        top: `${top + height + 5}px`,
       },
     });
   };
@@ -80,7 +92,7 @@ class DatePicker extends React.Component<Props, State> {
       selected,
       position: { top, left },
     } = this.state;
-    const { showMonthCnt } = this.props;
+    const { showMonthCnt, base } = this.props;
 
     return (
       <div className="datepicker">
@@ -94,6 +106,7 @@ class DatePicker extends React.Component<Props, State> {
         />
         <div className="datepicker__container">
           <Calendar
+            base={base}
             show={calendarShow}
             onChange={this.handleChange}
             selected={selected}
