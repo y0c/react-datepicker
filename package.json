@@ -11,7 +11,7 @@
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "test": "npx cross-env TZ=Asia/Seoul npx jest",
-    "test:watch": "npx cross-env TZ=Asia/Seoul npx jest --watch",
+    "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage && codecov",
     "lint": "tslint --project . --config ./tslint.json",
     "precommit": "npx lint-staged"
@@ -45,6 +45,7 @@
     "trailingComma": "es5"
   },
   "jest": {
+    "preset": "ts-jest",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
@@ -66,9 +67,6 @@
       "tsx",
       "js"
     ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
-    },
     "testMatch": [
       "**/__tests__/*.(ts|tsx|js)"
     ]
@@ -109,6 +107,7 @@
     "sass-material-colors": "^0.0.5",
     "sinon": "^7.2.2",
     "style-loader": "0.23.1",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
