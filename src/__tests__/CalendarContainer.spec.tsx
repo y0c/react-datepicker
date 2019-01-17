@@ -8,7 +8,7 @@ import CalendarBody from '../CalendarBody';
 import CalendarContainer from '../CalendarContainer';
 import CalendarHead from '../CalendarHead';
 
-const mockMoment = moment.unix(1546300800);
+const mockMoment = moment.unix(1543622400);
 
 describe('<CalendarContainer/>', () => {
   it('renders with no props', () => {
@@ -32,7 +32,7 @@ describe('<CalendarContainer/>', () => {
     );
 
     expect(component).toMatchSnapshot();
-    expect(component.find(CalendarHead).props().title).toEqual('2019/01/01');
+    expect(component.find(CalendarHead).props().title).toEqual('2018/12/01');
   });
 
   it('props locale correctly', () => {

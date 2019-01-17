@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import Calendar from '../Calendar';
 import CalendarContainer from '../CalendarContainer';
 
-const mockMoment = moment.unix(1546300800);
+const mockMoment = moment.unix(1543622400);
 
 describe('<Calendar/>', () => {
   it('redners with no props', () => {

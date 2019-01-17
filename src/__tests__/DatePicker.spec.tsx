@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import Calendar from '../Calendar';
 import DatePicker from '../DatePicker';
 
-const mockMoment = moment.unix(1546300800);
+const mockMoment = moment.unix(1543622400);
 
 describe('<DatePicker/>', () => {
   it('renders with no props', () => {
@@ -35,7 +35,7 @@ describe('<DatePicker/>', () => {
       .find('td')
       .at(3)
       .simulate('click');
-    expect(component.find('input').props().value).toEqual('20190102');
+    expect(component.find('input').props().value).toEqual('20181201');
   });
 
   it('props onChange correctly', () => {

@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as sinon from 'sinon';
 import CalendarBody from '../CalendarBody';
 
-const mockMoment = moment.unix(1546300800);
+const mockMoment = moment.unix(1543622400);
 
 describe('<CalendarBody />', () => {
   it('props current correctly', () => {
@@ -15,10 +15,10 @@ describe('<CalendarBody />', () => {
 
   it('props selected correctly', () => {
     const selected = [
-      moment('20190102'),
-      moment('20190105'),
-      moment('20190112'),
-      moment('20190122'),
+      moment('20181202'),
+      moment('20181205'),
+      moment('20181212'),
+      moment('20181222'),
     ];
     const component = mount(<CalendarBody current={mockMoment} selected={selected} />);
 
@@ -27,8 +27,8 @@ describe('<CalendarBody />', () => {
   });
 
   it('props startDay, endDay correctly', () => {
-    const startDay = moment('20190105', 'YYYYMMDD');
-    const endDay = moment('20190112', 'YYYYMMDD');
+    const startDay = moment('20181205', 'YYYYMMDD');
+    const endDay = moment('20181212', 'YYYYMMDD');
 
     const component = mount(
       <CalendarBody current={mockMoment} startDay={startDay} endDay={endDay} />
@@ -59,8 +59,8 @@ describe('<CalendarBody />', () => {
     const customDayClass = (date: moment.Moment) => {
       // custom day class string or array
       const dayClassMap = {
-        '20190102': ['custom-day', 'day-test1', 'day-test2'],
-        '20190111': 'custom-day',
+        '20181202': ['custom-day', 'day-test1', 'day-test2'],
+        '20181211': 'custom-day',
       };
       return dayClassMap[date.format('YYYYMMDD')];
     };
@@ -78,8 +78,8 @@ describe('<CalendarBody />', () => {
     const customDayText = (date: moment.Moment) => {
       // custom day class string or array
       const dayTextMap = {
-        '20190102': '신정',
-        '20190111': '공휴일',
+        '20181202': '신정',
+        '20181211': '공휴일',
       };
       return dayTextMap[date.format('YYYYMMDD')];
     };
