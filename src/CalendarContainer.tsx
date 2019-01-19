@@ -1,47 +1,99 @@
-import * as React from 'react'
-import * as moment from 'moment'
-import CalendarHead from './CalendarHead'
-import CalendarBody from './CalendarBody'
-import * as classNames from 'classnames'
-import 'moment/locale/ko'
+import * as React from 'react';
+import * as moment from 'moment';
+import CalendarHead from './CalendarHead';
+import CalendarBody from './CalendarBody';
+import * as classNames from 'classnames';
+import ViewMode from './ViewMode';
+import { Props as DayViewProps } from './DayView';
 
-export interface InheritProps {
-  headerFormat?: string;
+interface CalendarContainerProps {
   locale?: string;
-  selected?: moment.Moment[];
-  startDay?: moment.Moment;
-  endDay?: moment.Moment;
-  onChange?: (date: moment.Moment) => void;
-  customDayClass?: (date: moment.Moment) => string | string[];
-  customDayText?: (date: moment.Moment) => string;
   show?: boolean;
   prevIcon?: boolean;
   nextIcon?: boolean;
+  onChange?: (date: moment.Moment) => void;
 }
 
 interface PrivateProps {
   current: moment.Moment;
   onPrev?: () => void;
   onNext?: () => void;
+  setDate: (type: 'year' | 'month', value: number) => void;
 }
 
-type Props = InheritProps & PrivateProps
+interface State {
+  viewMode: ViewMode;
+}
 
-class CalendarContainer extends React.Component<Props> {
+export type InheritProps = DayViewProps & CalendarContainerProps;
+type Props = CalendarContainerProps & DayViewProps & PrivateProps;
+
+class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
-    headerFormat: 'YYYY년 MM월',
     show: true,
     current: moment(),
-  }
+  };
+
+  public state = {
+    viewMode: ViewMode.DAY,
+  };
 
   constructor(props: Props) {
-    super(props)
-    moment.locale(props.locale)
+    super(props);
+    if (props.locale) {
+      require(`moment/locale/${props.locale}`);
+      moment.locale(props.locale);
+    }
   }
+
+  public getHeaderTitle = () => {
+    const { current } = this.props;
+    const year = current.year();
+    return {
+      [ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
+      [ViewMode.MONTH]: `${year}`,
+      [ViewMode.DAY]: current.format('MMMM YYYY'),
+    }[this.state.viewMode];
+  };
+
+  public handleTitleClick = () => {
+    const { viewMode } = this.state;
+    let changedMode: ViewMode = viewMode;
+
+    if (viewMode === ViewMode.MONTH) {
+      changedMode = ViewMode.YEAR;
+    } else if (viewMode === ViewMode.DAY) {
+      changedMode = ViewMode.MONTH;
+    }
+    this.setState({
+      viewMode: changedMode,
+    });
+  };
+
+  public handleChange = (value: string) => {
+    const { viewMode } = this.state;
+    const { current, onChange, setDate } = this.props;
+    if (viewMode == ViewMode.YEAR) {
+      setDate('year', parseInt(value, 10));
+      this.setState({
+        viewMode: ViewMode.MONTH,
+      });
+    } else if (viewMode == ViewMode.MONTH) {
+      const month = moment()
+        .month(value)
+        .format('M');
+      setDate('month', parseInt(month, 10) - 1);
+      this.setState({
+        viewMode: ViewMode.DAY,
+      });
+    } else {
+      const date = current.date(parseInt(value, 10));
+      if (onChange) onChange(date);
+    }
+  };
 
   public render() {
     const {
-      headerFormat,
       customDayClass,
       customDayText,
       selected,
@@ -54,11 +106,11 @@ class CalendarContainer extends React.Component<Props> {
       onNext,
       show,
       current,
-    } = this.props
+    } = this.props;
 
     const calendarClass = classNames('calendar__container', {
       'calendar--show': show,
-    })
+    });
 
     return (
       <div className={calendarClass}>
@@ -67,20 +119,22 @@ class CalendarContainer extends React.Component<Props> {
           onNext={onNext}
           prevIcon={prevIcon}
           nextIcon={nextIcon}
-          title={current.format(headerFormat)}
+          onTitleClick={this.handleTitleClick}
+          title={this.getHeaderTitle()}
         />
         <CalendarBody
+          viewMode={this.state.viewMode}
           current={current}
           selected={selected}
           startDay={startDay}
           endDay={endDay}
-          onChange={onChange}
+          onClick={this.handleChange}
           customDayClass={customDayClass}
           customDayText={customDayText}
         />
       </div>
-    )
+    );
   }
 }
 
-export default CalendarContainer
+export default CalendarContainer;
