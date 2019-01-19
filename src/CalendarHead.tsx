@@ -3,6 +3,7 @@ import * as React from 'react';
 interface Props {
   onPrev?: () => void;
   onNext?: () => void;
+  onTitleClick?: () => void;
   prevIcon?: boolean;
   nextIcon?: boolean;
   title?: string;
@@ -12,12 +13,13 @@ const defaultProps = {
   title: '',
 };
 
-const calendarHead: React.FunctionComponent<Props> = ({
+const CalendarHead: React.FunctionComponent<Props> = ({
   onPrev,
   onNext,
   prevIcon,
   nextIcon,
   title,
+  onTitleClick,
 }) => {
   return (
     <div className="calendar__head">
@@ -28,7 +30,9 @@ const calendarHead: React.FunctionComponent<Props> = ({
           </button>
         )}
       </div>
-      <h2 className="calendar__head--title">{title}</h2>
+      <h2 className="calendar__head--title" onClick={onTitleClick}>
+        {title}
+      </h2>
       <div className="calendar__head--next">
         {nextIcon && (
           <button onClick={onNext} className="calendar__head--button">
@@ -40,6 +44,6 @@ const calendarHead: React.FunctionComponent<Props> = ({
   );
 };
 
-calendarHead.defaultProps = defaultProps;
+CalendarHead.defaultProps = defaultProps;
 
-export default calendarHead;
+export default CalendarHead;

@@ -41,6 +41,16 @@ class Calendar extends React.Component<Props, State> {
     });
   };
 
+  public setDate = (type: 'year' | 'month', value: number) => {
+    const date = this.state.base.clone();
+
+    date[type](value);
+
+    this.setState({
+      base: date,
+    });
+  };
+
   public render() {
     const { showMonthCnt, top, left } = this.props;
     const { base } = this.state;
@@ -56,6 +66,7 @@ class Calendar extends React.Component<Props, State> {
                 nextIcon={idx === showMonthCnt! - 1}
                 onPrev={this.handlePrev}
                 onNext={this.handleNext}
+                setDate={this.setDate}
                 {...this.props}
               />
             </div>
