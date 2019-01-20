@@ -1,0 +1,1 @@
+export { connectStore } from './connectStore';
