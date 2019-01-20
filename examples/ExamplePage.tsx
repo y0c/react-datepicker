@@ -10,12 +10,12 @@ interface State {
   endDay?: moment.Moment;
 }
 class ExamplePage extends React.Component<{}, State> {
-  public state = {
-    endDay: null,
-    startDay: null,
+  public state: State = {
+    endDay: undefined,
+    startDay: undefined,
   };
 
-  public handleChange = date => {
+  public handleChange = (date: moment.Moment) => {
     const { startDay, endDay } = this.state;
     if (!startDay) {
       this.setState({
@@ -34,7 +34,7 @@ class ExamplePage extends React.Component<{}, State> {
     }
   };
 
-  public getDayText = date => {
+  public getDayText = (date: moment.Moment) => {
     const value = date.format('YYYYMMDD');
     const { startDay, endDay } = this.state;
 
@@ -53,6 +53,7 @@ class ExamplePage extends React.Component<{}, State> {
       <div className="App">
         <div>
           <Calendar
+            base={moment('20181201', 'YYYYMMDD')}
             onChange={this.handleChange}
             startDay={startDay}
             endDay={endDay}
