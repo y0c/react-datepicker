@@ -4,7 +4,7 @@ import * as React from 'react';
 import TableCell from './TableCell';
 import TableMatrixView from './TableMatrixView';
 
-import { getDayMatrix, isDayEqual, isDayRange } from './util/DateUtil';
+import { getDayMatrix, isDayEqual, isDayRange } from '../utils/DateUtil';
 
 export interface Props {
   selected?: moment.Moment[];

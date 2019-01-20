@@ -1,9 +1,9 @@
-import * as React from 'react';
-import * as moment from 'moment';
-import CalendarHead from './CalendarHead';
-import CalendarBody from './CalendarBody';
 import * as classNames from 'classnames';
-import ViewMode from './ViewMode';
+import * as moment from 'moment';
+import * as React from 'react';
+import { CalendarEnums } from '../common/@enum';
+import CalendarBody from './CalendarBody';
+import CalendarHead from './CalendarHead';
 import { Props as DayViewProps } from './DayView';
 
 interface CalendarContainerProps {
@@ -22,7 +22,7 @@ interface PrivateProps {
 }
 
 interface State {
-  viewMode: ViewMode;
+  viewMode: CalendarEnums.ViewMode;
 }
 
 export type InheritProps = DayViewProps & CalendarContainerProps;
@@ -30,12 +30,12 @@ type Props = CalendarContainerProps & DayViewProps & PrivateProps;
 
 class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
-    show: true,
     current: moment(),
+    show: true,
   };
 
   public state = {
-    viewMode: ViewMode.DAY,
+    viewMode: CalendarEnums.ViewMode.DAY,
   };
 
   constructor(props: Props) {
@@ -50,20 +50,20 @@ class CalendarContainer extends React.Component<Props, State> {
     const { current } = this.props;
     const year = current.year();
     return {
-      [ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
-      [ViewMode.MONTH]: `${year}`,
-      [ViewMode.DAY]: current.format('MMMM YYYY'),
+      [CalendarEnums.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
+      [CalendarEnums.ViewMode.MONTH]: `${year}`,
+      [CalendarEnums.ViewMode.DAY]: current.format('MMMM YYYY'),
     }[this.state.viewMode];
   };
 
   public handleTitleClick = () => {
     const { viewMode } = this.state;
-    let changedMode: ViewMode = viewMode;
+    let changedMode: CalendarEnums.ViewMode = viewMode;
 
-    if (viewMode === ViewMode.MONTH) {
-      changedMode = ViewMode.YEAR;
-    } else if (viewMode === ViewMode.DAY) {
-      changedMode = ViewMode.MONTH;
+    if (viewMode === CalendarEnums.ViewMode.MONTH) {
+      changedMode = CalendarEnums.ViewMode.YEAR;
+    } else if (viewMode === CalendarEnums.ViewMode.DAY) {
+      changedMode = CalendarEnums.ViewMode.MONTH;
     }
     this.setState({
       viewMode: changedMode,
@@ -73,18 +73,18 @@ class CalendarContainer extends React.Component<Props, State> {
   public handleChange = (value: string) => {
     const { viewMode } = this.state;
     const { current, onChange, setDate } = this.props;
-    if (viewMode == ViewMode.YEAR) {
+    if (viewMode === CalendarEnums.ViewMode.YEAR) {
       setDate('year', parseInt(value, 10));
       this.setState({
-        viewMode: ViewMode.MONTH,
+        viewMode: CalendarEnums.ViewMode.MONTH,
       });
-    } else if (viewMode == ViewMode.MONTH) {
+    } else if (viewMode === CalendarEnums.ViewMode.MONTH) {
       const month = moment()
         .month(value)
         .format('M');
       setDate('month', parseInt(month, 10) - 1);
       this.setState({
-        viewMode: ViewMode.DAY,
+        viewMode: CalendarEnums.ViewMode.DAY,
       });
     } else {
       const date = current.date(parseInt(value, 10));

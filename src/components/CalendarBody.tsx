@@ -1,13 +1,13 @@
-import * as React from 'react';
 import * as moment from 'moment';
-import TableCell from './TableCell';
+import * as React from 'react';
+import { CalendarEnums } from '../common/@enum';
+import { getMonthMatrix, getYearMatrix } from '../utils/DateUtil';
 import DayView, { Props as DayViewProps } from './DayView';
+import TableCell from './TableCell';
 import TableMatrixView from './TableMatrixView';
-import ViewMode from './ViewMode';
-import { getYearMatrix, getMonthMatrix } from './util/DateUtil';
 
 interface CalendarBodyProps {
-  viewMode: ViewMode;
+  viewMode: CalendarEnums.ViewMode;
   current: moment.Moment;
   onClick: (value: string) => void;
 }
@@ -16,12 +16,14 @@ class CalendarBody extends React.Component<Props> {
   public render() {
     const { current, onClick } = this.props;
     const cell = (value: string, key: number) => (
-      <TableCell text={value} onClick={value => onClick(value)} key={key} />
+      <TableCell text={value} onClick={text => onClick(text)} key={key} />
     );
     const viewMap = {
-      [ViewMode.YEAR]: <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell} />,
-      [ViewMode.MONTH]: <TableMatrixView matrix={getMonthMatrix()} cell={cell} />,
-      [ViewMode.DAY]: <DayView {...this.props} />,
+      [CalendarEnums.ViewMode.YEAR]: (
+        <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell} />
+      ),
+      [CalendarEnums.ViewMode.MONTH]: <TableMatrixView matrix={getMonthMatrix()} cell={cell} />,
+      [CalendarEnums.ViewMode.DAY]: <DayView {...this.props} />,
     };
 
     return <div className="calendar__body">{viewMap[this.props.viewMode]}</div>;

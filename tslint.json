@@ -18,6 +18,7 @@
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "variable-name": false,
     "jsx-boolean-value": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-namespace": false
   }
 }
