@@ -1,1 +1,1 @@
-export { default as CalendarStore } from './StoreProvider';
+export { default as CalendarStore, ICalendarStore } from './StoreProvider';
