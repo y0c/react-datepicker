@@ -19,6 +19,9 @@
     "variable-name": false,
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "no-empty-interface": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
   }
 }
