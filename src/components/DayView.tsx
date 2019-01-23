@@ -34,18 +34,13 @@ class DayView extends React.Component<Props & PrivateProps> {
       classArr = classArr.concat(typeof customClass === 'string' ? [customClass] : customClass);
     }
 
-    const dayClass = classNames(
-      'calendar__day',
-      `calendar__day--${currentDate.day()}`,
-      customDayClass,
-      {
-        'calendar__day--end': isDayEqual(currentDate, endDay),
-        'calendar__day--range': isDayRange(currentDate, startDay, endDay),
-        'calendar__day--selected': this.isSelected(date),
-        'calendar__day--start': isDayEqual(currentDate, startDay),
-        'calendar__day--today': isDayEqual(currentDate, current),
-      }
-    );
+    const dayClass = classNames('calendar__day', `calendar__day--${currentDate.day()}`, classArr, {
+      'calendar__day--end': isDayEqual(currentDate, endDay),
+      'calendar__day--range': isDayRange(currentDate, startDay, endDay),
+      'calendar__day--selected': this.isSelected(date),
+      'calendar__day--start': isDayEqual(currentDate, startDay),
+      'calendar__day--today': isDayEqual(currentDate, moment()),
+    });
 
     return dayClass;
   };
