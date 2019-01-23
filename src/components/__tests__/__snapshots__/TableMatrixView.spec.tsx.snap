@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TableMatrixView/> props matrix correctly 1`] = `
+<table
+  className="calendar__body--table"
+>
+  <tbody>
+    <tr
+      key="0"
+    >
+      <td
+        key="0"
+      >
+        1
+      </td>
+      <td
+        key="1"
+      >
+        2
+      </td>
+      <td
+        key="2"
+      >
+        3
+      </td>
+    </tr>
+    <tr
+      key="1"
+    >
+      <td
+        key="1"
+      >
+        4
+      </td>
+      <td
+        key="2"
+      >
+        5
+      </td>
+      <td
+        key="3"
+      >
+        6
+      </td>
+    </tr>
+    <tr
+      key="2"
+    >
+      <td
+        key="2"
+      >
+        7
+      </td>
+      <td
+        key="3"
+      >
+        8
+      </td>
+      <td
+        key="4"
+      >
+        9
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
