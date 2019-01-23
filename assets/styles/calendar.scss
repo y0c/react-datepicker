@@ -1,12 +1,10 @@
-@import "icon.scss";
+@import "_icon.scss";
+@import "_variable.scss";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
 
 html {
     box-sizing: border-box;
-}
-*, *:before, *:after {
-    box-sizing: inherit;
 }
 
 .datepicker {
@@ -29,9 +27,13 @@ html {
 }
 
 .calendar{
+  font-size: $base-font-size;
+  *, *:before, *:after {
+      box-sizing: border-box;
+  }
 
   &__container {
-    width: 250px;
+    width: 270px;
     font-family: 'Roboto', sans-serif;
     display:none;
   }
@@ -42,7 +44,7 @@ html {
 
   &__item {
     display: table-cell;
-    border: 1px solid #ddd;
+    border: 1px solid $divider-color;
     &:not(:first-child) {
       border-left: none !important;
     }
@@ -53,22 +55,34 @@ html {
   }
 
   &__head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position:relative;
+    color: $primary-text-color;
     padding: 10px 6px;
     &--title {
-      font-size: 18px;
+      font-size: $title-font-size;
+      color: $primary-text-color;
+      text-align: center;
     }
     &--button{
       outline: none;
       border: none;
       cursor: pointer;
+      background: none;
       font-size: 20px; 
+      color: $primary-text-color;
     }
     &--prev, &--next {
-      width: 35px;
-      min-height:15px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+    }
+    &--prev {
+      left:0;
+    }
+    &--next {
+      right:0;
     }
   }
 
@@ -77,22 +91,48 @@ html {
       width: 100%;
       table-layout:fixed;
       text-align: center;
+      border-spacing: none;
+      border-collapse: collapse;
+      th {
+        height: 30px;
+        vertical-align:top;
+        color: $primary-text-color;
+      }
     } 
   }
 
   &__day {
+    vertical-align: top;
+    padding-top:5px;
     height: 40px;
+    &:hover {
+      background: $primary-color-light;
+      cursor: pointer;
+    }
     cursor:pointer;
     &--0 { color:red; }
     &--6 { color:blue; }
-    &--today{ background: lightyellow; }
-    &--selected{ background: lightblue; }
-    &--start { background: skyblue; }
-    &--end { background: skyblue; }
-    &--range { background: lightblue; }
+    &--today{ background: $primary-color-light; }
+    &--start, &--end, &--selected { 
+      background: $primary-color; 
+      color: $primary-color-text;
+      &:hover {
+        background: $primary-color;
+      }
+    }
+    &--range { background: $primary-color-light; }
     &--text{
       display: block;
       font-size: 10px; 
+    }
+  }
+
+  &__year, &__month {
+    height: 55px;
+    vertical-align: middle;
+    &:hover {
+      background: $primary-color-light; 
+      cursor: pointer;
     }
   }
 }
