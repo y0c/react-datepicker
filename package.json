@@ -53,7 +53,8 @@
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/src/**/*.{ts,tsx}",
+      "**/src/components/**/*.{ts,tsx}",
+      "**/src/utils/**/*.{ts,tsx}",
       "!**/index.ts",
       "!**/node_modules/**",
       "!**/lib/**",
