@@ -13,16 +13,23 @@ interface CalendarBodyProps {
 }
 type Props = DayViewProps & CalendarBodyProps;
 class CalendarBody extends React.Component<Props> {
+  public static defaultProps = {
+    viewMode: CalendarEnums.ViewMode.DAY,
+    onClick: () => void 0,
+  };
+
   public render() {
     const { current, onClick } = this.props;
-    const cell = (value: string, key: number) => (
-      <TableCell text={value} onClick={text => onClick(text)} key={key} />
+    const cell = (className: string) => (value: string, key: number) => (
+      <TableCell className={className} text={value} onClick={text => onClick(text)} key={key} />
     );
     const viewMap = {
       [CalendarEnums.ViewMode.YEAR]: (
-        <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell} />
+        <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell('calendar__year')} />
       ),
-      [CalendarEnums.ViewMode.MONTH]: <TableMatrixView matrix={getMonthMatrix()} cell={cell} />,
+      [CalendarEnums.ViewMode.MONTH]: (
+        <TableMatrixView matrix={getMonthMatrix()} cell={cell('calendar__month')} />
+      ),
       [CalendarEnums.ViewMode.DAY]: <DayView {...this.props} />,
     };
 
