@@ -33,7 +33,7 @@ describe('<DatePicker/>', () => {
     expect(component).toMatchSnapshot();
     component
       .find('td')
-      .at(3)
+      .at(6)
       .simulate('click');
     expect(component.find('input').props().value).toEqual('20181201');
   });
@@ -44,7 +44,7 @@ describe('<DatePicker/>', () => {
 
     component
       .find('td')
-      .at(3)
+      .at(6)
       .simulate('click');
 
     expect(onChange).toHaveProperty('callCount', 1);
