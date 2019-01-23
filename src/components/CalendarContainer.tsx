@@ -16,9 +16,9 @@ interface CalendarContainerProps {
 
 interface PrivateProps {
   current: moment.Moment;
-  onPrev?: () => void;
-  onNext?: () => void;
-  setDate: (type: 'year' | 'month', value: number) => void;
+  base: moment.Moment;
+  showMonthCnt: number;
+  setBase: (base: moment.Moment) => void;
 }
 
 interface State {
@@ -32,6 +32,8 @@ class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
     current: moment(),
     show: true,
+    showMonthCnt: 1,
+    setBase: () => void 0,
   };
 
   public state = {
@@ -52,12 +54,13 @@ class CalendarContainer extends React.Component<Props, State> {
     return {
       [CalendarEnums.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [CalendarEnums.ViewMode.MONTH]: `${year}`,
-      [CalendarEnums.ViewMode.DAY]: current.format('MMMM YYYY'),
+      [CalendarEnums.ViewMode.DAY]: current.format('YYYY.MM'),
     }[this.state.viewMode];
   };
 
   public handleTitleClick = () => {
     const { viewMode } = this.state;
+    const { showMonthCnt } = this.props;
     let changedMode: CalendarEnums.ViewMode = viewMode;
 
     if (viewMode === CalendarEnums.ViewMode.MONTH) {
@@ -66,15 +69,22 @@ class CalendarContainer extends React.Component<Props, State> {
       changedMode = CalendarEnums.ViewMode.MONTH;
     }
     this.setState({
-      viewMode: changedMode,
+      viewMode: showMonthCnt > 1 ? CalendarEnums.ViewMode.DAY : changedMode,
     });
   };
 
   public handleChange = (value: string) => {
     const { viewMode } = this.state;
-    const { current, onChange, setDate } = this.props;
+    const { current, onChange, setBase, showMonthCnt = 1, base } = this.props;
+    if (!value.trim()) return;
+    if (showMonthCnt > 1) {
+      const date = current.date(parseInt(value, 10));
+      if (onChange) onChange(date);
+      return;
+    }
+
     if (viewMode === CalendarEnums.ViewMode.YEAR) {
-      setDate('year', parseInt(value, 10));
+      setBase(base.clone().year(parseInt(value, 10)));
       this.setState({
         viewMode: CalendarEnums.ViewMode.MONTH,
       });
@@ -82,13 +92,26 @@ class CalendarContainer extends React.Component<Props, State> {
       const month = moment()
         .month(value)
         .format('M');
-      setDate('month', parseInt(month, 10) - 1);
+      setBase(base.clone().month(parseInt(month, 10) - 1));
       this.setState({
         viewMode: CalendarEnums.ViewMode.DAY,
       });
     } else {
       const date = current.date(parseInt(value, 10));
       if (onChange) onChange(date);
+    }
+  };
+
+  public handleBase = (method: string) => () => {
+    const { base, setBase } = this.props;
+    const { viewMode } = this.state;
+    const clone = base.clone();
+    if (viewMode === CalendarEnums.ViewMode.YEAR) {
+      setBase(clone[method](10, 'years'));
+    } else if (viewMode === CalendarEnums.ViewMode.MONTH) {
+      setBase(clone[method](1, 'years'));
+    } else {
+      setBase(clone[method](1, 'months'));
     }
   };
 
@@ -102,8 +125,6 @@ class CalendarContainer extends React.Component<Props, State> {
       endDay,
       prevIcon,
       nextIcon,
-      onPrev,
-      onNext,
       show,
       current,
     } = this.props;
@@ -115,8 +136,8 @@ class CalendarContainer extends React.Component<Props, State> {
     return (
       <div className={calendarClass}>
         <CalendarHead
-          onPrev={onPrev}
-          onNext={onNext}
+          onPrev={this.handleBase('subtract')}
+          onNext={this.handleBase('add')}
           prevIcon={prevIcon}
           nextIcon={nextIcon}
           onTitleClick={this.handleTitleClick}

@@ -2,6 +2,7 @@ import { range } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
+import { CalendarEnums } from '../common/@enum';
 
 interface Props extends ContainerProps {
   base: moment.Moment;
@@ -27,27 +28,9 @@ class Calendar extends React.Component<Props, State> {
     };
   }
 
-  public handlePrev = () => {
-    const { base } = this.state;
+  public setBase = (base: moment.Moment) => {
     this.setState({
-      base: base.clone().subtract(1, 'months'),
-    });
-  };
-
-  public handleNext = () => {
-    const { base } = this.state;
-    this.setState({
-      base: base.clone().add(1, 'months'),
-    });
-  };
-
-  public setDate = (type: 'year' | 'month', value: number) => {
-    const date = this.state.base.clone();
-
-    date[type](value);
-
-    this.setState({
-      base: date,
+      base,
     });
   };
 
@@ -61,13 +44,12 @@ class Calendar extends React.Component<Props, State> {
           {range(showMonthCnt).map(idx => (
             <div className="calendar__item" key={idx}>
               <CalendarContainer
+                {...this.props}
+                base={this.state.base}
                 current={base.clone().add(idx, 'months')}
                 prevIcon={idx === 0}
                 nextIcon={idx === showMonthCnt! - 1}
-                onPrev={this.handlePrev}
-                onNext={this.handleNext}
-                setDate={this.setDate}
-                {...this.props}
+                setBase={this.setBase}
               />
             </div>
           ))}
