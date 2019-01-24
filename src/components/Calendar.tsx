@@ -2,13 +2,10 @@ import { range } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
-import { CalendarEnums } from '../common/@enum';
 
 interface Props extends ContainerProps {
   base: moment.Moment;
   showMonthCnt: number;
-  top?: string;
-  left?: string;
 }
 
 interface State {
@@ -19,6 +16,7 @@ class Calendar extends React.Component<Props, State> {
   public static defaultProps = {
     base: moment(),
     showMonthCnt: 1,
+    showToday: true,
   };
 
   constructor(props: Props) {
@@ -29,17 +27,15 @@ class Calendar extends React.Component<Props, State> {
   }
 
   public setBase = (base: moment.Moment) => {
-    this.setState({
-      base,
-    });
+    this.setState({ base });
   };
 
   public render() {
-    const { showMonthCnt, top, left } = this.props;
+    const { showMonthCnt } = this.props;
     const { base } = this.state;
 
     return (
-      <div className="calendar" style={{ top, left }}>
+      <div className="calendar">
         <div className="calendar__list">
           {range(showMonthCnt).map(idx => (
             <div className="calendar__item" key={idx}>

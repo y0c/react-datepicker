@@ -5,6 +5,7 @@ import { CalendarEnums } from '../common/@enum';
 import CalendarBody from './CalendarBody';
 import CalendarHead from './CalendarHead';
 import { Props as DayViewProps } from './DayView';
+import TodayPanel from './TodayPanel';
 
 interface CalendarContainerProps {
   locale?: string;
@@ -12,6 +13,7 @@ interface CalendarContainerProps {
   prevIcon?: boolean;
   nextIcon?: boolean;
   onChange?: (date: moment.Moment) => void;
+  showToday?: boolean;
 }
 
 interface PrivateProps {
@@ -34,6 +36,7 @@ class CalendarContainer extends React.Component<Props, State> {
     show: true,
     showMonthCnt: 1,
     setBase: () => void 0,
+    showToday: true,
   };
 
   public state = {
@@ -115,12 +118,17 @@ class CalendarContainer extends React.Component<Props, State> {
     }
   };
 
+  public handleToday = () => {
+    const { setBase } = this.props;
+    setBase(moment());
+  };
+
   public render() {
     const {
       customDayClass,
       customDayText,
       selected,
-      onChange,
+      showToday,
       startDay,
       endDay,
       prevIcon,
@@ -143,6 +151,7 @@ class CalendarContainer extends React.Component<Props, State> {
           onTitleClick={this.handleTitleClick}
           title={this.getHeaderTitle()}
         />
+        <TodayPanel today={moment().format('LL')} onClick={this.handleToday} show={showToday} />
         <CalendarBody
           viewMode={this.state.viewMode}
           current={current}
