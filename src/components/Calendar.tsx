@@ -3,12 +3,12 @@ import * as moment from 'moment';
 import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
 
-interface Props extends ContainerProps {
+export interface Props extends ContainerProps {
   base: moment.Moment;
   showMonthCnt: number;
 }
 
-interface State {
+export interface State {
   base: moment.Moment;
 }
 

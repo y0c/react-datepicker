@@ -2,14 +2,14 @@ import * as moment from 'moment';
 import * as React from 'react';
 import Calendar from './Calendar';
 
-interface Props {
+export interface Props {
   base: moment.Moment;
   onChange?: (date: moment.Moment) => void;
   inputFormat: string;
   showMonthCnt?: number;
 }
 
-interface State {
+export interface State {
   inputValue: string;
   calendarShow: boolean;
   selected: moment.Moment[];
@@ -36,7 +36,7 @@ class DatePicker extends React.Component<Props, State> {
     selected: [],
   };
 
-  private inputRef: React.RefObject<HTMLInputElement>;
+  public inputRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
     super(props);
@@ -104,15 +104,13 @@ class DatePicker extends React.Component<Props, State> {
           readOnly={true}
           type="text"
         />
-        <div className="datepicker__container">
+        <div className="datepicker__container" style={{ top, left }}>
           <Calendar
             base={base}
             show={calendarShow}
             onChange={this.handleChange}
             selected={selected}
             showMonthCnt={showMonthCnt}
-            top={top}
-            left={left}
           />
         </div>
         {calendarShow && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
