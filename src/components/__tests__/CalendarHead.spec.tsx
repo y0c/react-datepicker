@@ -1,39 +1,42 @@
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, ShallowWrapper } from 'enzyme';
 import * as React from 'react';
 import * as sinon from 'sinon';
 import CalendarHead from '../CalendarHead';
 
 describe('<CalendarHead/>', () => {
-  it('renders CalendarHead with no props', () => {
-    const component = shallow(<CalendarHead />);
+  let shallowComponent: ShallowWrapper<React.Component>;
 
-    expect(component).toMatchSnapshot();
+  it('should render correctly', () => {
+    shallowComponent = shallow(<CalendarHead />);
+
+    expect(shallowComponent).toBeTruthy();
+    expect(shallowComponent).toMatchSnapshot();
   });
 
-  it('props title correctly', () => {
-    const component = shallow(<CalendarHead title="2019/01" />);
+  it('should props title correctly', () => {
+    shallowComponent = shallow(<CalendarHead title="2019/01" />);
 
-    expect(component).toMatchSnapshot();
-    expect(component.find('h2.calendar__head--title').text()).toEqual('2019/01');
+    expect(shallowComponent).toMatchSnapshot();
+    expect(shallowComponent.find('h2.calendar__head--title').text()).toEqual('2019/01');
   });
 
-  it('props prevIcon, nextIcon correctly', () => {
-    const component = mount(<CalendarHead prevIcon nextIcon />);
+  it('should props prevIcon, nextIcon correctly', () => {
+    shallowComponent = shallow(<CalendarHead prevIcon nextIcon />);
 
-    expect(component).toMatchSnapshot();
-    expect(component.find('div.calendar__head--prev > button')).toHaveLength(1);
-    expect(component.find('div.calendar__head--next > button')).toHaveLength(1);
+    expect(shallowComponent).toMatchSnapshot();
+    expect(shallowComponent.find('div.calendar__head--prev > button')).toHaveLength(1);
+    expect(shallowComponent.find('div.calendar__head--next > button')).toHaveLength(1);
   });
 
-  it('props onPrev, onNext correctly', () => {
+  it('should props onPrev, onNext correctly', () => {
     const onPrev = sinon.spy();
     const onNext = sinon.spy();
 
-    const component = mount(<CalendarHead prevIcon nextIcon onPrev={onPrev} onNext={onNext} />);
+    shallowComponent = shallow(<CalendarHead prevIcon nextIcon onPrev={onPrev} onNext={onNext} />);
 
-    expect(component).toMatchSnapshot();
-    component.find('div.calendar__head--prev > button').simulate('click');
-    component.find('div.calendar__head--next > button').simulate('click');
+    expect(shallowComponent).toMatchSnapshot();
+    shallowComponent.find('div.calendar__head--prev > button').simulate('click');
+    shallowComponent.find('div.calendar__head--next > button').simulate('click');
 
     expect(onPrev).toHaveProperty('callCount', 1);
     expect(onNext).toHaveProperty('callCount', 1);

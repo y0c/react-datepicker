@@ -1,56 +1,69 @@
-import { shallow } from 'enzyme';
+import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import Calendar from '../Calendar';
+import Calendar, { Props, State } from '../Calendar';
 import CalendarContainer from '../CalendarContainer';
 
-const mockMoment = moment.unix(1543622400);
-
 describe('<Calendar/>', () => {
-  it('redners with no props', () => {
-    const component = shallow(<Calendar base={mockMoment} />);
+  const mockMoment = moment.unix(1543622400);
+  let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
+  let mountComponent: ReactWrapper<Props, State>;
+  const base = mockMoment;
+  const defaultProps = {
+    base,
+  };
 
-    expect(component).toMatchSnapshot();
+  it('redners with no props', () => {
+    shallowComponent = shallow(<Calendar {...defaultProps} />);
+
+    expect(shallowComponent).toBeTruthy();
+    expect(shallowComponent).toMatchSnapshot();
   });
 
   it('props showMonthCnt correctly', () => {
-    const component = shallow(<Calendar base={mockMoment} showMonthCnt={3} />);
+    shallowComponent = shallow(<Calendar {...defaultProps} showMonthCnt={3} />);
 
-    expect(component.find('.calendar__item')).toHaveLength(3);
+    expect(shallowComponent.find('.calendar__item')).toHaveLength(3);
     // first calendar only previcon true
     expect(
-      component
+      shallowComponent
         .find(CalendarContainer)
         .first()
         .props().prevIcon
     ).toBeTruthy();
     // last calendar only nextIcon true
     expect(
-      component
+      shallowComponent
         .find(CalendarContainer)
         .last()
         .props().nextIcon
     ).toBeTruthy();
     // another calendar both hide
     expect(
-      component
+      shallowComponent
         .find(CalendarContainer)
         .at(1)
         .props().nextIcon
     ).toBeFalsy();
     expect(
-      component
+      shallowComponent
         .find(CalendarContainer)
         .at(1)
         .props().prevIcon
     ).toBeFalsy();
   });
 
-  it('props top, left correctly', () => {
-    const component = shallow(<Calendar base={mockMoment} top="100px" left="100px" />);
+  it('should setBase test', () => {
+    mountComponent = mount(<Calendar {...defaultProps} />);
+    // change view mode to month
+    mountComponent.find('.calendar__head--title').simulate('click');
 
-    expect(component.props().style).toHaveProperty('top', '100px');
-    expect(component.props().style).toHaveProperty('left', '100px');
+    mountComponent
+      .find('td')
+      .at(1)
+      .simulate('click');
+
+    expect(mountComponent.state().base.format('MM')).toEqual('02');
   });
 });
