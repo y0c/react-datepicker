@@ -10,10 +10,8 @@ html {
 .datepicker {
   display: inline-block;
   &__container {
-    .calendar {
-      position: absolute;
-      z-index:100;
-    }
+    position: absolute;
+    z-index:100;
   }
 
   &__backdrop {
@@ -62,6 +60,7 @@ html {
       font-size: $title-font-size;
       color: $primary-text-color;
       text-align: center;
+      margin: 4px;
     }
     &--button{
       outline: none;
@@ -86,7 +85,26 @@ html {
     }
   }
 
+  &__panel {
+    &--show {
+      display: block !important;
+    }
+
+    &--today {
+      background: $primary-color-light;
+      padding: 5px;
+      display:none;
+      h2 {
+        margin: 0;
+        cursor: pointer;
+        font-size: $base-font-size;
+        text-align: center;
+      }
+    }
+  }
+
   &__body {
+    padding-top: 10px;
     &--table{
       width: 100%;
       table-layout:fixed;
@@ -112,7 +130,7 @@ html {
     cursor:pointer;
     &--0 { color:red; }
     &--6 { color:blue; }
-    &--today{ background: $primary-color-light; }
+    &--today{ background: $today-bg-color; }
     &--start, &--end, &--selected { 
       background: $primary-color; 
       color: $primary-color-text;
