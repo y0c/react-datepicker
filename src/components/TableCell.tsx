@@ -7,12 +7,14 @@ interface Props {
   onClick?: (text: string) => void;
 }
 
-const Cell: React.FunctionComponent<Props> = ({ className, text = '', subText, onClick }) => {
-  const handleClick = (value: string) => () => {
-    if (onClick) onClick(value);
-  };
+const Cell: React.FunctionComponent<Props> = ({
+  className,
+  text = '',
+  subText,
+  onClick = () => {},
+}) => {
   return (
-    <td onClick={handleClick(text)} className={className}>
+    <td onClick={() => onClick(text)} className={className}>
       <div>{text}</div>
       {subText && <span className="sub__text">{subText}</span>}
     </td>
