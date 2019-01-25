@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CalendarContainer/> props locale correctly 1`] = `
+exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
 <CalendarContainer
   base={"2018-12-01T00:00:00.000Z"}
   current={"2018-12-01T00:00:00.000Z"}
-  locale="en-ca"
+  locale="ko"
   setBase={[Function]}
   show={true}
   showMonthCnt={1}
+  showToday={true}
 >
   <div
     className="calendar__container calendar--show"
@@ -35,8 +36,24 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
         />
       </div>
     </CalendarHead>
+    <TodayPanel
+      onClick={[Function]}
+      show={true}
+      today="2019년 1월 25일"
+    >
+      <div
+        className="calendar__panel--today calendar__panel--show"
+      >
+        <h2
+          onClick={[Function]}
+        >
+          2019년 1월 25일
+        </h2>
+      </div>
+    </TodayPanel>
     <CalendarBody
       current={"2018-12-01T00:00:00.000Z"}
+      locale="ko"
       onClick={[Function]}
       viewMode={2}
     >
@@ -45,6 +62,7 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
       >
         <DayView
           current={"2018-12-01T00:00:00.000Z"}
+          locale="ko"
           onClick={[Function]}
           viewMode={2}
         >
@@ -52,13 +70,13 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
             cell={[Function]}
             headers={
               Array [
-                "Sun",
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
+                "일",
+                "월",
+                "화",
+                "수",
+                "목",
+                "금",
+                "토",
               ]
             }
             matrix={
@@ -128,37 +146,37 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
                   <th
                     key="0"
                   >
-                    Sun
+                    일
                   </th>
                   <th
                     key="1"
                   >
-                    Mon
+                    월
                   </th>
                   <th
                     key="2"
                   >
-                    Tue
+                    화
                   </th>
                   <th
                     key="3"
                   >
-                    Wed
+                    수
                   </th>
                   <th
                     key="4"
                   >
-                    Thu
+                    목
                   </th>
                   <th
                     key="5"
                   >
-                    Fri
+                    금
                   </th>
                   <th
                     key="6"
                   >
-                    Sat
+                    토
                   </th>
                 </tr>
               </thead>
@@ -869,7 +887,7 @@ exports[`<CalendarContainer/> props locale correctly 1`] = `
 </CalendarContainer>
 `;
 
-exports[`<CalendarContainer/> props show correctly 1`] = `
+exports[`<CalendarContainer/> prop: show should render correctly 1`] = `
 <div
   className="calendar__container calendar--show"
 >
@@ -879,26 +897,14 @@ exports[`<CalendarContainer/> props show correctly 1`] = `
     onTitleClick={[Function]}
     title="2018.12"
   />
-  <CalendarBody
-    current={"2018-12-01T00:00:00.000Z"}
+  <TodayPanel
     onClick={[Function]}
-    viewMode={2}
-  />
-</div>
-`;
-
-exports[`<CalendarContainer/> renders with no props 1`] = `
-<div
-  className="calendar__container calendar--show"
->
-  <CalendarHead
-    onNext={[Function]}
-    onPrev={[Function]}
-    onTitleClick={[Function]}
-    title="2018.12"
+    show={true}
+    today="January 25, 2019"
   />
   <CalendarBody
     current={"2018-12-01T00:00:00.000Z"}
+    locale="en-ca"
     onClick={[Function]}
     viewMode={2}
   />

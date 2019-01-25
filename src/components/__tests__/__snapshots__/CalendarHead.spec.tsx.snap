@@ -1,86 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CalendarHead/> props onPrev, onNext correctly 1`] = `
-<CalendarHead
-  nextIcon={true}
-  onNext={[Function]}
-  onPrev={[Function]}
-  prevIcon={true}
-  title=""
+exports[`<CalendarHead/> should props onPrev, onNext correctly 1`] = `
+<div
+  className="calendar__head"
 >
   <div
-    className="calendar__head"
+    className="calendar__head--prev"
   >
-    <div
-      className="calendar__head--prev"
+    <button
+      className="calendar__head--button"
+      onClick={[Function]}
     >
-      <button
-        className="calendar__head--button"
-        onClick={[Function]}
-      >
-        <i
-          className="icon-navigate_before"
-        />
-      </button>
-    </div>
-    <h2
-      className="calendar__head--title"
-    />
-    <div
-      className="calendar__head--next"
-    >
-      <button
-        className="calendar__head--button"
-        onClick={[Function]}
-      >
-        <i
-          className="icon-navigate_next"
-        />
-      </button>
-    </div>
+      <i
+        className="icon-navigate_before"
+      />
+    </button>
   </div>
-</CalendarHead>
+  <h2
+    className="calendar__head--title"
+  />
+  <div
+    className="calendar__head--next"
+  >
+    <button
+      className="calendar__head--button"
+      onClick={[Function]}
+    >
+      <i
+        className="icon-navigate_next"
+      />
+    </button>
+  </div>
+</div>
 `;
 
-exports[`<CalendarHead/> props prevIcon, nextIcon correctly 1`] = `
-<CalendarHead
-  nextIcon={true}
-  prevIcon={true}
-  title=""
+exports[`<CalendarHead/> should props prevIcon, nextIcon correctly 1`] = `
+<div
+  className="calendar__head"
 >
   <div
-    className="calendar__head"
+    className="calendar__head--prev"
   >
-    <div
-      className="calendar__head--prev"
+    <button
+      className="calendar__head--button"
     >
-      <button
-        className="calendar__head--button"
-      >
-        <i
-          className="icon-navigate_before"
-        />
-      </button>
-    </div>
-    <h2
-      className="calendar__head--title"
-    />
-    <div
-      className="calendar__head--next"
-    >
-      <button
-        className="calendar__head--button"
-      >
-        <i
-          className="icon-navigate_next"
-        />
-      </button>
-    </div>
+      <i
+        className="icon-navigate_before"
+      />
+    </button>
   </div>
-</CalendarHead>
+  <h2
+    className="calendar__head--title"
+  />
+  <div
+    className="calendar__head--next"
+  >
+    <button
+      className="calendar__head--button"
+    >
+      <i
+        className="icon-navigate_next"
+      />
+    </button>
+  </div>
+</div>
 `;
 
-exports[`<CalendarHead/> props title correctly 1`] = `
+exports[`<CalendarHead/> should props title correctly 1`] = `
 <div
   className="calendar__head"
 >
@@ -98,7 +84,7 @@ exports[`<CalendarHead/> props title correctly 1`] = `
 </div>
 `;
 
-exports[`<CalendarHead/> renders CalendarHead with no props 1`] = `
+exports[`<CalendarHead/> should render correctly 1`] = `
 <div
   className="calendar__head"
 >

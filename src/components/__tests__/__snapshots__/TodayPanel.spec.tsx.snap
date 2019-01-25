@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodayPanel/> renders without props 1`] = `
+<div
+  className="calendar__panel--today calendar__panel--show"
+>
+  <h2
+    onClick={[Function]}
+  >
+    20190101
+  </h2>
+</div>
+`;

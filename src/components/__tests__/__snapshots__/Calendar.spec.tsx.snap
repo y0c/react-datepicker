@@ -3,12 +3,6 @@
 exports[`<Calendar/> redners with no props 1`] = `
 <div
   className="calendar"
-  style={
-    Object {
-      "left": undefined,
-      "top": undefined,
-    }
-  }
 >
   <div
     className="calendar__list"
@@ -20,11 +14,13 @@ exports[`<Calendar/> redners with no props 1`] = `
       <CalendarContainer
         base={"2018-12-01T00:00:00.000Z"}
         current={"2018-12-01T00:00:00.000Z"}
+        locale="en-ca"
         nextIcon={true}
         prevIcon={true}
         setBase={[Function]}
         show={true}
         showMonthCnt={1}
+        showToday={true}
       />
     </div>
   </div>
