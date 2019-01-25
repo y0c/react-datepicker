@@ -23,20 +23,20 @@ interface PrivateProps {
   setBase: (base: moment.Moment) => void;
 }
 
-interface State {
+export interface State {
   viewMode: CalendarEnums.ViewMode;
 }
 
 export type InheritProps = DayViewProps & CalendarContainerProps;
-type Props = CalendarContainerProps & DayViewProps & PrivateProps;
+export type Props = CalendarContainerProps & DayViewProps & PrivateProps;
 
 class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
     current: moment(),
     show: true,
     showMonthCnt: 1,
-    setBase: () => void 0,
     showToday: true,
+    locale: 'en-ca',
   };
 
   public state = {
@@ -47,7 +47,6 @@ class CalendarContainer extends React.Component<Props, State> {
     super(props);
     if (props.locale) {
       require(`moment/locale/${props.locale}`);
-      moment.locale(props.locale);
     }
   }
 
@@ -135,6 +134,7 @@ class CalendarContainer extends React.Component<Props, State> {
       nextIcon,
       show,
       current,
+      locale = 'en-ca',
     } = this.props;
 
     const calendarClass = classNames('calendar__container', {
@@ -151,7 +151,13 @@ class CalendarContainer extends React.Component<Props, State> {
           onTitleClick={this.handleTitleClick}
           title={this.getHeaderTitle()}
         />
-        <TodayPanel today={moment().format('LL')} onClick={this.handleToday} show={showToday} />
+        <TodayPanel
+          today={moment()
+            .locale(locale)
+            .format('LL')}
+          onClick={this.handleToday}
+          show={showToday}
+        />
         <CalendarBody
           viewMode={this.state.viewMode}
           current={current}
@@ -161,6 +167,7 @@ class CalendarContainer extends React.Component<Props, State> {
           onClick={this.handleChange}
           customDayClass={customDayClass}
           customDayText={customDayText}
+          locale={locale}
         />
       </div>
     );

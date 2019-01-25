@@ -10,12 +10,14 @@ interface CalendarBodyProps {
   viewMode: CalendarEnums.ViewMode;
   current: moment.Moment;
   onClick: (value: string) => void;
+  locale: string;
 }
 type Props = DayViewProps & CalendarBodyProps;
 class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
     viewMode: CalendarEnums.ViewMode.DAY,
-    onClick: () => void 0,
+    onClick: () => {},
+    locale: 'en-ca',
   };
 
   public render() {

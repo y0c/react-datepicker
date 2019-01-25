@@ -59,8 +59,9 @@ class ExamplePage extends React.Component<{}, State> {
             endDay={endDay}
             customDayText={this.getDayText}
             showMonthCnt={3}
+            locale="ko"
           />
-          <Calendar />
+          <Calendar locale="en-ca" />
         </div>
         <div>
           <DatePicker showMonthCnt={2} />

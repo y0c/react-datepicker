@@ -17,9 +17,14 @@ export interface Props {
 
 interface PrivateProps {
   current: moment.Moment;
+  locale: string;
 }
 
 class DayView extends React.Component<Props & PrivateProps> {
+  public static defaultProps = {
+    locale: 'en-ca',
+  };
+
   public getDayClass = (date: string): string => {
     const { current, customDayClass, startDay, endDay } = this.props;
     const currentDate = moment(current).date(parseInt(date, 10));
@@ -46,7 +51,7 @@ class DayView extends React.Component<Props & PrivateProps> {
   };
 
   public getCustomText = (date: string): string => {
-    const { current, customDayText, startDay, endDay } = this.props;
+    const { current, customDayText } = this.props;
     const currentDate = moment(current).date(parseInt(date, 10));
     if (!date.trim()) {
       return '';
@@ -59,44 +64,18 @@ class DayView extends React.Component<Props & PrivateProps> {
   };
 
   public isSelected = (date: string): boolean => {
-    const { selected } = this.props;
+    const { selected, current } = this.props;
     if (selected === undefined) {
       return false;
     }
-    return selected.some(v => this.isDayEqual(date, v));
-  };
-
-  public isDayEqual = (date: string, compareDate?: moment.Moment): boolean => {
-    const { current } = this.props;
-    const currentDate = moment(current).date(parseInt(date, 10));
-    if (!date.trim()) {
-      return false;
-    }
-    if (!compareDate) {
-      return false;
-    }
-    return isDayEqual(compareDate, currentDate);
-  };
-
-  public isRange = (date: string): boolean => {
-    const { current, startDay, endDay } = this.props;
-    const currentDate = moment(current).date(parseInt(date, 10));
-
-    if (!date.trim()) {
-      return false;
-    }
-    if (!startDay || !endDay) {
-      return false;
-    }
-
-    return isDayRange(currentDate, startDay, endDay);
+    return selected.some(v => isDayEqual(moment(current).date(parseInt(date, 10)), v));
   };
 
   public render() {
-    const { current, onClick } = this.props;
+    const { current, onClick, locale } = this.props;
 
     const dayMatrix = getDayMatrix(current.year(), current.month());
-    const weekdays = moment.weekdaysShort();
+    const weekdays = moment.localeData(locale).weekdaysShort();
 
     return (
       <TableMatrixView
