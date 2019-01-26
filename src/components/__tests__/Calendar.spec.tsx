@@ -6,7 +6,8 @@ import Calendar, { Props, State } from '../Calendar';
 import CalendarContainer from '../CalendarContainer';
 
 describe('<Calendar/>', () => {
-  const mockMoment = moment.unix(1543622400);
+  // 20180501
+  const mockMoment = moment.unix(1525132800);
   let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
   let mountComponent: ReactWrapper<Props, State>;
   const base = mockMoment;

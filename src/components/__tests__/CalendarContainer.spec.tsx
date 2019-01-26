@@ -127,8 +127,9 @@ describe('<CalendarContainer/>', () => {
   describe('handle change test', () => {
     it('should showMontCnt > 1 onChange call', () => {
       const onChange = sinon.spy();
+      const mockDate = moment.unix(1525132800);
       mountComponent = mount(
-        <CalendarContainer {...defaultProps} showMonthCnt={2} onChange={onChange} />
+        <CalendarContainer {...defaultProps} base={mockDate} showMonthCnt={2} onChange={onChange} />
       );
 
       // empty date click
