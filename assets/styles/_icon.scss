@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?g33unh');
-  src:  url('../fonts/icomoon.eot?g33unh#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?g33unh') format('truetype'),
-    url('../fonts/icomoon.woff?g33unh') format('woff'),
-    url('../fonts/icomoon.svg?g33unh#icomoon') format('svg');
+  src:  url('../fonts/icomoon.eot?vdilwc');
+  src:  url('../fonts/icomoon.eot?vdilwc#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?vdilwc') format('truetype'),
+    url('../fonts/icomoon.woff?vdilwc') format('woff'),
+    url('../fonts/icomoon.svg?vdilwc#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,12 +24,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-navigate_before:before {
-  content: "\e408";
+.icon-down1:before {
+  content: "\e906";
 }
-.icon-navigate_next:before {
-  content: "\e409";
+.icon-up1:before {
+  content: "\e907";
 }
-.icon-date_range:before {
-  content: "\e916";
+.icon-calendar:before {
+  content: "\e900";
+}
+.icon-down:before {
+  content: "\e901";
+}
+.icon-left:before {
+  content: "\e902";
+}
+.icon-right:before {
+  content: "\e903";
+}
+.icon-time:before {
+  content: "\e904";
+}
+.icon-up:before {
+  content: "\e905";
 }
