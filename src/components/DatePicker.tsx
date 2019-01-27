@@ -2,11 +2,15 @@ import * as moment from 'moment';
 import * as React from 'react';
 import Calendar from './Calendar';
 
+interface InputProps {
+  value: string;
+}
 export interface Props {
   base: moment.Moment;
   onChange?: (date: moment.Moment) => void;
   inputFormat: string;
   showMonthCnt?: number;
+  inputComponent?: (props: InputProps) => JSX.Element;
 }
 
 export interface State {
@@ -36,7 +40,7 @@ class DatePicker extends React.Component<Props, State> {
     selected: [],
   };
 
-  public inputRef: React.RefObject<HTMLInputElement>;
+  public inputRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: Props) {
     super(props);
@@ -85,9 +89,21 @@ class DatePicker extends React.Component<Props, State> {
     });
   };
 
+  public renderInputComponent = (): JSX.Element => {
+    const { inputComponent } = this.props;
+    const { inputValue } = this.state;
+
+    let component: JSX.Element;
+    if (inputComponent) {
+      component = inputComponent({ value: inputValue });
+    } else {
+      component = <input type="text" value={inputValue} readOnly={true} />;
+    }
+    return component;
+  };
+
   public render() {
     const {
-      inputValue,
       calendarShow,
       selected,
       position: { top, left },
@@ -96,14 +112,9 @@ class DatePicker extends React.Component<Props, State> {
 
     return (
       <div className="datepicker">
-        <input
-          onClick={this.handleCalendar}
-          ref={this.inputRef}
-          className="datepicker__input"
-          value={inputValue}
-          readOnly={true}
-          type="text"
-        />
+        <div className="datepicker__input" onClick={this.handleCalendar} ref={this.inputRef}>
+          {this.renderInputComponent()}
+        </div>
         <div className="datepicker__container" style={{ top, left }}>
           <Calendar
             base={base}
