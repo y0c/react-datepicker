@@ -18,7 +18,7 @@ const appHtmlTitle = 'DatePicker Examples';
 module.exports = {
   entry: {
     vendor: ['lodash'],
-    bundle: path.join(dirExamples, 'index.tsx'),
+    bundle: path.join(dirExamples, 'components/index.tsx'),
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
