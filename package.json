@@ -70,7 +70,7 @@
       "js"
     ],
     "testMatch": [
-      "**/*test.(ts|tsx|js)"
+      "**/test/*test.(ts|tsx|js)"
     ]
   },
   "devDependencies": {
@@ -89,6 +89,7 @@
     "@types/react": "^16.7.13",
     "@types/react-dom": "^16.0.11",
     "@types/sinon": "^7.0.3",
+    "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__react": "^4.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
