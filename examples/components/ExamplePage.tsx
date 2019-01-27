@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { Calendar, DatePicker } from '../src';
+import { Calendar, DatePicker } from '../../src';
 import RangeSelect from './RangeSelect';
 
-import '../assets/styles/calendar.scss';
+import '../../assets/styles/calendar.scss';
 
 interface State {
   startDay?: moment.Moment;
@@ -51,7 +51,8 @@ class ExamplePage extends React.Component<{}, State> {
     const { startDay, endDay } = this.state;
     return (
       <div className="App">
-        <div>
+        <div className="panel">
+          <div className="panel__header">Calendar ShowMonthCnt & local ko</div>
           <Calendar
             base={moment('20181201', 'YYYYMMDD')}
             onChange={this.handleChange}
@@ -61,9 +62,13 @@ class ExamplePage extends React.Component<{}, State> {
             showMonthCnt={3}
             locale="ko"
           />
+        </div>
+        <div className="panel">
+          <div className="panel__header">DatePicker locale en-ca</div>
           <Calendar locale="en-ca" />
         </div>
-        <div>
+        <div className="panel">
+          <div className="panel__header">DatePicker</div>
           <DatePicker showMonthCnt={2} />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { Calendar } from '../src';
+import { Calendar } from '../../src';
 
 interface State {
   selected: moment.Moment[];
