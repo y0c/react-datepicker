@@ -24,6 +24,55 @@ html {
   }
 }
 
+.time__container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $divider-color;
+  padding: 15px;
+  font-family: 'Roboto';
+  font-size: $base-font-size;
+  &__div {
+    margin: 0 10px;
+  }
+  &__type {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+}
+
+.time-input {
+  display: inline-block;
+  width: 40px;
+  overflow: hidden;
+  &__up, &__down {
+    border: 1px solid $divider-color;
+    button {
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+      border: none;
+    }
+  }
+  
+  &__text {
+    width: 100%;
+    border-left: 1px solid $divider-color;
+    border-right: 1px solid $divider-color;
+    box-sizing: border-box;
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      font-size: 15px;
+      padding: 5px;
+      text-align: center;
+      outline: none;
+    }
+  }
+
+}
+
 .calendar{
   font-size: $base-font-size;
   *, *:before, *:after {
