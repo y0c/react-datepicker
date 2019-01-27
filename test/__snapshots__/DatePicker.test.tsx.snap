@@ -2,20 +2,23 @@
 
 exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
 <DatePicker
-  base={"2018-12-01T00:00:00.000Z"}
+  base={"2018-05-01T00:00:00.000Z"}
   inputFormat="YYYY-MM-DD"
   showMonthCnt={3}
 >
   <div
     className="datepicker"
   >
-    <input
+    <div
       className="datepicker__input"
       onClick={[Function]}
-      readOnly={true}
-      type="text"
-      value=""
-    />
+    >
+      <input
+        readOnly={true}
+        type="text"
+        value=""
+      />
+    </div>
     <div
       className="datepicker__container"
       style={
@@ -26,7 +29,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
       }
     >
       <Calendar
-        base={"2018-12-01T00:00:00.000Z"}
+        base={"2018-05-01T00:00:00.000Z"}
         onChange={[Function]}
         selected={Array []}
         show={false}
@@ -44,8 +47,8 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
               key="0"
             >
               <CalendarContainer
-                base={"2018-12-01T00:00:00.000Z"}
-                current={"2018-12-01T00:00:00.000Z"}
+                base={"2018-05-01T00:00:00.000Z"}
+                current={"2018-05-01T00:00:00.000Z"}
                 locale="en-ca"
                 nextIcon={false}
                 onChange={[Function]}
@@ -65,7 +68,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                     onPrev={[Function]}
                     onTitleClick={[Function]}
                     prevIcon={true}
-                    title="2018.12"
+                    title="2018.05"
                   >
                     <div
                       className="calendar__head"
@@ -78,7 +81,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                           onClick={[Function]}
                         >
                           <i
-                            className="icon-navigate_before"
+                            className="icon-left"
                           />
                         </button>
                       </div>
@@ -86,7 +89,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                         className="calendar__head--title"
                         onClick={[Function]}
                       >
-                        2018.12
+                        2018.05
                       </h2>
                       <div
                         className="calendar__head--next"
@@ -96,7 +99,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   <TodayPanel
                     onClick={[Function]}
                     show={true}
-                    today="January 25, 2019"
+                    today="January 27, 2019"
                   >
                     <div
                       className="calendar__panel--today calendar__panel--show"
@@ -104,12 +107,12 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       <h2
                         onClick={[Function]}
                       >
-                        January 25, 2019
+                        January 27, 2019
                       </h2>
                     </div>
                   </TodayPanel>
                   <CalendarBody
-                    current={"2018-12-01T00:00:00.000Z"}
+                    current={"2018-05-01T00:00:00.000Z"}
                     locale="en-ca"
                     onClick={[Function]}
                     selected={Array []}
@@ -119,7 +122,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       className="calendar__body"
                     >
                       <DayView
-                        current={"2018-12-01T00:00:00.000Z"}
+                        current={"2018-05-01T00:00:00.000Z"}
                         locale="en-ca"
                         onClick={[Function]}
                         selected={Array []}
@@ -143,54 +146,45 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                               Array [
                                 " ",
                                 " ",
-                                " ",
-                                " ",
-                                " ",
-                                " ",
                                 "1",
-                              ],
-                              Array [
                                 "2",
                                 "3",
                                 "4",
                                 "5",
+                              ],
+                              Array [
                                 "6",
                                 "7",
                                 "8",
-                              ],
-                              Array [
                                 "9",
                                 "10",
                                 "11",
                                 "12",
+                              ],
+                              Array [
                                 "13",
                                 "14",
                                 "15",
-                              ],
-                              Array [
                                 "16",
                                 "17",
                                 "18",
                                 "19",
+                              ],
+                              Array [
                                 "20",
                                 "21",
                                 "22",
-                              ],
-                              Array [
                                 "23",
                                 "24",
                                 "25",
                                 "26",
+                              ],
+                              Array [
                                 "27",
                                 "28",
                                 "29",
-                              ],
-                              Array [
                                 "30",
                                 "31",
-                                " ",
-                                " ",
-                                " ",
                                 " ",
                                 " ",
                               ],
@@ -276,66 +270,66 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--2"
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="1"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      1
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--3"
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="2"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      2
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--4"
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="3"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      3
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--5"
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="4"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      4
                                     </div>
                                   </td>
                                 </Cell>
@@ -344,14 +338,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="1"
+                                  text="5"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      1
+                                      5
                                     </div>
                                   </td>
                                 </Cell>
@@ -364,74 +358,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="1"
                                   onClick={[Function]}
                                   subText=""
-                                  text="2"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      2
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="2"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="3"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      3
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="3"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="4"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      4
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="5"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      5
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="6"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -440,14 +370,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="6"
+                                  className="calendar__day calendar__day--1"
+                                  key="2"
                                   onClick={[Function]}
                                   subText=""
                                   text="7"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -456,18 +386,82 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="3"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="8"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      8
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="9"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      9
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="10"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      10
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="11"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      11
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="8"
+                                  text="12"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      8
+                                      12
                                     </div>
                                   </td>
                                 </Cell>
@@ -480,74 +474,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text="9"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      9
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="3"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="10"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      10
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="11"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      11
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="12"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      12
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="13"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -556,14 +486,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="7"
+                                  className="calendar__day calendar__day--1"
+                                  key="3"
                                   onClick={[Function]}
                                   subText=""
                                   text="14"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -572,18 +502,82 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="15"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      15
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="16"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      16
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="17"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      17
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="7"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="18"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      18
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="15"
+                                  text="19"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      15
+                                      19
                                     </div>
                                   </td>
                                 </Cell>
@@ -596,74 +590,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="16"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      16
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="17"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      17
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="18"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      18
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="19"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      19
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="7"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="20"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -672,14 +602,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="8"
+                                  className="calendar__day calendar__day--1"
+                                  key="4"
                                   onClick={[Function]}
                                   subText=""
                                   text="21"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -688,18 +618,82 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="22"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      22
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="23"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      23
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="7"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="24"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      24
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="8"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="25"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      25
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="9"
                                   onClick={[Function]}
                                   subText=""
-                                  text="22"
+                                  text="26"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      22
+                                      26
                                     </div>
                                   </td>
                                 </Cell>
@@ -712,74 +706,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="23"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      23
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="24"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      24
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="25"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      25
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="7"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="26"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      26
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="8"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="27"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -788,14 +718,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="9"
+                                  className="calendar__day calendar__day--1"
+                                  key="5"
                                   onClick={[Function]}
                                   subText=""
                                   text="28"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -804,14 +734,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--6"
-                                  key="10"
+                                  className="calendar__day calendar__day--2"
+                                  key="6"
                                   onClick={[Function]}
                                   subText=""
                                   text="29"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--6"
+                                    className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -819,19 +749,15 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                     </div>
                                   </td>
                                 </Cell>
-                              </tr>
-                              <tr
-                                key="5"
-                              >
                                 <Cell
-                                  className="calendar__day calendar__day--0"
-                                  key="5"
+                                  className="calendar__day calendar__day--3"
+                                  key="7"
                                   onClick={[Function]}
                                   subText=""
                                   text="30"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--0"
+                                    className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -840,14 +766,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="6"
+                                  className="calendar__day calendar__day--4"
+                                  key="8"
                                   onClick={[Function]}
                                   subText=""
                                   text="31"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--1"
+                                    className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -857,38 +783,6 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                 </Cell>
                                 <Cell
                                   className=""
-                                  key="7"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="8"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
                                   key="9"
                                   onClick={[Function]}
                                   subText=""
@@ -906,22 +800,6 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                 <Cell
                                   className=""
                                   key="10"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="11"
                                   onClick={[Function]}
                                   subText=""
                                   text=" "
@@ -950,8 +828,8 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
               key="1"
             >
               <CalendarContainer
-                base={"2018-12-01T00:00:00.000Z"}
-                current={"2019-01-01T00:00:00.000Z"}
+                base={"2018-05-01T00:00:00.000Z"}
+                current={"2018-06-01T00:00:00.000Z"}
                 locale="en-ca"
                 nextIcon={false}
                 onChange={[Function]}
@@ -971,7 +849,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                     onPrev={[Function]}
                     onTitleClick={[Function]}
                     prevIcon={false}
-                    title="2019.01"
+                    title="2018.06"
                   >
                     <div
                       className="calendar__head"
@@ -983,7 +861,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                         className="calendar__head--title"
                         onClick={[Function]}
                       >
-                        2019.01
+                        2018.06
                       </h2>
                       <div
                         className="calendar__head--next"
@@ -993,7 +871,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   <TodayPanel
                     onClick={[Function]}
                     show={true}
-                    today="January 25, 2019"
+                    today="January 27, 2019"
                   >
                     <div
                       className="calendar__panel--today calendar__panel--show"
@@ -1001,12 +879,12 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       <h2
                         onClick={[Function]}
                       >
-                        January 25, 2019
+                        January 27, 2019
                       </h2>
                     </div>
                   </TodayPanel>
                   <CalendarBody
-                    current={"2019-01-01T00:00:00.000Z"}
+                    current={"2018-06-01T00:00:00.000Z"}
                     locale="en-ca"
                     onClick={[Function]}
                     selected={Array []}
@@ -1016,7 +894,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       className="calendar__body"
                     >
                       <DayView
-                        current={"2019-01-01T00:00:00.000Z"}
+                        current={"2018-06-01T00:00:00.000Z"}
                         locale="en-ca"
                         onClick={[Function]}
                         selected={Array []}
@@ -1040,47 +918,47 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                               Array [
                                 " ",
                                 " ",
+                                " ",
+                                " ",
+                                " ",
                                 "1",
                                 "2",
+                              ],
+                              Array [
                                 "3",
                                 "4",
                                 "5",
-                              ],
-                              Array [
                                 "6",
                                 "7",
                                 "8",
                                 "9",
+                              ],
+                              Array [
                                 "10",
                                 "11",
                                 "12",
-                              ],
-                              Array [
                                 "13",
                                 "14",
                                 "15",
                                 "16",
+                              ],
+                              Array [
                                 "17",
                                 "18",
                                 "19",
-                              ],
-                              Array [
                                 "20",
                                 "21",
                                 "22",
                                 "23",
+                              ],
+                              Array [
                                 "24",
                                 "25",
                                 "26",
-                              ],
-                              Array [
                                 "27",
                                 "28",
                                 "29",
                                 "30",
-                                "31",
-                                " ",
-                                " ",
                               ],
                             ]
                           }
@@ -1164,50 +1042,50 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--2"
+                                  className=""
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text="1"
+                                  text=" "
                                 >
                                   <td
-                                    className="calendar__day calendar__day--2"
+                                    className=""
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      1
+                                       
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--3"
+                                  className=""
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="2"
+                                  text=" "
                                 >
                                   <td
-                                    className="calendar__day calendar__day--3"
+                                    className=""
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      2
+                                       
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--4"
+                                  className=""
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="3"
+                                  text=" "
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className=""
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      3
+                                       
                                     </div>
                                   </td>
                                 </Cell>
@@ -1216,14 +1094,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="4"
+                                  text="1"
                                 >
                                   <td
                                     className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      4
+                                      1
                                     </div>
                                   </td>
                                 </Cell>
@@ -1232,14 +1110,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="5"
+                                  text="2"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      5
+                                      2
                                     </div>
                                   </td>
                                 </Cell>
@@ -1252,14 +1130,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="1"
                                   onClick={[Function]}
                                   subText=""
-                                  text="6"
+                                  text="3"
                                 >
                                   <td
                                     className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      6
+                                      3
                                     </div>
                                   </td>
                                 </Cell>
@@ -1268,14 +1146,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text="7"
+                                  text="4"
                                 >
                                   <td
                                     className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      7
+                                      4
                                     </div>
                                   </td>
                                 </Cell>
@@ -1284,14 +1162,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="8"
+                                  text="5"
                                 >
                                   <td
                                     className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      8
+                                      5
                                     </div>
                                   </td>
                                 </Cell>
@@ -1300,14 +1178,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="9"
+                                  text="6"
                                 >
                                   <td
                                     className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      9
+                                      6
                                     </div>
                                   </td>
                                 </Cell>
@@ -1316,14 +1194,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="10"
+                                  text="7"
                                 >
                                   <td
                                     className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      10
+                                      7
                                     </div>
                                   </td>
                                 </Cell>
@@ -1332,14 +1210,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="11"
+                                  text="8"
                                 >
                                   <td
                                     className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      11
+                                      8
                                     </div>
                                   </td>
                                 </Cell>
@@ -1348,14 +1226,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="12"
+                                  text="9"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      12
+                                      9
                                     </div>
                                   </td>
                                 </Cell>
@@ -1368,14 +1246,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text="13"
+                                  text="10"
                                 >
                                   <td
                                     className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      13
+                                      10
                                     </div>
                                   </td>
                                 </Cell>
@@ -1384,14 +1262,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="14"
+                                  text="11"
                                 >
                                   <td
                                     className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      14
+                                      11
                                     </div>
                                   </td>
                                 </Cell>
@@ -1400,14 +1278,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="15"
+                                  text="12"
                                 >
                                   <td
                                     className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      15
+                                      12
                                     </div>
                                   </td>
                                 </Cell>
@@ -1416,14 +1294,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="16"
+                                  text="13"
                                 >
                                   <td
                                     className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      16
+                                      13
                                     </div>
                                   </td>
                                 </Cell>
@@ -1432,14 +1310,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="17"
+                                  text="14"
                                 >
                                   <td
                                     className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      17
+                                      14
                                     </div>
                                   </td>
                                 </Cell>
@@ -1448,14 +1326,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="18"
+                                  text="15"
                                 >
                                   <td
                                     className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      18
+                                      15
                                     </div>
                                   </td>
                                 </Cell>
@@ -1464,14 +1342,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="19"
+                                  text="16"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      19
+                                      16
                                     </div>
                                   </td>
                                 </Cell>
@@ -1484,14 +1362,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="20"
+                                  text="17"
                                 >
                                   <td
                                     className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      20
+                                      17
                                     </div>
                                   </td>
                                 </Cell>
@@ -1500,14 +1378,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="21"
+                                  text="18"
                                 >
                                   <td
                                     className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      21
+                                      18
                                     </div>
                                   </td>
                                 </Cell>
@@ -1516,14 +1394,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="22"
+                                  text="19"
                                 >
                                   <td
                                     className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      22
+                                      19
                                     </div>
                                   </td>
                                 </Cell>
@@ -1532,14 +1410,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="23"
+                                  text="20"
                                 >
                                   <td
                                     className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      23
+                                      20
                                     </div>
                                   </td>
                                 </Cell>
@@ -1548,30 +1426,30 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="24"
+                                  text="21"
                                 >
                                   <td
                                     className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      24
+                                      21
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--5 calendar__day--today"
+                                  className="calendar__day calendar__day--5"
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="25"
+                                  text="22"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5 calendar__day--today"
+                                    className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      25
+                                      22
                                     </div>
                                   </td>
                                 </Cell>
@@ -1580,14 +1458,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="9"
                                   onClick={[Function]}
                                   subText=""
-                                  text="26"
+                                  text="23"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      26
+                                      23
                                     </div>
                                   </td>
                                 </Cell>
@@ -1600,14 +1478,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="27"
+                                  text="24"
                                 >
                                   <td
                                     className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      27
+                                      24
                                     </div>
                                   </td>
                                 </Cell>
@@ -1616,14 +1494,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="28"
+                                  text="25"
                                 >
                                   <td
                                     className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      28
+                                      25
                                     </div>
                                   </td>
                                 </Cell>
@@ -1632,14 +1510,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="29"
+                                  text="26"
                                 >
                                   <td
                                     className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      29
+                                      26
                                     </div>
                                   </td>
                                 </Cell>
@@ -1648,14 +1526,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="30"
+                                  text="27"
                                 >
                                   <td
                                     className="calendar__day calendar__day--3"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      30
+                                      27
                                     </div>
                                   </td>
                                 </Cell>
@@ -1664,46 +1542,46 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="31"
+                                  text="28"
                                 >
                                   <td
                                     className="calendar__day calendar__day--4"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      31
+                                      28
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--5"
                                   key="9"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="29"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--5"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      29
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--6"
                                   key="10"
                                   onClick={[Function]}
                                   subText=""
-                                  text=" "
+                                  text="30"
                                 >
                                   <td
-                                    className=""
+                                    className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                       
+                                      30
                                     </div>
                                   </td>
                                 </Cell>
@@ -1722,8 +1600,8 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
               key="2"
             >
               <CalendarContainer
-                base={"2018-12-01T00:00:00.000Z"}
-                current={"2019-02-01T00:00:00.000Z"}
+                base={"2018-05-01T00:00:00.000Z"}
+                current={"2018-07-01T00:00:00.000Z"}
                 locale="en-ca"
                 nextIcon={true}
                 onChange={[Function]}
@@ -1743,7 +1621,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                     onPrev={[Function]}
                     onTitleClick={[Function]}
                     prevIcon={false}
-                    title="2019.02"
+                    title="2018.07"
                   >
                     <div
                       className="calendar__head"
@@ -1755,7 +1633,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                         className="calendar__head--title"
                         onClick={[Function]}
                       >
-                        2019.02
+                        2018.07
                       </h2>
                       <div
                         className="calendar__head--next"
@@ -1765,7 +1643,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                           onClick={[Function]}
                         >
                           <i
-                            className="icon-navigate_next"
+                            className="icon-right"
                           />
                         </button>
                       </div>
@@ -1774,7 +1652,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   <TodayPanel
                     onClick={[Function]}
                     show={true}
-                    today="January 25, 2019"
+                    today="January 27, 2019"
                   >
                     <div
                       className="calendar__panel--today calendar__panel--show"
@@ -1782,12 +1660,12 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       <h2
                         onClick={[Function]}
                       >
-                        January 25, 2019
+                        January 27, 2019
                       </h2>
                     </div>
                   </TodayPanel>
                   <CalendarBody
-                    current={"2019-02-01T00:00:00.000Z"}
+                    current={"2018-07-01T00:00:00.000Z"}
                     locale="en-ca"
                     onClick={[Function]}
                     selected={Array []}
@@ -1797,7 +1675,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                       className="calendar__body"
                     >
                       <DayView
-                        current={"2019-02-01T00:00:00.000Z"}
+                        current={"2018-07-01T00:00:00.000Z"}
                         locale="en-ca"
                         onClick={[Function]}
                         selected={Array []}
@@ -1819,47 +1697,47 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                           matrix={
                             Array [
                               Array [
-                                " ",
-                                " ",
-                                " ",
-                                " ",
-                                " ",
                                 "1",
                                 "2",
-                              ],
-                              Array [
                                 "3",
                                 "4",
                                 "5",
                                 "6",
                                 "7",
-                                "8",
-                                "9",
                               ],
                               Array [
+                                "8",
+                                "9",
                                 "10",
                                 "11",
                                 "12",
                                 "13",
                                 "14",
-                                "15",
-                                "16",
                               ],
                               Array [
+                                "15",
+                                "16",
                                 "17",
                                 "18",
                                 "19",
                                 "20",
                                 "21",
-                                "22",
-                                "23",
                               ],
                               Array [
+                                "22",
+                                "23",
                                 "24",
                                 "25",
                                 "26",
                                 "27",
                                 "28",
+                              ],
+                              Array [
+                                "29",
+                                "30",
+                                "31",
+                                " ",
+                                " ",
                                 " ",
                                 " ",
                               ],
@@ -1913,94 +1791,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                 key="0"
                               >
                                 <Cell
-                                  className=""
+                                  className="calendar__day calendar__day--0"
                                   key="0"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="1"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="2"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="3"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className=""
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text=" "
-                                >
-                                  <td
-                                    className=""
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                       
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="5"
                                   onClick={[Function]}
                                   subText=""
                                   text="1"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -2009,18 +1807,98 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--1"
+                                  key="1"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="2"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--1"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      2
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="2"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="3"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      3
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="3"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="4"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      4
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="5"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      5
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="6"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      6
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="2"
+                                  text="7"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      2
+                                      7
                                     </div>
                                   </td>
                                 </Cell>
@@ -2033,90 +1911,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="1"
                                   onClick={[Function]}
                                   subText=""
-                                  text="3"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      3
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="2"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="4"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      4
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="3"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="5"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      5
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="6"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      6
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="7"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--4"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      7
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="8"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -2125,18 +1923,98 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--1"
+                                  key="2"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="9"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--1"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      9
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="3"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="10"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      10
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="11"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      11
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="12"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      12
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="13"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      13
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="9"
+                                  text="14"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      9
+                                      14
                                     </div>
                                   </td>
                                 </Cell>
@@ -2149,90 +2027,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="2"
                                   onClick={[Function]}
                                   subText=""
-                                  text="10"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      10
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="3"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="11"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      11
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="12"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      12
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="13"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      13
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="14"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--4"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      14
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="7"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="15"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -2241,18 +2039,98 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--1"
+                                  key="3"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="16"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--1"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      16
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="17"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      17
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="18"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      18
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="19"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      19
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="7"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="20"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      20
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="16"
+                                  text="21"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      16
+                                      21
                                     </div>
                                   </td>
                                 </Cell>
@@ -2265,90 +2143,10 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="3"
                                   onClick={[Function]}
                                   subText=""
-                                  text="17"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--0"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      17
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--1"
-                                  key="4"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="18"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--1"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      18
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--2"
-                                  key="5"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="19"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--2"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      19
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--3"
-                                  key="6"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="20"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--3"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      20
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--4"
-                                  key="7"
-                                  onClick={[Function]}
-                                  subText=""
-                                  text="21"
-                                >
-                                  <td
-                                    className="calendar__day calendar__day--4"
-                                    onClick={[Function]}
-                                  >
-                                    <div>
-                                      21
-                                    </div>
-                                  </td>
-                                </Cell>
-                                <Cell
-                                  className="calendar__day calendar__day--5"
-                                  key="8"
-                                  onClick={[Function]}
-                                  subText=""
                                   text="22"
                                 >
                                   <td
-                                    className="calendar__day calendar__day--5"
+                                    className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
@@ -2357,18 +2155,98 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   </td>
                                 </Cell>
                                 <Cell
+                                  className="calendar__day calendar__day--1"
+                                  key="4"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="23"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--1"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      23
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--2"
+                                  key="5"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="24"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--2"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      24
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--3"
+                                  key="6"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="25"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--3"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      25
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--4"
+                                  key="7"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="26"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--4"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      26
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
+                                  className="calendar__day calendar__day--5"
+                                  key="8"
+                                  onClick={[Function]}
+                                  subText=""
+                                  text="27"
+                                >
+                                  <td
+                                    className="calendar__day calendar__day--5"
+                                    onClick={[Function]}
+                                  >
+                                    <div>
+                                      27
+                                    </div>
+                                  </td>
+                                </Cell>
+                                <Cell
                                   className="calendar__day calendar__day--6"
                                   key="9"
                                   onClick={[Function]}
                                   subText=""
-                                  text="23"
+                                  text="28"
                                 >
                                   <td
                                     className="calendar__day calendar__day--6"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      23
+                                      28
                                     </div>
                                   </td>
                                 </Cell>
@@ -2381,14 +2259,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="4"
                                   onClick={[Function]}
                                   subText=""
-                                  text="24"
+                                  text="29"
                                 >
                                   <td
                                     className="calendar__day calendar__day--0"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      24
+                                      29
                                     </div>
                                   </td>
                                 </Cell>
@@ -2397,14 +2275,14 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="5"
                                   onClick={[Function]}
                                   subText=""
-                                  text="25"
+                                  text="30"
                                 >
                                   <td
                                     className="calendar__day calendar__day--1"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      25
+                                      30
                                     </div>
                                   </td>
                                 </Cell>
@@ -2413,46 +2291,46 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                                   key="6"
                                   onClick={[Function]}
                                   subText=""
-                                  text="26"
+                                  text="31"
                                 >
                                   <td
                                     className="calendar__day calendar__day--2"
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      26
+                                      31
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--3"
+                                  className=""
                                   key="7"
                                   onClick={[Function]}
                                   subText=""
-                                  text="27"
+                                  text=" "
                                 >
                                   <td
-                                    className="calendar__day calendar__day--3"
+                                    className=""
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      27
+                                       
                                     </div>
                                   </td>
                                 </Cell>
                                 <Cell
-                                  className="calendar__day calendar__day--4"
+                                  className=""
                                   key="8"
                                   onClick={[Function]}
                                   subText=""
-                                  text="28"
+                                  text=" "
                                 >
                                   <td
-                                    className="calendar__day calendar__day--4"
+                                    className=""
                                     onClick={[Function]}
                                   >
                                     <div>
-                                      28
+                                       
                                     </div>
                                   </td>
                                 </Cell>
@@ -2510,13 +2388,16 @@ exports[`<DatePicker/> shallow render test renders with no props 1`] = `
 <div
   className="datepicker"
 >
-  <input
+  <div
     className="datepicker__input"
     onClick={[Function]}
-    readOnly={true}
-    type="text"
-    value=""
-  />
+  >
+    <input
+      readOnly={true}
+      type="text"
+      value=""
+    />
+  </div>
   <div
     className="datepicker__container"
     style={

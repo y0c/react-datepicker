@@ -12,7 +12,7 @@ exports[`<CalendarHead/> should props onPrev, onNext correctly 1`] = `
       onClick={[Function]}
     >
       <i
-        className="icon-navigate_before"
+        className="icon-left"
       />
     </button>
   </div>
@@ -27,7 +27,7 @@ exports[`<CalendarHead/> should props onPrev, onNext correctly 1`] = `
       onClick={[Function]}
     >
       <i
-        className="icon-navigate_next"
+        className="icon-right"
       />
     </button>
   </div>
@@ -45,7 +45,7 @@ exports[`<CalendarHead/> should props prevIcon, nextIcon correctly 1`] = `
       className="calendar__head--button"
     >
       <i
-        className="icon-navigate_before"
+        className="icon-left"
       />
     </button>
   </div>
@@ -59,7 +59,7 @@ exports[`<CalendarHead/> should props prevIcon, nextIcon correctly 1`] = `
       className="calendar__head--button"
     >
       <i
-        className="icon-navigate_next"
+        className="icon-right"
       />
     </button>
   </div>

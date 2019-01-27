@@ -4,8 +4,8 @@ import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
 
-import CalendarContainer, { Props, State } from '../CalendarContainer';
-import { CalendarEnums } from '../../common/@enum';
+import CalendarContainer, { Props, State } from '../src/components/CalendarContainer';
+import { CalendarEnums } from '../src/common/@enum';
 
 describe('<CalendarContainer/>', () => {
   const mockMoment = moment.unix(1543622400);

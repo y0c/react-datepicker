@@ -2,8 +2,8 @@ import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import Calendar, { Props, State } from '../Calendar';
-import CalendarContainer from '../CalendarContainer';
+import Calendar, { Props, State } from '../src/components/Calendar';
+import CalendarContainer from '../src/components/CalendarContainer';
 
 describe('<Calendar/>', () => {
   // 20180501

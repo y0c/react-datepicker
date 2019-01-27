@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import { shallow, ShallowWrapper } from 'enzyme';
-import TableCell from '../TableCell';
+import TableCell from '../src/components/TableCell';
 
 describe('<TableCell/>', () => {
   let component: ShallowWrapper<React.Component>;

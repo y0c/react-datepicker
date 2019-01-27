@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
-import TodayPanel from '../TodayPanel';
+import TodayPanel from '../src/components/TodayPanel';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 describe('<TodayPanel/>', () => {

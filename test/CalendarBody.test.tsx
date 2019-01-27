@@ -2,9 +2,9 @@ import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import DayView from '../DayView';
-import TestCalendarBody from '../CalendarBody';
-import { CalendarEnums } from '../../common/@enum';
+import DayView from '../src/components/DayView';
+import TestCalendarBody from '../src/components/CalendarBody';
+import { CalendarEnums } from '../src/common/@enum';
 
 describe('<CalendarBody />', () => {
   // 20181201

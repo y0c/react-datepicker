@@ -2,8 +2,8 @@ import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import Calendar from '../Calendar';
-import DatePicker, { Props, State } from '../DatePicker';
+import Calendar from '../src/components/Calendar';
+import DatePicker, { Props, State } from '../src/components/DatePicker';
 
 describe('<DatePicker/>', () => {
   const mockMoment = moment.unix(1543622400);
@@ -12,6 +12,13 @@ describe('<DatePicker/>', () => {
 
   const defaultProps = {
     base: mockMoment,
+  };
+
+  const daySelect = (at: number) => {
+    mountComponent
+      .find('td')
+      .at(at)
+      .simulate('click');
   };
 
   describe('shallow render test', () => {
@@ -25,14 +32,14 @@ describe('<DatePicker/>', () => {
     });
 
     it('should input interaction correctly', () => {
-      shallowComponent.find('input').simulate('click');
+      shallowComponent.find('.datepicker__input').simulate('click');
       expect(shallowComponent.find('.datepicker__backdrop')).toHaveLength(1);
       expect(shallowComponent.find(Calendar).props().show).toBeTruthy();
       expect(shallowComponent.state('calendarShow')).toBeTruthy();
     });
 
     it('should hideCalendar correctly', () => {
-      shallowComponent.find('input').simulate('click');
+      shallowComponent.find('.datepicker__input').simulate('click');
       shallowComponent.find('.datepicker__backdrop').simulate('click');
       expect(shallowComponent.find(Calendar).props().show).toBeFalsy();
     });
@@ -48,35 +55,56 @@ describe('<DatePicker/>', () => {
     });
 
     it('should input ref correctly', () => {
-      mountComponent.find('input').simulate('click');
+      mountComponent.find('.datepicker__input').simulate('click');
       expect(mountComponent.state().position.left).not.toEqual('');
       expect(mountComponent.state().position.top).not.toEqual('');
     });
 
     it('should props inputFormat correctly', () => {
-      mountComponent
-        .find('td')
-        .at(6)
-        .simulate('click');
-      expect(mountComponent.find('input').props().value).toEqual('2018/12/01');
+      daySelect(6);
+      expect(mountComponent.state().inputValue).toEqual('2018/12/01');
     });
 
     it('should props onChange correctly', () => {
-      mountComponent
-        .find('td')
-        .at(6)
-        .simulate('click');
-
+      daySelect(6);
       expect(onChange).toHaveProperty('callCount', 1);
       expect(mountComponent.state('calendarShow')).toBeFalsy();
       expect(mountComponent.state('selected')).toHaveLength(1);
     });
 
     it('should props showMonthCnt correctly', () => {
-      mountComponent = mount(<DatePicker {...defaultProps} showMonthCnt={3} />);
+      // 20180501
+      const mockDate = moment.unix(1525132800);
+      mountComponent = mount(<DatePicker {...defaultProps} base={mockDate} showMonthCnt={3} />);
 
       expect(mountComponent).toMatchSnapshot();
       expect(mountComponent.find('.calendar__container')).toHaveLength(3);
+    });
+  });
+
+  describe('custom input test', () => {
+    beforeEach(() => {
+      const customInputComponent = (props: any) => <textarea value={props.value} readOnly />;
+
+      mountComponent = mount(
+        <DatePicker
+          {...defaultProps}
+          inputFormat="YYYY.MM.DD"
+          inputComponent={customInputComponent}
+        />
+      );
+    });
+
+    it('should customInput render correctly', () => {
+      expect(mountComponent.find('.datepicker__input textarea')).toBeTruthy();
+    });
+
+    it('should customInput value correctly', () => {
+      daySelect(6);
+      expect(mountComponent.find('.datepicker__input textarea').props().value).toBeDefined();
+      expect(mountComponent.find('.datepicker__input textarea').props().value).toEqual(
+        '2018.12.01'
+      );
     });
   });
 });

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import * as moment from 'moment';
-import TestDayView from '../DayView';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import TestDayView from '../src/components/DayView';
+import { mount, ReactWrapper } from 'enzyme';
 
 describe('<DayView/>', () => {
   // 20181201

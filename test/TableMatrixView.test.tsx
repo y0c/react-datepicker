@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import { shallow, ShallowWrapper } from 'enzyme';
-import TableMatrixView from '../TableMatrixView';
+import TableMatrixView from '../src/components/TableMatrixView';
 
 describe('<TableMatrixView/>', () => {
   let component: ShallowWrapper<React.Component>;

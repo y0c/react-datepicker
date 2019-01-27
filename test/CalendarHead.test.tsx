@@ -1,7 +1,7 @@
 import { mount, shallow, ShallowWrapper } from 'enzyme';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import CalendarHead from '../CalendarHead';
+import CalendarHead from '../src/components/CalendarHead';
 
 describe('<CalendarHead/>', () => {
   let shallowComponent: ShallowWrapper<React.Component>;
