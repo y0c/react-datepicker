@@ -2,6 +2,7 @@
 .idea
 .DS_Store
 .sass-cache
+.jest.test.result.json
 
 ## Directories
 log/
