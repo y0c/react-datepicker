@@ -10,11 +10,13 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
-    "test": "npx cross-env TZ=Asia/Seoul npx jest",
+    "test": "npx cross-env TZ=Asia/Seoul npx jest --outputFile=.jest.test.result.json --json",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage && codecov",
     "lint": "tslint --project . --config ./tslint.json",
-    "precommit": "npx lint-staged"
+    "precommit": "npx lint-staged",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "{src}/**/*.ts*": [
@@ -27,6 +29,7 @@
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
   "dependencies": {
+    "@storybook/react": "^4.1.11",
     "classnames": "^2.2.6",
     "lodash": "4.17.10",
     "moment": "^2.22.2",
@@ -67,11 +70,17 @@
       "js"
     ],
     "testMatch": [
-      "**/__tests__/*.(ts|tsx|js)"
+      "**/*test.(ts|tsx|js)"
     ]
   },
   "devDependencies": {
-    "typescript": "^3.2.2",
+    "@babel/core": "^7.2.2",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-jest": "^4.1.11",
+    "@storybook/addon-links": "^4.1.11",
+    "@storybook/addons": "^4.1.11",
+    "@storybook/cli": "^4.1.11",
+    "@storybook/react": "^4.1.11",
     "@types/classnames": "^2.2.6",
     "@types/enzyme": "^3.1.15",
     "@types/jest": "^23.3.12",
@@ -80,6 +89,9 @@
     "@types/react": "^16.7.13",
     "@types/react-dom": "^16.0.11",
     "@types/sinon": "^7.0.3",
+    "@types/storybook__react": "^4.0.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "0.1.19",
     "cross-env": "5.2.0",
     "css-loader": "2.1.0",
@@ -104,6 +116,7 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-react": "^3.6.0",
+    "typescript": "^3.2.2",
     "url-loader": "^1.1.2",
     "webpack": "4.28.4",
     "webpack-cli": "3.2.1",
