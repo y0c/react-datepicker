@@ -1,0 +1,15 @@
+.custom-class {
+  background: red;
+  color: white;
+}
+
+.day-test1 {
+  background: blue;
+  color: white; 
+}
+
+.panel {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
