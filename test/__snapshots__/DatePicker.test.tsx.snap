@@ -4,6 +4,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
 <DatePicker
   base={"2018-05-01T00:00:00.000Z"}
   inputFormat="YYYY-MM-DD"
+  locale="en-ca"
   showMonthCnt={3}
 >
   <div
@@ -30,11 +31,12 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
     >
       <Calendar
         base={"2018-05-01T00:00:00.000Z"}
+        locale="en-ca"
         onChange={[Function]}
         selected={Array []}
         show={false}
         showMonthCnt={3}
-        showToday={true}
+        showToday={false}
       >
         <div
           className="calendar"
@@ -57,7 +59,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                 setBase={[Function]}
                 show={false}
                 showMonthCnt={3}
-                showToday={true}
+                showToday={false}
               >
                 <div
                   className="calendar__container"
@@ -98,16 +100,16 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   </CalendarHead>
                   <TodayPanel
                     onClick={[Function]}
-                    show={true}
-                    today="January 27, 2019"
+                    show={false}
+                    today="February 1, 2019"
                   >
                     <div
-                      className="calendar__panel--today calendar__panel--show"
+                      className="calendar__panel--today"
                     >
                       <h2
                         onClick={[Function]}
                       >
-                        January 27, 2019
+                        February 1, 2019
                       </h2>
                     </div>
                   </TodayPanel>
@@ -838,7 +840,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                 setBase={[Function]}
                 show={false}
                 showMonthCnt={3}
-                showToday={true}
+                showToday={false}
               >
                 <div
                   className="calendar__container"
@@ -870,16 +872,16 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   </CalendarHead>
                   <TodayPanel
                     onClick={[Function]}
-                    show={true}
-                    today="January 27, 2019"
+                    show={false}
+                    today="February 1, 2019"
                   >
                     <div
-                      className="calendar__panel--today calendar__panel--show"
+                      className="calendar__panel--today"
                     >
                       <h2
                         onClick={[Function]}
                       >
-                        January 27, 2019
+                        February 1, 2019
                       </h2>
                     </div>
                   </TodayPanel>
@@ -1610,7 +1612,7 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                 setBase={[Function]}
                 show={false}
                 showMonthCnt={3}
-                showToday={true}
+                showToday={false}
               >
                 <div
                   className="calendar__container"
@@ -1651,16 +1653,16 @@ exports[`<DatePicker/> mount test should props showMonthCnt correctly 1`] = `
                   </CalendarHead>
                   <TodayPanel
                     onClick={[Function]}
-                    show={true}
-                    today="January 27, 2019"
+                    show={false}
+                    today="February 1, 2019"
                   >
                     <div
-                      className="calendar__panel--today calendar__panel--show"
+                      className="calendar__panel--today"
                     >
                       <h2
                         onClick={[Function]}
                       >
-                        January 27, 2019
+                        February 1, 2019
                       </h2>
                     </div>
                   </TodayPanel>
@@ -2409,11 +2411,12 @@ exports[`<DatePicker/> shallow render test renders with no props 1`] = `
   >
     <Calendar
       base={"2018-12-01T00:00:00.000Z"}
+      locale="en-ca"
       onChange={[Function]}
       selected={Array []}
       show={false}
       showMonthCnt={1}
-      showToday={true}
+      showToday={false}
     />
   </div>
 </div>

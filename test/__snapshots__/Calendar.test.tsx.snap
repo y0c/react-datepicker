@@ -20,7 +20,7 @@ exports[`<Calendar/> redners with no props 1`] = `
         setBase={[Function]}
         show={true}
         showMonthCnt={1}
-        showToday={true}
+        showToday={false}
       />
     </div>
   </div>

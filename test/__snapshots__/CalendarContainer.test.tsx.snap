@@ -39,7 +39,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
     <TodayPanel
       onClick={[Function]}
       show={true}
-      today="2019년 1월 27일"
+      today="2019년 2월 1일"
     >
       <div
         className="calendar__panel--today calendar__panel--show"
@@ -47,7 +47,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
         <h2
           onClick={[Function]}
         >
-          2019년 1월 27일
+          2019년 2월 1일
         </h2>
       </div>
     </TodayPanel>
@@ -900,7 +900,7 @@ exports[`<CalendarContainer/> prop: show should render correctly 1`] = `
   <TodayPanel
     onClick={[Function]}
     show={true}
-    today="January 27, 2019"
+    today="February 1, 2019"
   />
   <CalendarBody
     current={"2018-12-01T00:00:00.000Z"}
