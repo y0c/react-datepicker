@@ -10,6 +10,7 @@ export interface Props {
   onChange?: (date: moment.Moment) => void;
   inputFormat: string;
   showMonthCnt?: number;
+  locale?: string;
   inputComponent?: (props: InputProps) => JSX.Element;
 }
 
@@ -28,6 +29,7 @@ class DatePicker extends React.Component<Props, State> {
     base: moment(),
     inputFormat: 'YYYY-MM-DD',
     showMonthCnt: 1,
+    locale: 'en-ca',
   };
 
   public state = {
@@ -108,7 +110,7 @@ class DatePicker extends React.Component<Props, State> {
       selected,
       position: { top, left },
     } = this.state;
-    const { showMonthCnt, base } = this.props;
+    const { showMonthCnt, base, locale } = this.props;
 
     return (
       <div className="datepicker">
@@ -122,6 +124,7 @@ class DatePicker extends React.Component<Props, State> {
             onChange={this.handleChange}
             selected={selected}
             showMonthCnt={showMonthCnt}
+            locale={locale}
           />
         </div>
         {calendarShow && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
