@@ -23,8 +23,8 @@ export const getDayMatrix = (year?: number, month?: number): string[][] => {
   );
 };
 
-export const getMonthMatrix = () => {
-  const months = moment.monthsShort();
+export const getMonthMatrix = (locale: string) => {
+  const months = moment.localeData(locale).monthsShort();
   return chunk(months, 3);
 };
 

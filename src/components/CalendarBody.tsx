@@ -21,7 +21,7 @@ class CalendarBody extends React.Component<Props> {
   };
 
   public render() {
-    const { current, onClick } = this.props;
+    const { current, onClick, locale } = this.props;
     const cell = (className: string) => (value: string, key: number) => (
       <TableCell className={className} text={value} onClick={text => onClick(text)} key={key} />
     );
@@ -30,7 +30,7 @@ class CalendarBody extends React.Component<Props> {
         <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell('calendar__year')} />
       ),
       [CalendarEnums.ViewMode.MONTH]: (
-        <TableMatrixView matrix={getMonthMatrix()} cell={cell('calendar__month')} />
+        <TableMatrixView matrix={getMonthMatrix(locale)} cell={cell('calendar__month')} />
       ),
       [CalendarEnums.ViewMode.DAY]: <DayView {...this.props} />,
     };
