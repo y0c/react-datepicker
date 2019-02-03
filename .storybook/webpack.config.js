@@ -6,7 +6,10 @@ module.exports = (baseConfig, env, defaultConfig) => {
   // For example, add typescript loader:
   defaultConfig.module.rules.push({
     test: /\.(ts|tsx)$/,
-    loader: require.resolve('awesome-typescript-loader'),
+    use: [
+      require.resolve('awesome-typescript-loader'),
+      require.resolve('react-docgen-typescript-loader'),
+    ],
   });
 
   defaultConfig.module.rules.push({
