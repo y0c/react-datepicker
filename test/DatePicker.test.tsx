@@ -11,7 +11,9 @@ describe('<DatePicker/>', () => {
   let mountComponent: ReactWrapper<Props, State>;
 
   const defaultProps = {
-    base: mockMoment,
+    calendarProps: {
+      base: mockMoment,
+    },
   };
 
   const daySelect = (at: number) => {
@@ -50,7 +52,13 @@ describe('<DatePicker/>', () => {
     beforeEach(() => {
       onChange = sinon.spy();
       mountComponent = mount(
-        <DatePicker {...defaultProps} onChange={onChange} inputFormat="YYYY/MM/DD" />
+        <DatePicker
+          calendarProps={{
+            ...defaultProps.calendarProps,
+            onChange,
+          }}
+          inputFormat="YYYY/MM/DD"
+        />
       );
     });
 
@@ -75,7 +83,14 @@ describe('<DatePicker/>', () => {
     it('should props showMonthCnt correctly', () => {
       // 20180501
       const mockDate = moment.unix(1525132800);
-      mountComponent = mount(<DatePicker {...defaultProps} base={mockDate} showMonthCnt={3} />);
+      mountComponent = mount(
+        <DatePicker
+          calendarProps={{
+            base: mockDate,
+            showMonthCnt: 3,
+          }}
+        />
+      );
 
       expect(mountComponent).toMatchSnapshot();
       expect(mountComponent.find('.calendar__container')).toHaveLength(3);
