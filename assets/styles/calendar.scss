@@ -6,12 +6,60 @@
 html {
     box-sizing: border-box;
 }
-
-.datepicker {
+.timepicker {
   display: inline-block;
   &__container {
     position: absolute;
     z-index:100;
+  }
+
+  & input {
+    padding: 10px;
+    border: 1px solid $divider-color;
+    outline: none;
+  }
+
+  &__backdrop {
+    position: fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index:80;
+  }
+}
+
+.datepicker {
+  display: inline-block;
+  &__container {
+    &.include__time {
+      padding: 10px;
+      border: 1px solid $divider-color;
+      background: white;
+    }
+    position: absolute;
+    z-index:100;
+    &__tab {
+      & button {
+        border: 1px solid $divider-color;
+        padding: 5px 10px;
+        outline: none;
+        &.active {
+          background: $divider-color;
+          color: white;
+        }
+        &:first-child {
+          border-right: none;
+        }
+      }
+      margin-bottom: 10px;
+    }
+  }
+
+  & input {
+    padding: 10px;
+    border: 1px solid $divider-color;
+    outline: none;
   }
 
   &__backdrop {
@@ -75,6 +123,7 @@ html {
 
 .calendar{
   display:inline-block;
+  background: white;
   font-size: $base-font-size;
   *, *:before, *:after {
       box-sizing: border-box;
