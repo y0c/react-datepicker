@@ -4,7 +4,9 @@ import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
 
 export interface Props extends ContainerProps {
+  /** Calendar Initial Date Parameters */
   base: moment.Moment;
+  /** Number of months to show at once */
   showMonthCnt: number;
 }
 
@@ -12,11 +14,14 @@ export interface State {
   base: moment.Moment;
 }
 
+/**
+ * Wrapping Calendar Container Component for showMonthCnt
+ */
 class Calendar extends React.Component<Props, State> {
   public static defaultProps = {
     base: moment(),
     showMonthCnt: 1,
-    showToday: true,
+    showToday: false,
   };
 
   constructor(props: Props) {

@@ -7,9 +7,13 @@ import TableCell from './TableCell';
 import TableMatrixView from './TableMatrixView';
 
 interface CalendarBodyProps {
+  /** Calendar viewMode(Year, Month, Day) */
   viewMode: CalendarEnums.ViewMode;
+  /** Calendar current Date */
   current: moment.Moment;
+  /** DayClick Event */
   onClick: (value: string) => void;
+  /** Locale to use */
   locale: string;
 }
 type Props = DayViewProps & CalendarBodyProps;

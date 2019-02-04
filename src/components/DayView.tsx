@@ -7,11 +7,17 @@ import TableMatrixView from './TableMatrixView';
 import { getDayMatrix, isDayEqual, isDayRange } from '../utils/DateUtil';
 
 export interface Props {
+  /** Selected days to show in calendar */
   selected?: moment.Moment[];
+  /** Start day to show in calendar */
   startDay?: moment.Moment;
+  /** End day to show in calendar */
   endDay?: moment.Moment;
+  /** Calendar day click Event */
   onClick?: (value: string) => void;
+  /** Custom day class to show in day */
   customDayClass?: (date: moment.Moment) => string | string[];
+  /** Custom day text to show in day */
   customDayText?: (date: moment.Moment) => string;
 }
 

@@ -8,18 +8,28 @@ import { Props as DayViewProps } from './DayView';
 import TodayPanel from './TodayPanel';
 
 interface CalendarContainerProps {
+  /** Locale to use */
   locale?: string;
+  /** Calendar Show or Hide */
   show?: boolean;
+  /** PrevIcon Show or Hide */
   prevIcon?: boolean;
+  /** NextIcon Show or Hide */
   nextIcon?: boolean;
+  /** Event for Calendar day click */
   onChange?: (date: moment.Moment) => void;
+  /** TodayPanel show or hide */
   showToday?: boolean;
 }
 
 interface PrivateProps {
+  /** CalendarContainer base prop */
   current: moment.Moment;
+  /** Default Date parameter in calendar, which is the parent component */
   base: moment.Moment;
+  /** Number of months to show at once */
   showMonthCnt: number;
+  /** Set Calendar initial Date  */
   setBase: (base: moment.Moment) => void;
 }
 
@@ -35,7 +45,7 @@ class CalendarContainer extends React.Component<Props, State> {
     current: moment(),
     show: true,
     showMonthCnt: 1,
-    showToday: true,
+    showToday: false,
     locale: 'en-ca',
   };
 
@@ -151,13 +161,15 @@ class CalendarContainer extends React.Component<Props, State> {
           onTitleClick={this.handleTitleClick}
           title={this.getHeaderTitle()}
         />
-        <TodayPanel
-          today={moment()
-            .locale(locale)
-            .format('LL')}
-          onClick={this.handleToday}
-          show={showToday}
-        />
+        {showToday && (
+          <TodayPanel
+            today={moment()
+              .locale(locale)
+              .format('LL')}
+            onClick={this.handleToday}
+            show={showToday}
+          />
+        )}
         <CalendarBody
           viewMode={this.state.viewMode}
           current={current}
