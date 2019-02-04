@@ -1,17 +1,25 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import Calendar from './Calendar';
+import Calendar, { Props as ICalendarProps } from './Calendar';
+import { Merge } from '../utils/tsUtils';
 
 interface InputProps {
   value: string;
 }
+
 export interface Props {
-  base: moment.Moment;
-  onChange?: (date: moment.Moment) => void;
+  /** To display input format (moment format) */
   inputFormat: string;
-  showMonthCnt?: number;
-  locale?: string;
+  /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
+  /** Props for Calendar component */
+  calendarProps: Merge<
+    ICalendarProps,
+    {
+      base?: moment.Moment;
+      showMonthCnt?: number;
+    }
+  >;
 }
 
 export interface State {
@@ -26,10 +34,12 @@ export interface State {
 
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
-    base: moment(),
+    calendarProps: {
+      base: moment(),
+      showMonthCnt: 1,
+      locale: 'en-ca',
+    },
     inputFormat: 'YYYY-MM-DD',
-    showMonthCnt: 1,
-    locale: 'en-ca',
   };
 
   public state = {
@@ -71,7 +81,10 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public handleChange = (date: moment.Moment) => {
-    const { onChange, inputFormat } = this.props;
+    const {
+      calendarProps: { onChange },
+      inputFormat,
+    } = this.props;
 
     if (onChange) {
       onChange(date);
@@ -110,7 +123,6 @@ class DatePicker extends React.Component<Props, State> {
       selected,
       position: { top, left },
     } = this.state;
-    const { showMonthCnt, base, locale } = this.props;
 
     return (
       <div className="datepicker">
@@ -119,12 +131,10 @@ class DatePicker extends React.Component<Props, State> {
         </div>
         <div className="datepicker__container" style={{ top, left }}>
           <Calendar
-            base={base}
+            {...this.props.calendarProps}
             show={calendarShow}
             onChange={this.handleChange}
             selected={selected}
-            showMonthCnt={showMonthCnt}
-            locale={locale}
           />
         </div>
         {calendarShow && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
