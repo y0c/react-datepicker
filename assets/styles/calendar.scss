@@ -74,6 +74,7 @@ html {
 }
 
 .calendar{
+  display:inline-block;
   font-size: $base-font-size;
   *, *:before, *:after {
       box-sizing: border-box;
