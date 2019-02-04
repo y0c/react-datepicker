@@ -2,6 +2,9 @@ import * as React from 'react';
 import TimeInput from './TimeInput';
 
 interface Props {
+  hour?: number;
+  minute?: number;
+  type?: string;
   onChange?: (hour: number, minute: number, type: string) => void;
 }
 
@@ -33,9 +36,9 @@ const TimeType: React.FunctionComponent<TypeProps> = ({ label, value, checkValue
 );
 class TimeContainer extends React.Component<Props, State> {
   public state = {
-    hour: 0,
-    minute: 0,
-    type: 'AM',
+    hour: this.props.hour || 1,
+    minute: this.props.minute || 0,
+    type: this.props.type || 'AM',
   };
 
   public handleChange = (item: string) => (e: React.FormEvent<HTMLInputElement>) => {
@@ -52,7 +55,7 @@ class TimeContainer extends React.Component<Props, State> {
     this.setState(
       {
         ...this.state,
-        hour: 0,
+        hour: 1,
         type: e.currentTarget.value,
       },
       () => this.invokeOnChange()
@@ -60,33 +63,28 @@ class TimeContainer extends React.Component<Props, State> {
   };
 
   public handleUp = (item: string) => () => {
-    const { type } = this.state;
-    let max: number;
+    const min = item === 'hour' ? 1 : 0;
+    const max = item === 'hour' ? 12 : 60;
 
-    if (item === 'hour') {
-      max = type === 'ALL' ? 24 : 12;
-    } else {
-      max = 60;
-    }
     const value = this.state[item];
 
     this.setState(
       {
         ...this.state,
-        [item]: value + 1 > max ? max : value + 1,
+        [item]: value + 1 > max ? min : value + 1,
       },
       () => this.invokeOnChange()
     );
   };
 
   public handleDown = (item: string) => () => {
-    const min = 0;
-    const { type } = this.state;
+    const min = item === 'hour' ? 1 : 0;
+    const max = item === 'hour' ? 12 : 60;
     const value = this.state[item];
     this.setState(
       {
         ...this.state,
-        [item]: value - 1 < min ? min : value - 1,
+        [item]: value - 1 < min ? max : value - 1,
       },
       () => this.invokeOnChange()
     );
@@ -120,7 +118,6 @@ class TimeContainer extends React.Component<Props, State> {
         <div className="time__container__type">
           <TimeType value="AM" checkValue={type} label="AM" onChange={this.handleTypeChange} />
           <TimeType value="PM" checkValue={type} label="PM" onChange={this.handleTypeChange} />
-          <TimeType value="ALL" checkValue={type} label="AM/PM" onChange={this.handleTypeChange} />
         </div>
       </div>
     );
