@@ -1,15 +1,26 @@
 import * as moment from 'moment';
 import * as React from 'react';
+import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
+import TimeContainer from './TimeContainer';
 import { Merge } from '../utils/tsUtils';
+import { lpad } from '../utils/StringUtil';
 
 interface InputProps {
   value: string;
+}
+export enum TabValue {
+  DATE,
+  TIME,
 }
 
 export interface Props {
   /** To display input format (moment format) */
   inputFormat: string;
+  /** include TimePicker true/false */
+  includeTime: boolean;
+  /** Initial display date */
+  initialDate: Date;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** Props for Calendar component */
@@ -23,8 +34,11 @@ export interface Props {
 }
 
 export interface State {
-  inputValue: string;
-  calendarShow: boolean;
+  show: boolean;
+  tabValue: TabValue;
+  value: moment.Moment;
+  dateValue?: string;
+  timeValue?: string;
   selected: moment.Moment[];
   position: {
     top: string;
@@ -34,6 +48,8 @@ export interface State {
 
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
+    includeTime: false,
+    initialDate: new Date(),
     calendarProps: {
       base: moment(),
       showMonthCnt: 1,
@@ -42,14 +58,16 @@ class DatePicker extends React.Component<Props, State> {
     inputFormat: 'YYYY-MM-DD',
   };
 
-  public state = {
-    calendarShow: false,
-    inputValue: '',
+  public state: State = {
+    show: false,
+    tabValue: TabValue.DATE,
+    value: moment(this.props.initialDate),
+    timeValue: '',
     position: {
       left: '',
       top: '',
     },
-    selected: [],
+    selected: [moment(this.props.initialDate)],
   };
 
   public inputRef: React.RefObject<HTMLDivElement>;
@@ -72,7 +90,7 @@ class DatePicker extends React.Component<Props, State> {
     }
 
     this.setState({
-      calendarShow: true,
+      show: true,
       position: {
         left: `${left}px`,
         top: `${top + height + 5}px`,
@@ -80,10 +98,9 @@ class DatePicker extends React.Component<Props, State> {
     });
   };
 
-  public handleChange = (date: moment.Moment) => {
+  public handleDateChange = (date: moment.Moment) => {
     const {
       calendarProps: { onChange },
-      inputFormat,
     } = this.props;
 
     if (onChange) {
@@ -91,24 +108,56 @@ class DatePicker extends React.Component<Props, State> {
     }
 
     this.setState({
-      calendarShow: false,
-      inputValue: date.format(inputFormat),
+      ...this.state,
+      show: false,
+      value: date,
       selected: [date],
+    });
+  };
+
+  public handleTimeChange = (hour: number, minute: number, type: string) => {
+    const { onChange } = this.props.calendarProps;
+    let date = this.state.value;
+    let updateHour = hour;
+    if (hour === 12) {
+      updateHour = type === 'AM' ? 0 : 12;
+    } else {
+      updateHour = type === 'AM' ? hour : hour + 12;
+    }
+    date = date
+      .clone()
+      .hour(updateHour)
+      .minute(minute);
+
+    if (onChange) {
+      onChange(date);
+    }
+    this.setState({
+      ...this.state,
+      value: date,
+      timeValue: `${lpad(hour.toString(), 2)}:${lpad(minute.toString(), 2)} ${type}`,
     });
   };
 
   public hideCalendar = (e: React.MouseEvent) => {
     this.setState({
       ...this.state,
-      calendarShow: false,
+      show: false,
     });
   };
 
   public renderInputComponent = (): JSX.Element => {
-    const { inputComponent } = this.props;
-    const { inputValue } = this.state;
+    const { inputComponent, inputFormat, includeTime, calendarProps } = this.props;
+    const { value } = this.state;
+    const { locale = 'en-ca' } = calendarProps;
 
     let component: JSX.Element;
+    let inputValue: string;
+    if (!includeTime) {
+      inputValue = value.format(inputFormat);
+    } else {
+      inputValue = value.locale(locale).format(`${inputFormat} hh:mm A`);
+    }
     if (inputComponent) {
       component = inputComponent({ value: inputValue });
     } else {
@@ -117,27 +166,98 @@ class DatePicker extends React.Component<Props, State> {
     return component;
   };
 
+  public handleTab = (val: TabValue) => () => {
+    this.setState({
+      ...this.state,
+      tabValue: val,
+    });
+  };
+
+  public renderTabMenu = (): JSX.Element | null => {
+    const { includeTime } = this.props;
+    const { tabValue } = this.state;
+
+    const renderButton = (type: TabValue, label: string) => (
+      <button
+        className={classNames({
+          active: tabValue === type,
+        })}
+        onClick={this.handleTab(type)}
+      >
+        {label}
+      </button>
+    );
+    if (includeTime) {
+      return (
+        <div className="datepicker__container__tab">
+          {renderButton(TabValue.DATE, 'DATE')}
+          {renderButton(TabValue.TIME, 'TIME')}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  public renderCalendar = (): JSX.Element | null => {
+    const { tabValue, selected } = this.state;
+    if (tabValue === TabValue.DATE) {
+      return (
+        <Calendar
+          {...this.props.calendarProps}
+          onChange={this.handleDateChange}
+          selected={selected}
+        />
+      );
+    }
+    return null;
+  };
+
+  public renderTime = (): JSX.Element | null => {
+    const { tabValue, value } = this.state;
+    let hour = value.hour();
+
+    if (hour === 0) {
+      hour = 12;
+    } else if (hour > 12) {
+      hour = hour - 12;
+    }
+    if (tabValue === TabValue.TIME) {
+      return (
+        <TimeContainer
+          hour={hour}
+          minute={value.minute()}
+          type={value.format('A')}
+          onChange={this.handleTimeChange}
+        />
+      );
+    }
+    return null;
+  };
   public render() {
     const {
-      calendarShow,
-      selected,
+      show,
       position: { top, left },
     } = this.state;
+    const { includeTime } = this.props;
 
     return (
       <div className="datepicker">
         <div className="datepicker__input" onClick={this.handleCalendar} ref={this.inputRef}>
           {this.renderInputComponent()}
         </div>
-        <div className="datepicker__container" style={{ top, left }}>
-          <Calendar
-            {...this.props.calendarProps}
-            show={calendarShow}
-            onChange={this.handleChange}
-            selected={selected}
-          />
-        </div>
-        {calendarShow && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
+        {show && (
+          <div
+            className={classNames('datepicker__container', {
+              include__time: includeTime,
+            })}
+            style={{ top, left }}
+          >
+            {this.renderTabMenu()}
+            {this.renderCalendar()}
+            {this.renderTime()}
+          </div>
+        )}
+        {show && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
       </div>
     );
   }

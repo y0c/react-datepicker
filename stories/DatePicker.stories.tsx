@@ -15,6 +15,9 @@ storiesOf('DatePicker', module)
       />
     );
   })
+  .add('includeTime', () => {
+    return <DatePicker includeTime />;
+  })
   .add('showMonthCnt', () => {
     return (
       <DatePicker
