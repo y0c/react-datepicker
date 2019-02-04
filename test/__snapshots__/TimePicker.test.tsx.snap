@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TimePicker/> shallow render test render with no props 1`] = `
+<div
+  className="timepicker"
+>
+  <div
+    className="timepicker__input"
+    onClick={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      type="text"
+      value="01:00 AM"
+    />
+  </div>
+  <div
+    className="timepicker__container"
+    style={
+      Object {
+        "display": "none",
+        "left": "",
+        "top": "",
+      }
+    }
+  >
+    <TimeContainer
+      onChange={[Function]}
+    />
+  </div>
+</div>
+`;
