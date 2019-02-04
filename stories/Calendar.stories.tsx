@@ -29,7 +29,7 @@ storiesOf('Calendar', module)
     );
   })
   .add('todayPanel', () => {
-    return <Calendar />;
+    return <Calendar showToday={true} />;
   })
   .add('showMonthCnt', () => {
     const showMontCnt = number('showMonthCnt', 2);
