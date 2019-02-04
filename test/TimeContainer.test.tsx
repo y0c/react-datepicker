@@ -27,12 +27,19 @@ describe('<TimeContainer/>', () => {
     mountComponent = mount(<TimeContainer onChange={onChange} />);
   });
 
-  it('should hour up & down correctly', () => {
+  it('should hour up correctly', () => {
     btnClick('up', 0);
+    expect(mountComponent.state('hour')).toEqual(2);
+
+    range(11).forEach(() => btnClick('up', 0));
     expect(mountComponent.state('hour')).toEqual(1);
 
     btnClick('down', 0);
-    expect(mountComponent.state('hour')).toEqual(0);
+    expect(mountComponent.state('hour')).toEqual(12);
+
+    // if min -1 -> max value
+    range(12).forEach(() => btnClick('down', 0));
+    expect(mountComponent.state('hour')).toEqual(12);
   });
 
   it('should minute up & down correctly', () => {
@@ -41,6 +48,10 @@ describe('<TimeContainer/>', () => {
 
     btnClick('down', 1);
     expect(mountComponent.state('minute')).toEqual(0);
+
+    // if min -1 -> max value
+    btnClick('down', 1);
+    expect(mountComponent.state('minute')).toEqual(60);
   });
 
   it('should timetype change correctly', () => {
@@ -49,24 +60,6 @@ describe('<TimeContainer/>', () => {
 
     radioChange(1);
     expect(mountComponent.state('type')).toEqual('PM');
-
-    radioChange(2);
-    expect(mountComponent.state('type')).toEqual('ALL');
-  });
-
-  it('should hour max operating correctly accroding to type', () => {
-    mountComponent.setState({
-      type: 'PM',
-    });
-    range(13).forEach(() => btnClick('up', 0));
-    expect(mountComponent.state('hour')).toEqual(12);
-
-    mountComponent.setState({
-      type: 'ALL',
-      hour: 0,
-    });
-    range(14).forEach(() => btnClick('up', 0));
-    expect(mountComponent.state('hour')).toEqual(14);
   });
 
   it('should onChange called correctly', () => {
