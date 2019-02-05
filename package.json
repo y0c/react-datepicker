@@ -14,7 +14,6 @@
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage && codecov",
     "lint": "tslint --project . --config ./tslint.json",
-    "precommit": "npx lint-staged",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
