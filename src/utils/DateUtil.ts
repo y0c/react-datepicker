@@ -23,6 +23,26 @@ export const getDayMatrix = (year?: number, month?: number): string[][] => {
   );
 };
 
+export const getMomentHour = (hour: number, type: string) => {
+  let updateHour = hour;
+  if (hour === 12) {
+    updateHour = type === 'AM' ? 0 : 12;
+  } else {
+    updateHour = type === 'AM' ? hour : hour + 12;
+  }
+  return updateHour;
+};
+
+export const getNormalHour = (hour: number) => {
+  let updateHour = hour;
+  if (updateHour === 0) {
+    updateHour = 12;
+  } else if (hour > 12) {
+    updateHour = hour - 12;
+  }
+  return updateHour;
+};
+
 export const getMonthMatrix = (locale: string) => {
   const months = moment.localeData(locale).monthsShort();
   return chunk(months, 3);
