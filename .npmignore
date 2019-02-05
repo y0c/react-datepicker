@@ -22,3 +22,5 @@ test
 test-*.js
 webpack*.js
 yarn-error.log
+assets/images
+dist

@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "icons";
+    src: url("./icons.eot?780225adb437b5067c7a18cf39817e5c?#iefix") format("embedded-opentype"),
+url("./icons.woff2?780225adb437b5067c7a18cf39817e5c") format("woff2"),
+url("./icons.woff?780225adb437b5067c7a18cf39817e5c") format("woff"),
+url("./icons.ttf?780225adb437b5067c7a18cf39817e5c") format("truetype"),
+url("./icons.svg?780225adb437b5067c7a18cf39817e5c#icons") format("svg");
+}
+
+i[class^="icon-"]:before, i[class*=" icon-"]:before {
+    font-family: icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-calendar:before {
+    content: "\f101";
+}
+.icon-down:before {
+    content: "\f102";
+}
+.icon-download-arrow:before {
+    content: "\f103";
+}
+.icon-left-arrow:before {
+    content: "\f104";
+}
+.icon-right-arrow:before {
+    content: "\f105";
+}
+.icon-time:before {
+    content: "\f106";
+}
+.icon-up-arrow:before {
+    content: "\f107";
+}
+.icon-up:before {
+    content: "\f108";
+}
