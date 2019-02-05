@@ -3,8 +3,9 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
-import { Merge } from '../utils/tsUtils';
+import { Omit, Merge } from '../utils/tsUtils';
 import { lpad } from '../utils/StringUtil';
+import { getNormalHour, getMomentHour } from '../utils/DateUtil';
 
 interface InputProps {
   value: string;
@@ -23,11 +24,12 @@ export interface Props {
   initialDate: Date;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
+  /** DatePicker value change Event */
+  onChange?: (date: moment.Moment) => void;
   /** Props for Calendar component */
   calendarProps: Merge<
-    ICalendarProps,
+    Omit<ICalendarProps, 'base' | 'onChange' | 'selected'>,
     {
-      base?: moment.Moment;
       showMonthCnt?: number;
     }
   >;
@@ -37,8 +39,6 @@ export interface State {
   show: boolean;
   tabValue: TabValue;
   value: moment.Moment;
-  dateValue?: string;
-  timeValue?: string;
   selected: moment.Moment[];
   position: {
     top: string;
@@ -51,7 +51,6 @@ class DatePicker extends React.Component<Props, State> {
     includeTime: false,
     initialDate: new Date(),
     calendarProps: {
-      base: moment(),
       showMonthCnt: 1,
       locale: 'en-ca',
     },
@@ -62,7 +61,6 @@ class DatePicker extends React.Component<Props, State> {
     show: false,
     tabValue: TabValue.DATE,
     value: moment(this.props.initialDate),
-    timeValue: '',
     position: {
       left: '',
       top: '',
@@ -99,9 +97,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public handleDateChange = (date: moment.Moment) => {
-    const {
-      calendarProps: { onChange },
-    } = this.props;
+    const { onChange } = this.props;
 
     if (onChange) {
       onChange(date);
@@ -116,17 +112,11 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public handleTimeChange = (hour: number, minute: number, type: string) => {
-    const { onChange } = this.props.calendarProps;
+    const { onChange } = this.props;
     let date = this.state.value;
-    let updateHour = hour;
-    if (hour === 12) {
-      updateHour = type === 'AM' ? 0 : 12;
-    } else {
-      updateHour = type === 'AM' ? hour : hour + 12;
-    }
     date = date
       .clone()
-      .hour(updateHour)
+      .hour(getMomentHour(hour, type))
       .minute(minute);
 
     if (onChange) {
@@ -135,7 +125,6 @@ class DatePicker extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       value: date,
-      timeValue: `${lpad(hour.toString(), 2)}:${lpad(minute.toString(), 2)} ${type}`,
     });
   };
 
@@ -200,11 +189,12 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderCalendar = (): JSX.Element | null => {
-    const { tabValue, selected } = this.state;
+    const { tabValue, selected, value } = this.state;
     if (tabValue === TabValue.DATE) {
       return (
         <Calendar
           {...this.props.calendarProps}
+          base={value}
           onChange={this.handleDateChange}
           selected={selected}
         />
@@ -215,13 +205,8 @@ class DatePicker extends React.Component<Props, State> {
 
   public renderTime = (): JSX.Element | null => {
     const { tabValue, value } = this.state;
-    let hour = value.hour();
+    const hour = getNormalHour(value.hour());
 
-    if (hour === 0) {
-      hour = 12;
-    } else if (hour > 12) {
-      hour = hour - 12;
-    }
     if (tabValue === TabValue.TIME) {
       return (
         <TimeContainer

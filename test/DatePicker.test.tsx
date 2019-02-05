@@ -7,14 +7,11 @@ import Calendar from '../src/components/Calendar';
 import DatePicker, { Props, State, TabValue } from '../src/components/DatePicker';
 
 describe('<DatePicker/>', () => {
-  const mockMoment = moment.unix(1543622400);
   let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
   let mountComponent: ReactWrapper<Props, State>;
 
   const defaultProps = {
-    calendarProps: {
-      base: mockMoment,
-    },
+    initialDate: new Date(2018, 11, 1),
   };
 
   const daySelect = (at: number) => {
@@ -31,7 +28,6 @@ describe('<DatePicker/>', () => {
 
     it('renders with no props', () => {
       expect(shallowComponent).toBeTruthy();
-      // expect(shallowComponent).toMatchSnapshot();
     });
 
     it('should input interaction correctly', () => {
@@ -53,13 +49,7 @@ describe('<DatePicker/>', () => {
     beforeEach(() => {
       onChange = sinon.spy();
       mountComponent = mount(
-        <DatePicker
-          calendarProps={{
-            ...defaultProps.calendarProps,
-            onChange,
-          }}
-          inputFormat="YYYY/MM/DD"
-        />
+        <DatePicker {...defaultProps} onChange={onChange} inputFormat="YYYY/MM/DD" />
       );
       mountComponent.setState({
         show: true,
@@ -86,11 +76,11 @@ describe('<DatePicker/>', () => {
 
     it('should props showMonthCnt correctly', () => {
       // 20180501
-      const mockDate = moment.unix(1525132800);
+      const mockDate = new Date(2018, 5, 1);
       mountComponent = mount(
         <DatePicker
+          initialDate={mockDate}
           calendarProps={{
-            base: mockDate,
             showMonthCnt: 3,
           }}
         />
@@ -107,8 +97,8 @@ describe('<DatePicker/>', () => {
     beforeEach(() => {
       mountComponent = mount(
         <DatePicker
+          {...defaultProps}
           calendarProps={{
-            base: mockMoment,
             locale: 'en-ca',
           }}
           includeTime
@@ -207,14 +197,7 @@ describe('<DatePicker/>', () => {
 
       it('should fire onChange Event', () => {
         const onChange = sinon.spy();
-        mountComponent = mount(
-          <DatePicker
-            calendarProps={{
-              onChange,
-            }}
-            includeTime
-          />
-        );
+        mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} includeTime />);
         mountComponent.setState({
           show: true,
           tabValue: TabValue.TIME,
