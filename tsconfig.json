@@ -7,7 +7,7 @@
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./examples"],
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
