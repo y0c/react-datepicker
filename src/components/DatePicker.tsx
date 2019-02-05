@@ -177,21 +177,22 @@ class DatePicker extends React.Component<Props, State> {
     const { includeTime } = this.props;
     const { tabValue } = this.state;
 
-    const renderButton = (type: TabValue, label: string) => (
+    const renderButton = (type: TabValue, label: string, icon: string) => (
       <button
         className={classNames({
           active: tabValue === type,
         })}
         onClick={this.handleTab(type)}
       >
+        <i className={icon} />
         {label}
       </button>
     );
     if (includeTime) {
       return (
         <div className="datepicker__container__tab">
-          {renderButton(TabValue.DATE, 'DATE')}
-          {renderButton(TabValue.TIME, 'TIME')}
+          {renderButton(TabValue.DATE, 'DATE', 'icon-calendar')}
+          {renderButton(TabValue.TIME, 'TIME', 'icon-time')}
         </div>
       );
     }
