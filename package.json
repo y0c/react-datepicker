@@ -4,8 +4,8 @@
   "description": "React Datepicker Component",
   "author": "y0c",
   "license": "MIT",
-  "main": "lib/src/index.js",
-  "types": "lib/src/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/y0c/react-datepicker",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
