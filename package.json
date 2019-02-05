@@ -9,7 +9,7 @@
   "homepage": "https://github.com/y0c/react-datepicker",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
-    "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+    "build": "npx tsc",
     "test": "npx cross-env TZ=Asia/Seoul npx jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage && codecov",

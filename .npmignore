@@ -10,3 +10,15 @@ webpack.config.dev.js
 webpack.config.js
 yarn-error.log
 yarn.lock
+.storybook
+.vscode
+coverage
+examples
+stories
+storybook-static
+test
+.jest.test.result.json
+.travis.yml
+test-*.js
+webpack*.js
+yarn-error.log
