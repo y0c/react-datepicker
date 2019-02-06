@@ -180,8 +180,8 @@ class DatePicker extends React.Component<Props, State> {
     if (includeTime) {
       return (
         <div className="datepicker__container__tab">
-          {renderButton(TabValue.DATE, 'DATE', 'icon-calendar')}
-          {renderButton(TabValue.TIME, 'TIME', 'icon-time')}
+          {renderButton(TabValue.DATE, 'DATE', 'icon icon-calendar')}
+          {renderButton(TabValue.TIME, 'TIME', 'icon icon-time')}
         </div>
       );
     }

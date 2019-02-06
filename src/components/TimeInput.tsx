@@ -12,7 +12,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, val
     <div className="time-input">
       <div className="time-input__up">
         <button onClick={onUp}>
-          <i className="icon-up1" />
+          <i className="icon icon-up" />
         </button>
       </div>
       <div className="time-input__text">
@@ -20,7 +20,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, val
       </div>
       <div className="time-input__down">
         <button onClick={onDown}>
-          <i className="icon-down1" />
+          <i className="icon icon-down" />
         </button>
       </div>
     </div>
