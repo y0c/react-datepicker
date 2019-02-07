@@ -77,14 +77,7 @@ describe('<DatePicker/>', () => {
     it('should props showMonthCnt correctly', () => {
       // 20180501
       const mockDate = new Date(2018, 5, 1);
-      mountComponent = mount(
-        <DatePicker
-          initialDate={mockDate}
-          calendarProps={{
-            showMonthCnt: 3,
-          }}
-        />
-      );
+      mountComponent = mount(<DatePicker initialDate={mockDate} showMonthCnt={3} />);
       mountComponent.setState({
         show: true,
       });
@@ -95,15 +88,7 @@ describe('<DatePicker/>', () => {
 
   describe('include time', () => {
     beforeEach(() => {
-      mountComponent = mount(
-        <DatePicker
-          {...defaultProps}
-          calendarProps={{
-            locale: 'en-ca',
-          }}
-          includeTime
-        />
-      );
+      mountComponent = mount(<DatePicker {...defaultProps} locale="en-ca" includeTime />);
       mountComponent.setState({
         show: true,
       });
@@ -205,6 +190,52 @@ describe('<DatePicker/>', () => {
         handleClick('up', 0);
         expect(onChange).toHaveProperty('callCount', 1);
       });
+    });
+  });
+
+  describe('clear', () => {
+    beforeEach(() => {
+      mountComponent = mount(<DatePicker {...defaultProps} clear />);
+    });
+
+    it('should clear button render correctly', () => {
+      expect(mountComponent.find('.icon-clear')).toHaveLength(1);
+    });
+
+    it('should clear click state change correctly', () => {
+      mountComponent.find('.icon-clear').simulate('click');
+      expect(mountComponent.state('inputValue')).toEqual('');
+    });
+
+    it('should clear click onChange fired!', () => {
+      const onChange = sinon.spy();
+      mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} clear />);
+      mountComponent.find('.icon-clear').simulate('click');
+      expect(onChange).toHaveProperty('callCount', 1);
+    });
+  });
+
+  describe('input change', () => {
+    it('should input change correctly', () => {
+      const onChange = sinon.spy();
+      mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} />);
+      mountComponent.find('.picker-input__text').simulate('change');
+      expect(onChange).toHaveProperty('callCount', 1);
+      mountComponent = mount(<DatePicker {...defaultProps} />);
+      mountComponent.find('.picker-input__text').simulate('change');
+    });
+  });
+
+  describe('input props', () => {
+    it('should input disabled do not run handleCalendar', () => {
+      mountComponent = mount(<DatePicker {...defaultProps} disabled />);
+      mountComponent.find('.picker-input__text').simulate('click');
+      expect(mountComponent.state('show')).toBeFalsy();
+    });
+
+    it('should showDefaultIcon correctly', () => {
+      mountComponent = mount(<DatePicker {...defaultProps} showDefaultIcon />);
+      expect(mountComponent.find('.icon-calendar')).toHaveLength(1);
     });
   });
 
