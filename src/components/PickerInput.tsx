@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface Props {
+export interface Props {
   value?: string;
   readOnly?: boolean;
   disabled?: boolean;
@@ -8,24 +8,31 @@ interface Props {
   icon?: JSX.Element;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onClear?: () => void;
+  autoFocus?: boolean;
 }
 
-interface State {
-  value: string;
-}
-
-class PickerInput extends React.Component<Props, State> {
-  public state = {
-    value: this.props.value || '',
-  };
-  private inputRef: React.RefObject<HTMLInputElement>;
+class PickerInput extends React.Component<Props> {
+  public inputRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
     super(props);
     this.inputRef = React.createRef<HTMLInputElement>();
   }
 
-  public componentDidMount() {}
+  public componentDidMount() {
+    const { current } = this.inputRef;
+    const { autoFocus } = this.props;
+
+    if (current && autoFocus) {
+      current.focus();
+    }
+  }
+
+  public handleClear = (e: React.MouseEvent) => {
+    const { onClear } = this.props;
+    if (onClear) onClear();
+    e.stopPropagation();
+  };
 
   public render() {
     const {
@@ -48,9 +55,12 @@ class PickerInput extends React.Component<Props, State> {
           readOnly={readOnly}
           disabled={disabled}
           onChange={onChange}
+          style={{
+            paddingLeft: icon ? '32px' : '10px',
+          }}
         />
         {clear && (
-          <span className="picker-input__clear" onClick={onClear}>
+          <span className="picker-input__clear" onClick={this.handleClear}>
             <i className="icon icon-clear" />
           </span>
         )}
