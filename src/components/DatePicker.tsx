@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
-import { Omit, Merge } from '../utils/tsUtils';
+import { Omit, Merge } from '../utils/TypeUtil';
 import { getNormalHour, getMomentHour } from '../utils/DateUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 
