@@ -8,9 +8,9 @@ exports[`<TimePicker/> shallow render test render with no props 1`] = `
     className="timepicker__input"
     onClick={[Function]}
   >
-    <input
+    <PickerInput
       onChange={[Function]}
-      type="text"
+      onClear={[Function]}
       value="01:00 AM"
     />
   </div>

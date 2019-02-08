@@ -61,4 +61,25 @@ describe('<TimePicker/>', () => {
       });
     });
   });
+
+  describe('input props', () => {
+    let mountComponent: ReactWrapper;
+    beforeEach(() => {
+      mountComponent = mount(<TimePicker readOnly disabled clear showDefaultIcon />);
+    });
+
+    it('should props disabled not run handleTimeContainer', () => {
+      mountComponent.find('.picker-input__text').simulate('click');
+      expect(mountComponent.state('show')).toBeFalsy();
+    });
+
+    it('should clear button click inputValue empty', () => {
+      mountComponent.find('.icon-clear').simulate('click');
+      expect(mountComponent.state('inputValue')).toEqual('');
+    });
+
+    it('should props showDefaultIcon correctly', () => {
+      expect(mountComponent.find('.icon-time')).toHaveLength(1);
+    });
+  });
 });

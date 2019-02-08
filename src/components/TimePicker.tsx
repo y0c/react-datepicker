@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
+import { Omit } from '../utils/TypeUtil';
+import PickerInput, { Props as InputProps } from './PickerInput';
 
-interface Props {
+interface TimePickerProps {
   /** Timepicker change event */
   onChange?: (hour: number, minute: number, type: string) => void;
+  /** Timepicker default time icon show or hide */
+  showDefaultIcon?: boolean;
 }
 
 interface State {
@@ -19,6 +23,7 @@ interface State {
 const inputFormat = (hour: number, minute: number, type: string) =>
   `${lpad(hour.toString(), 2)}:${lpad(minute.toString(), 2)} ${type}`;
 
+type Props = TimePickerProps & Omit<InputProps, 'onChange'>;
 class TimePicker extends React.Component<Props, State> {
   public state = {
     timeShow: false,
@@ -37,6 +42,10 @@ class TimePicker extends React.Component<Props, State> {
   }
 
   public handleTimeContainer = (e: React.MouseEvent) => {
+    const { disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     const node = this.inputRef.current;
     let left = 0;
     let top = 0;
@@ -76,6 +85,13 @@ class TimePicker extends React.Component<Props, State> {
     });
   };
 
+  public handleInputClear = () => {
+    this.setState({
+      ...this.state,
+      inputValue: '',
+    });
+  };
+
   public hideTimeContainer = () => {
     this.setState({
       ...this.state,
@@ -83,16 +99,28 @@ class TimePicker extends React.Component<Props, State> {
     });
   };
 
+  public renderInputcomponent = (): JSX.Element | null => {
+    const { inputValue } = this.state;
+    return (
+      <PickerInput
+        {...this.props}
+        onChange={this.handleInputChange}
+        onClear={this.handleInputClear}
+        icon={this.props.showDefaultIcon ? <i className="icon icon-time" /> : undefined}
+        value={inputValue}
+      />
+    );
+  };
+
   public render() {
     const {
       timeShow,
       position: { top, left },
-      inputValue,
     } = this.state;
     return (
       <div className="timepicker">
         <div className="timepicker__input" onClick={this.handleTimeContainer} ref={this.inputRef}>
-          <input type="text" value={inputValue} onChange={this.handleInputChange} />
+          {this.renderInputcomponent()}
         </div>
         <div
           className="timepicker__container"

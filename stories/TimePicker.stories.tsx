@@ -7,3 +7,10 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 storiesOf('TimePicker', module)
   .addDecorator(LayoutDecorator)
   .add('default', () => <TimePicker />);
+
+storiesOf('TimePicker - Input Props', module)
+  .addDecorator(LayoutDecorator)
+  .add('showDefaultIcon', () => <TimePicker showDefaultIcon />)
+  .add('readOnly', () => <TimePicker readOnly />)
+  .add('disabled', () => <TimePicker disabled />)
+  .add('clear', () => <TimePicker clear />);
