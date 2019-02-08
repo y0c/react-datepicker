@@ -6,6 +6,7 @@ import TimeContainer from './TimeContainer';
 import { Omit, Merge } from '../utils/TypeUtil';
 import { getNormalHour, getMomentHour } from '../utils/DateUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
+import Backdrop from './Backdrop';
 
 export enum TabValue {
   DATE,
@@ -19,6 +20,8 @@ interface DatePickerProps {
   includeTime: boolean;
   /** Initial display date */
   initialDate: Date;
+  /** DatePicker portal version */
+  portal: boolean;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
@@ -53,6 +56,7 @@ class DatePicker extends React.Component<Props, State> {
     initialDate: new Date(),
     showMonthCnt: 1,
     locale: 'en-ca',
+    portal: false,
     inputFormat: 'YYYY-MM-DD',
     showDefaultIcon: false,
   };
@@ -135,7 +139,7 @@ class DatePicker extends React.Component<Props, State> {
     });
   };
 
-  public hideCalendar = (e: React.MouseEvent) => {
+  public hideCalendar = () => {
     this.setState({
       ...this.state,
       show: false,
@@ -265,7 +269,11 @@ class DatePicker extends React.Component<Props, State> {
       show,
       position: { top, left },
     } = this.state;
-    const { includeTime } = this.props;
+    const { includeTime, portal } = this.props;
+    let position;
+    if (!portal) {
+      position = { top, left };
+    }
 
     return (
       <div className="datepicker">
@@ -275,16 +283,17 @@ class DatePicker extends React.Component<Props, State> {
         {show && (
           <div
             className={classNames('datepicker__container', {
+              portal,
               include__time: includeTime,
             })}
-            style={{ top, left }}
+            style={{ ...position }}
           >
             {this.renderTabMenu()}
             {this.renderCalendar()}
             {this.renderTime()}
           </div>
         )}
-        {show && <div className="datepicker__backdrop" onClick={this.hideCalendar} />}
+        <Backdrop show={show} invert={portal} onClick={this.hideCalendar} />
       </div>
     );
   }

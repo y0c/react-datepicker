@@ -1,14 +1,18 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
 import { Omit } from '../utils/TypeUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
+import Backdrop from './Backdrop';
 
 interface TimePickerProps {
   /** Timepicker change event */
   onChange?: (hour: number, minute: number, type: string) => void;
   /** Timepicker default time icon show or hide */
   showDefaultIcon?: boolean;
+  /** Timepicker portal version */
+  portal?: boolean;
 }
 
 interface State {
@@ -117,18 +121,23 @@ class TimePicker extends React.Component<Props, State> {
       timeShow,
       position: { top, left },
     } = this.state;
+    const { portal } = this.props;
+    let position;
+    if (!portal) {
+      position = { top, left };
+    }
     return (
       <div className="timepicker">
         <div className="timepicker__input" onClick={this.handleTimeContainer} ref={this.inputRef}>
           {this.renderInputcomponent()}
         </div>
         <div
-          className="timepicker__container"
-          style={{ top, left, display: timeShow ? 'block' : 'none' }}
+          className={classNames('timepicker__container', { portal })}
+          style={{ ...position, display: timeShow ? 'block' : 'none' }}
         >
           <TimeContainer onChange={this.handleChange} />
         </div>
-        {timeShow && <div className="timepicker__backdrop" onClick={this.hideTimeContainer} />}
+        <Backdrop show={timeShow} invert={portal} onClick={this.hideTimeContainer} />
       </div>
     );
   }

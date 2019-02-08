@@ -17,18 +17,6 @@ describe('<TimePicker/>', () => {
       expect(shallowComponent).toBeTruthy();
       expect(shallowComponent).toMatchSnapshot();
     });
-
-    it('should input interaction correctly', () => {
-      shallowComponent.find('.timepicker__input').simulate('click');
-      expect(shallowComponent.find('.timepicker__backdrop')).toHaveLength(1);
-      expect(shallowComponent.state('timeShow')).toBeTruthy();
-    });
-
-    it('should hideCalendar correctly', () => {
-      shallowComponent.find('.timepicker__input').simulate('click');
-      shallowComponent.find('.timepicker__backdrop').simulate('click');
-      expect(shallowComponent.state('timeShow')).toBeFalsy();
-    });
   });
 
   describe('mount test', () => {
@@ -59,6 +47,18 @@ describe('<TimePicker/>', () => {
           value: 'test',
         },
       });
+    });
+
+    it('should input interaction correctly', () => {
+      mountComponent.find('.timepicker__input').simulate('click');
+      expect(mountComponent.find('.rc-backdrop')).toHaveLength(1);
+      expect(mountComponent.state('timeShow')).toBeTruthy();
+    });
+
+    it('should hideCalendar correctly', () => {
+      mountComponent.find('.timepicker__input').simulate('click');
+      mountComponent.find('.rc-backdrop').simulate('click');
+      expect(mountComponent.state('timeShow')).toBeFalsy();
     });
   });
 

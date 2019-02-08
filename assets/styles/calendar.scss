@@ -30,6 +30,17 @@
   }
 }
 
+.rc-backdrop {
+  position: fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index:80;
+  &.invert {
+    background: rgba(1,1,1,.7)
+  }
+}
 
 .picker-input {
   display: inline-block;
@@ -61,34 +72,29 @@
   &__container {
     position: absolute;
     z-index:100;
-  }
-
-  & input {
-    padding: 10px;
-    border: 1px solid $divider-color;
-    outline: none;
-  }
-
-  &__backdrop {
-    position: fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    z-index:80;
+    &.portal {
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
   }
 }
 
 .datepicker {
   display: inline-block;
   &__container {
-    &.include__time {
-      padding: 10px;
-      border: 1px solid $divider-color;
-      background: white;
-    }
     position: absolute;
     z-index:100;
+    &.portal {
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+    &.include__time {
+      padding: 10px;
+      border: 1px solid lighten($divider-color, 10%);
+      background: white;
+    }
     &__tab {
       & button {
         border: 1px solid $divider-color;
@@ -110,21 +116,6 @@
       margin-bottom: 10px;
     }
   }
-
-  & input {
-    padding: 10px;
-    border: 1px solid $divider-color;
-    outline: none;
-  }
-
-  &__backdrop {
-    position: fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    z-index:80;
-  }
 }
 
 .time__container {
@@ -132,6 +123,7 @@
   align-items: center;
   border: 1px solid $divider-color;
   padding: 15px;
+  background: white;
   font-family: 'Roboto';
   font-size: $base-font-size;
   &__div {

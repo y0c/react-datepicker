@@ -14,6 +14,7 @@ storiesOf('DatePicker', module)
   .add('default', () => {
     return <DatePicker {...defaultProps} />;
   })
+  .add('portal version', () => <DatePicker {...defaultProps} portal />)
   .add('includeTime', () => {
     return <DatePicker {...defaultProps} includeTime />;
   })

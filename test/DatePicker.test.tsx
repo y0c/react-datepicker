@@ -29,19 +29,6 @@ describe('<DatePicker/>', () => {
     it('renders with no props', () => {
       expect(shallowComponent).toBeTruthy();
     });
-
-    it('should input interaction correctly', () => {
-      shallowComponent.find('.datepicker__input').simulate('click');
-      expect(shallowComponent.find('.datepicker__backdrop')).toHaveLength(1);
-      expect(shallowComponent.find(Calendar)).toBeTruthy();
-      expect(shallowComponent.state('show')).toBeTruthy();
-    });
-
-    it('should hideCalendar correctly', () => {
-      shallowComponent.find('.datepicker__input').simulate('click');
-      shallowComponent.find('.datepicker__backdrop').simulate('click');
-      expect(shallowComponent.state('show')).toBeFalsy();
-    });
   });
 
   describe('mount test', () => {
@@ -83,6 +70,19 @@ describe('<DatePicker/>', () => {
       });
 
       expect(mountComponent.find('.calendar__container')).toHaveLength(3);
+    });
+
+    it('should input interaction correctly', () => {
+      mountComponent.find('.datepicker__input').simulate('click');
+      expect(mountComponent.find('.rc-backdrop')).toHaveLength(1);
+      expect(mountComponent.find(Calendar)).toBeTruthy();
+      expect(mountComponent.state('show')).toBeTruthy();
+    });
+
+    it('should hideCalendar correctly', () => {
+      mountComponent.find('.datepicker__input').simulate('click');
+      mountComponent.find('.rc-backdrop').simulate('click');
+      expect(mountComponent.state('show')).toBeFalsy();
     });
   });
 

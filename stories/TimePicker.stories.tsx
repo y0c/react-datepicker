@@ -6,7 +6,8 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 
 storiesOf('TimePicker', module)
   .addDecorator(LayoutDecorator)
-  .add('default', () => <TimePicker />);
+  .add('default', () => <TimePicker />)
+  .add('portal version', () => <TimePicker portal />);
 
 storiesOf('TimePicker - Input Props', module)
   .addDecorator(LayoutDecorator)

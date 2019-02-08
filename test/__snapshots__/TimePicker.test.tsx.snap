@@ -28,5 +28,9 @@ exports[`<TimePicker/> shallow render test render with no props 1`] = `
       onChange={[Function]}
     />
   </div>
+  <Backdrop
+    onClick={[Function]}
+    show={false}
+  />
 </div>
 `;
