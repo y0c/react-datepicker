@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 
 export interface Props {
   value?: string;
@@ -7,8 +8,12 @@ export interface Props {
   clear?: boolean;
   icon?: JSX.Element;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
   onClear?: () => void;
   autoFocus?: boolean;
+  className?: string;
+  placeholder?: string;
 }
 
 class PickerInput extends React.Component<Props> {
@@ -42,10 +47,13 @@ class PickerInput extends React.Component<Props> {
       clear,
       icon,
       onChange,
-      onClear,
+      onClick,
+      onBlur,
+      className,
+      placeholder,
     } = this.props;
     return (
-      <div className="picker-input">
+      <div className={classNames('picker-input', className)}>
         {icon && <span className="picker-input__icon">{icon}</span>}
         <input
           ref={this.inputRef}
@@ -55,6 +63,9 @@ class PickerInput extends React.Component<Props> {
           readOnly={readOnly}
           disabled={disabled}
           onChange={onChange}
+          onClick={onClick}
+          onBlur={onBlur}
+          placeholder={placeholder}
           style={{
             paddingLeft: icon ? '32px' : '10px',
           }}
