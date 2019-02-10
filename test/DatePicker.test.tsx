@@ -3,8 +3,11 @@ import { range } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
+import { DatePickerDefaults } from '../src/common/Constant';
 import Calendar from '../src/components/Calendar';
 import DatePicker, { Props, State, TabValue } from '../src/components/DatePicker';
+
+const PICKER_INPUT_CLASS = '.picker-input__text';
 
 describe('<DatePicker/>', () => {
   let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
@@ -23,7 +26,7 @@ describe('<DatePicker/>', () => {
 
   describe('shallow render test', () => {
     beforeEach(() => {
-      shallowComponent = shallow(<DatePicker {...defaultProps} inputFormat="YYYYMMDD" />);
+      shallowComponent = shallow(<DatePicker {...defaultProps} dateFormat="YYYYMMDD" />);
     });
 
     it('renders with no props', () => {
@@ -36,7 +39,7 @@ describe('<DatePicker/>', () => {
     beforeEach(() => {
       onChange = sinon.spy();
       mountComponent = mount(
-        <DatePicker {...defaultProps} onChange={onChange} inputFormat="YYYY/MM/DD" />
+        <DatePicker {...defaultProps} onChange={onChange} dateFormat="YYYY/MM/DD" />
       );
       mountComponent.setState({
         show: true,
@@ -49,7 +52,7 @@ describe('<DatePicker/>', () => {
       expect(mountComponent.state().position.top).not.toEqual('');
     });
 
-    it('should props inputFormat correctly', () => {
+    it('should props dateFormat correctly', () => {
       daySelect(6);
       expect(mountComponent.find('.datepicker__input input').prop('value')).toEqual('2018/12/01');
     });
@@ -101,7 +104,7 @@ describe('<DatePicker/>', () => {
     it('should hour == 0 display correctly', () => {
       mountComponent.setState({
         ...mountComponent.state,
-        value: moment()
+        date: moment()
           .clone()
           .hour(0),
         tabValue: TabValue.TIME,
@@ -118,7 +121,7 @@ describe('<DatePicker/>', () => {
     it('should hour < 12 display correctly', () => {
       mountComponent.setState({
         ...mountComponent.state,
-        value: moment()
+        date: moment()
           .clone()
           .hour(13),
         tabValue: TabValue.TIME,
@@ -168,7 +171,7 @@ describe('<DatePicker/>', () => {
           .simulate('change');
         range(11).forEach(() => handleClick('up', 0));
 
-        expect(mountComponent.state('value').hour()).toEqual(0);
+        expect(mountComponent.state('date').hour()).toEqual(0);
       });
 
       it('should hour PM(not 12)', () => {
@@ -177,7 +180,7 @@ describe('<DatePicker/>', () => {
           .at(1)
           .simulate('change');
 
-        expect(mountComponent.state('value').hour()).toEqual(13);
+        expect(mountComponent.state('date').hour()).toEqual(13);
       });
 
       it('should fire onChange Event', () => {
@@ -193,7 +196,53 @@ describe('<DatePicker/>', () => {
     });
   });
 
-  describe('clear', () => {
+  describe('handleInputBlur', () => {
+    beforeEach(() => {
+      mountComponent = mount(<DatePicker {...defaultProps} />);
+    });
+
+    it('should picker input invalid value return original date', () => {
+      const { dateFormat } = DatePickerDefaults;
+      const originalDate = moment(new Date(2018, 4, 1));
+      const testValue = 'teste333';
+      mountComponent.setState({
+        ...mountComponent.state,
+        date: originalDate,
+        dateValue: testValue,
+      });
+
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
+
+      const dateState = mountComponent.state('date');
+      expect(dateState).not.toBeUndefined();
+
+      if (dateState) {
+        expect(dateState.format(dateFormat)).toEqual(originalDate.format(dateFormat));
+      }
+    });
+
+    it('should picker input valid value setState date', () => {
+      const { dateFormat } = DatePickerDefaults;
+      const originalDate = moment(new Date(2018, 4, 1));
+      const correctValue = '2018-05-02';
+      mountComponent.setState({
+        ...mountComponent.state,
+        date: originalDate,
+        dateValue: correctValue,
+      });
+
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
+
+      const dateState = mountComponent.state('date');
+      expect(dateState).not.toBeUndefined();
+
+      if (dateState) {
+        expect(dateState.format(dateFormat)).toEqual(correctValue);
+      }
+    });
+  });
+
+  describe('handleInputClear', () => {
     beforeEach(() => {
       mountComponent = mount(<DatePicker {...defaultProps} clear />);
     });
@@ -204,7 +253,7 @@ describe('<DatePicker/>', () => {
 
     it('should clear click state change correctly', () => {
       mountComponent.find('.icon-clear').simulate('click');
-      expect(mountComponent.state('inputValue')).toEqual('');
+      expect(mountComponent.state('dateValue')).toEqual('');
     });
 
     it('should clear click onChange fired!', () => {
@@ -215,21 +264,21 @@ describe('<DatePicker/>', () => {
     });
   });
 
-  describe('input change', () => {
+  describe('handleInputChange', () => {
     it('should input change correctly', () => {
       const onChange = sinon.spy();
       mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} />);
-      mountComponent.find('.picker-input__text').simulate('change');
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('change');
       expect(onChange).toHaveProperty('callCount', 1);
       mountComponent = mount(<DatePicker {...defaultProps} />);
-      mountComponent.find('.picker-input__text').simulate('change');
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('change');
     });
   });
 
   describe('input props', () => {
     it('should input disabled do not run handleCalendar', () => {
       mountComponent = mount(<DatePicker {...defaultProps} disabled />);
-      mountComponent.find('.picker-input__text').simulate('click');
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('click');
       expect(mountComponent.state('show')).toBeFalsy();
     });
 
@@ -246,7 +295,7 @@ describe('<DatePicker/>', () => {
       mountComponent = mount(
         <DatePicker
           {...defaultProps}
-          inputFormat="YYYY.MM.DD"
+          dateFormat="YYYY.MM.DD"
           inputComponent={customInputComponent}
         />
       );

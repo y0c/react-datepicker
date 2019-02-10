@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import * as moment from 'moment';
-import { shallow, mount, ShallowWrapper, ReactWrapper, HTMLAttributes } from 'enzyme';
+import { shallow, mount, ReactWrapper } from 'enzyme';
 import RangeDatePicker, { Props, State } from '../src/components/RangeDatePicker';
-import { mountInputSimulateChange } from './TestingUtil';
+import { mountInputSimulateChange } from './utils/TestingUtil';
 
 const START_INPUT_CLASS = '.range-picker-input__start .picker-input__text';
 const END_INPUT_CLASS = '.range-picker-input__end .picker-input__text';
@@ -141,7 +141,7 @@ describe('<RangeDatePicker/>', () => {
     let mountComponent: ReactWrapper<Props, State>;
 
     beforeEach(() => {
-      mountComponent = mount(<RangeDatePicker inputFormat={INPUT_FORMAT} {...defaultProps} />);
+      mountComponent = mount(<RangeDatePicker dateFormat={INPUT_FORMAT} {...defaultProps} />);
     });
 
     it('should start & end input change set state value', () => {
@@ -162,7 +162,7 @@ describe('<RangeDatePicker/>', () => {
     const end = moment(new Date(2018, 4, 11));
 
     beforeEach(() => {
-      mountComponent = mount(<RangeDatePicker inputFormat={INPUT_FORMAT} {...defaultProps} />);
+      mountComponent = mount(<RangeDatePicker dateFormat={INPUT_FORMAT} {...defaultProps} />);
     });
 
     it('should state start & end undefined return empty value', () => {
