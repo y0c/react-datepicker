@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { getDayMatrix, isDayEqual, isDayRange } from '../../src/utils/DateUtil';
+import { getDayMatrix, isDayEqual, isDayRange } from '../src/utils/DateUtil';
 
 describe('DateUtil', () => {
   it('func isDayEqual correctly', () => {

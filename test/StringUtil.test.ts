@@ -1,4 +1,4 @@
-import { lpad } from '../../src/utils/StringUtil';
+import { lpad } from '../src/utils/StringUtil';
 
 describe('StringUtil', () => {
   describe('lpad', () => {
