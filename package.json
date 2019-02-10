@@ -10,7 +10,6 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
     "build": "npx tsc",
-    "build-icon": "npx icon-font-generator assets/images/*.svg -o assets/styles/fonts",
     "test": "npx cross-env TZ=Asia/Seoul npx jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage && codecov",
@@ -19,7 +18,8 @@
     "build-storybook": "build-storybook",
     "bump:patch": "yarn version --patch",
     "bump:minor": "yarn version --minor",
-    "bump:major": "yarn version --major"
+    "bump:major": "yarn version --major",
+    "prepublish": "yarn lint && yarn test"
   },
   "lint-staged": {
     "{src}/**/*.ts*": [
@@ -32,11 +32,6 @@
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
   "dependencies": {
-    "@storybook/react": "^4.1.11",
-    "classnames": "^2.2.6",
-    "lodash": "4.17.10",
-    "moment": "^2.22.2",
-    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
@@ -100,6 +95,7 @@
     "@types/storybook__react": "^4.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
+    "classnames": "^2.2.6",
     "clean-webpack-plugin": "0.1.19",
     "cross-env": "5.2.0",
     "css-loader": "2.1.0",
@@ -109,19 +105,21 @@
     "file-loader": "3.0.1",
     "html-webpack-plugin": "3.2.0",
     "husky": "^1.3.1",
-    "icon-font-generator": "^2.1.10",
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
+    "lodash": "4.17.10",
+    "moment": "^2.22.2",
     "node-sass": "4.11.0",
     "prettier": "^1.15.3",
+    "prop-types": "^15.6.2",
     "react-docgen-typescript-loader": "^3.0.1",
     "react-test-renderer": "^16.7.0",
     "sass-loader": "7.1.0",
-    "sass-material-colors": "^0.0.5",
     "sinon": "^7.2.2",
     "style-loader": "0.23.1",
     "ts-jest": "^23.10.5",
     "ts-loader": "^5.3.3",
+    "ts-mockito": "^2.3.1",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
