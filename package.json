@@ -16,7 +16,10 @@
     "test:coverage": "yarn test --coverage && codecov",
     "lint": "tslint --project . --config ./tslint.json",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "bump:patch": "yarn version --patch",
+    "bump:minor": "yarn version --minor",
+    "bump:major": "yarn version --major"
   },
   "lint-staged": {
     "{src}/**/*.ts*": [
