@@ -2,8 +2,10 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
+import { IDatePicker } from '../common/@types';
 import { Omit } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
+import { getDivPosition } from '../utils/DOMUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
 
@@ -19,10 +21,7 @@ interface TimePickerProps {
 interface State {
   timeShow: boolean;
   inputValue: string;
-  position: {
-    left: string;
-    top: string;
-  };
+  position: IDatePicker.Position;
 }
 
 const inputFormat = (hour: number, minute: number, type: string) =>
@@ -51,23 +50,9 @@ class TimePicker extends React.Component<Props, State> {
     if (disabled) {
       return;
     }
-    const node = this.inputRef.current;
-    let left = 0;
-    let top = 0;
-    let height = 0;
-
-    if (node) {
-      left = node.offsetLeft;
-      top = node.offsetTop;
-      height = node.clientHeight;
-    }
-
     this.setState({
       timeShow: true,
-      position: {
-        left: `${left}px`,
-        top: `${top + height + 5}px`,
-      },
+      position: getDivPosition(this.inputRef.current),
     });
   };
 

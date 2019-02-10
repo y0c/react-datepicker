@@ -2,6 +2,9 @@ import * as React from 'react';
 import * as moment from 'moment';
 import * as classNames from 'classnames';
 import { isDayAfter, isDayBefore, isDayEqual } from '../utils/DateUtil';
+import { IDatePicker } from '../common/@types';
+import { DatePickerDefaults } from '../common/Constant';
+import { getDivPosition } from '../utils/DOMUtil';
 import RangePickerInput, { FieldType, InputProps } from './RangePickerInput';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import { Merge, Omit } from '../utils/TypeUtil';
@@ -10,7 +13,7 @@ import Backdrop from './Backdrop';
 
 interface RangeDatePickerProps {
   /** To display input format (moment format) */
-  inputFormat: string;
+  dateFormat: string;
   /** Initial Calendar base date(if start date not set) */
   initialDate?: Date;
   /** Initial Start Date */
@@ -34,10 +37,7 @@ export interface State {
   startValue: string;
   endValue: string;
   mode?: FieldType;
-  position: {
-    left: string;
-    top: string;
-  };
+  position: IDatePicker.Position;
 }
 
 type CalendarProps = Merge<
@@ -51,7 +51,7 @@ export type Props = RangeDatePickerProps & CalendarProps & InputProps;
 
 class RangeDatePicker extends React.Component<Props, State> {
   public static defaultProps = {
-    inputFormat: 'YYYY-MM-DD',
+    dateFormat: DatePickerDefaults.dateFormat,
     portal: false,
     initialDate: new Date(),
     showMonthCnt: 2,
@@ -77,24 +77,10 @@ class RangeDatePicker extends React.Component<Props, State> {
   }
 
   public handleCalendar = (fieldType: FieldType) => {
-    const node = this.inputRef.current;
-    let left = 0;
-    let top = 0;
-    let height = 0;
-
-    if (node) {
-      left = node.offsetLeft;
-      top = node.offsetTop;
-      height = node.clientHeight;
-    }
-
     this.setState({
       show: true,
       mode: fieldType,
-      position: {
-        left: `${left}px`,
-        top: `${top + height + 5}px`,
-      },
+      position: getDivPosition(this.inputRef.current),
     });
   };
 
@@ -106,7 +92,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public handleDateChange = (date: moment.Moment) => {
-    const { onChange, inputFormat } = this.props;
+    const { onChange, dateFormat } = this.props;
     const { start, end } = this.state;
     let startDate: moment.Moment | undefined;
     let endDate: moment.Moment | undefined;
@@ -138,8 +124,8 @@ class RangeDatePicker extends React.Component<Props, State> {
       show: false,
       start: startDate,
       end: endDate,
-      startValue: startDate ? startDate.format(inputFormat) : '',
-      endValue: endDate ? endDate.format(inputFormat) : '',
+      startValue: startDate ? startDate.format(dateFormat) : '',
+      endValue: endDate ? endDate.format(dateFormat) : '',
     });
   };
 
@@ -152,21 +138,21 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public handleInputBlur = (fieldType: FieldType, value: string) => {
-    const { inputFormat } = this.props;
+    const { dateFormat } = this.props;
     const { start, end } = this.state;
-    const parsedDate = moment(value, inputFormat);
+    const parsedDate = moment(value, dateFormat);
     let startDate: moment.Moment | undefined;
     let endDate: moment.Moment | undefined;
 
     if (start) {
-      startDate = moment(start.format(inputFormat), inputFormat);
+      startDate = moment(start.format(dateFormat), dateFormat);
     }
 
     if (end) {
-      endDate = moment(end.format(inputFormat), inputFormat);
+      endDate = moment(end.format(dateFormat), dateFormat);
     }
 
-    if (parsedDate.isValid() && inputFormat.length === value.length) {
+    if (parsedDate.isValid() && dateFormat.length === value.length) {
       if (fieldType === FieldType.END) {
         endDate = parsedDate;
       } else if (fieldType === FieldType.START) {
@@ -188,8 +174,8 @@ class RangeDatePicker extends React.Component<Props, State> {
       ...this.state,
       start: startDate,
       end: endDate,
-      startValue: startDate ? startDate.format(inputFormat) : '',
-      endValue: endDate ? endDate.format(inputFormat) : '',
+      startValue: startDate ? startDate.format(dateFormat) : '',
+      endValue: endDate ? endDate.format(dateFormat) : '',
     });
   };
 

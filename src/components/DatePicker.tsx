@@ -4,6 +4,10 @@ import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
 import { Omit, Merge } from '../utils/TypeUtil';
+import { ifExistCall } from '../utils/FunctionUtil';
+import { getDivPosition } from '../utils/DOMUtil';
+import { IDatePicker } from '../common/@types';
+import { DatePickerDefaults } from '../common/Constant';
 import { getNormalHour, getMomentHour } from '../utils/DateUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
@@ -15,7 +19,7 @@ export enum TabValue {
 
 interface DatePickerProps {
   /** To display input format (moment format) */
-  inputFormat: string;
+  dateFormat: string;
   /** include TimePicker true/false */
   includeTime: boolean;
   /** Initial display date */
@@ -33,13 +37,11 @@ interface DatePickerProps {
 export interface State {
   show: boolean;
   tabValue: TabValue;
-  value: moment.Moment;
-  inputValue: string;
+  date: moment.Moment;
+  dateValue: string;
+  timeValue: string;
   selected: moment.Moment[];
-  position: {
-    top: string;
-    left: string;
-  };
+  position: IDatePicker.Position;
 }
 
 type CalendarProps = Merge<
@@ -55,17 +57,18 @@ class DatePicker extends React.Component<Props, State> {
     includeTime: false,
     initialDate: new Date(),
     showMonthCnt: 1,
-    locale: 'en-ca',
+    locale: DatePickerDefaults.locale,
+    dateFormat: DatePickerDefaults.dateFormat,
     portal: false,
-    inputFormat: 'YYYY-MM-DD',
     showDefaultIcon: false,
   };
 
   public state: State = {
     show: false,
     tabValue: TabValue.DATE,
-    value: moment(this.props.initialDate),
-    inputValue: this.setValueToInput(moment(this.props.initialDate)),
+    date: moment(this.props.initialDate),
+    dateValue: this.setValueToInput(moment(this.props.initialDate)),
+    timeValue: '',
     position: {
       left: '',
       top: '',
@@ -83,59 +86,42 @@ class DatePicker extends React.Component<Props, State> {
   public handleCalendar = (e: React.MouseEvent) => {
     const { disabled } = this.props;
     if (disabled) return;
-    const node = this.inputRef.current;
-    let left = 0;
-    let top = 0;
-    let height = 0;
-
-    if (node) {
-      left = node.offsetLeft;
-      top = node.offsetTop;
-      height = node.clientHeight;
-    }
-
     this.setState({
       show: true,
-      position: {
-        left: `${left}px`,
-        top: `${top + height + 5}px`,
-      },
+      position: getDivPosition(this.inputRef.current),
     });
   };
 
   public handleDateChange = (date: moment.Moment) => {
     const { onChange } = this.props;
-    const inputValue = this.setValueToInput(date);
+    const dateValue = this.setValueToInput(date);
 
-    if (onChange) {
-      onChange(inputValue, date);
-    }
+    ifExistCall(onChange, dateValue, date);
 
     this.setState({
       ...this.state,
-      inputValue,
+      date,
+      dateValue,
       show: false,
-      value: date,
       selected: [date],
     });
   };
 
   public handleTimeChange = (hour: number, minute: number, type: string) => {
     const { onChange } = this.props;
-    let date = this.state.value;
+    let date = this.state.date;
     date = date
       .clone()
       .hour(getMomentHour(hour, type))
       .minute(minute);
-    const inputValue = this.setValueToInput(date);
+    const dateValue = this.setValueToInput(date);
 
-    if (onChange) {
-      onChange(inputValue, date);
-    }
+    ifExistCall(onChange, dateValue, date);
+
     this.setState({
       ...this.state,
-      inputValue,
-      value: date,
+      date,
+      dateValue,
     });
   };
 
@@ -147,12 +133,12 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public setValueToInput(value: moment.Moment) {
-    const { includeTime, inputFormat, locale = 'en-ca' } = this.props;
+    const { includeTime, dateFormat, locale = DatePickerDefaults.locale } = this.props;
     let inputValue: string;
     if (!includeTime) {
-      inputValue = value.format(inputFormat);
+      inputValue = value.format(dateFormat);
     } else {
-      inputValue = value.locale(locale).format(`${inputFormat} hh:mm A`);
+      inputValue = value.locale(locale).format(`${dateFormat} hh:mm A`);
     }
     return inputValue;
   }
@@ -161,40 +147,55 @@ class DatePicker extends React.Component<Props, State> {
     const { onChange } = this.props;
     const value = e.currentTarget.value;
 
-    if (onChange) {
-      onChange(value, undefined);
-    }
+    ifExistCall(onChange, value, undefined);
 
     this.setState({
       ...this.state,
-      inputValue: e.currentTarget.value,
+      dateValue: e.currentTarget.value,
     });
   };
 
-  public handleClear = () => {
+  public handleInputClear = () => {
     const { onChange } = this.props;
 
-    if (onChange) {
-      onChange('', undefined);
+    ifExistCall(onChange, '', undefined);
+
+    this.setState({
+      ...this.state,
+      dateValue: '',
+    });
+  };
+
+  public handleInputBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    const { date } = this.state;
+    const { dateFormat } = this.props;
+    const value = e.currentTarget.value;
+    const parsedDate = moment(value, DatePickerDefaults.dateFormat);
+    let updateDate: moment.Moment | undefined;
+    updateDate = date;
+    if (parsedDate.isValid() && dateFormat.length === value.length) {
+      updateDate = parsedDate;
     }
 
     this.setState({
       ...this.state,
-      inputValue: '',
+      date: updateDate,
+      dateValue: updateDate.format(dateFormat),
     });
   };
 
   public renderInputComponent = (): JSX.Element => {
     const { inputComponent, readOnly, disabled, clear, autoFocus, showDefaultIcon } = this.props;
-    const { inputValue } = this.state;
+    const { dateValue } = this.state;
     const inputProps = {
       readOnly,
       autoFocus,
       disabled,
       clear,
       onChange: this.handleInputChange,
-      onClear: this.handleClear,
-      value: inputValue,
+      onClear: this.handleInputClear,
+      onBlur: this.handleInputBlur,
+      value: dateValue,
       icon: showDefaultIcon ? <i className="icon icon-calendar" /> : undefined,
     };
     return inputComponent ? inputComponent({ ...inputProps }) : <PickerInput {...inputProps} />;
@@ -234,12 +235,12 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderCalendar = (): JSX.Element | null => {
-    const { tabValue, selected, value } = this.state;
+    const { tabValue, selected, date } = this.state;
     if (tabValue === TabValue.DATE) {
       return (
         <Calendar
           {...this.props}
-          base={value}
+          base={date}
           onChange={this.handleDateChange}
           selected={selected}
         />
@@ -249,15 +250,15 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderTime = (): JSX.Element | null => {
-    const { tabValue, value } = this.state;
-    const hour = getNormalHour(value.hour());
+    const { tabValue, date } = this.state;
+    const hour = getNormalHour(date.hour());
 
     if (tabValue === TabValue.TIME) {
       return (
         <TimeContainer
           hour={hour}
-          minute={value.minute()}
-          type={value.hour() > 11 ? 'PM' : 'AM'}
+          minute={date.minute()}
+          type={date.hour() > 11 ? 'PM' : 'AM'}
           onChange={this.handleTimeChange}
         />
       );
