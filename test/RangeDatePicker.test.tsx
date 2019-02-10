@@ -164,6 +164,21 @@ describe('<RangeDatePicker/>', () => {
     beforeEach(() => {
       mountComponent = mount(<RangeDatePicker inputFormat={INPUT_FORMAT} {...defaultProps} />);
     });
+
+    it('should state start & end undefined return empty value', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        start: undefined,
+        end: undefined,
+      });
+
+      mountComponent.find(START_INPUT_CLASS).simulate('blur');
+      expect(mountComponent.state('startValue')).toEqual('');
+
+      mountComponent.find(END_INPUT_CLASS).simulate('blur');
+      expect(mountComponent.state('endValue')).toEqual('');
+    });
+
     it('should start input invalid value recover original date', () => {
       mountComponent.setState({
         ...mountComponent.state,
@@ -277,6 +292,57 @@ describe('<RangeDatePicker/>', () => {
       if (startState && endState) {
         expect(startState.format(INPUT_FORMAT)).toEqual(endValue);
         expect(endState.format(INPUT_FORMAT)).toEqual(testValue);
+      }
+    });
+  });
+
+  describe('handleInputClear', () => {
+    let mountComponent: ReactWrapper;
+    const rangeInputClass = (value: string) => `.range-picker-input__${value}`;
+    const start = moment(new Date(2018, 4, 1));
+    const end = moment(new Date(2018, 4, 11));
+
+    beforeEach(() => {
+      mountComponent = mount(<RangeDatePicker clear {...defaultProps} />);
+    });
+
+    it('should start input clear click start & startValue init correctly', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        start,
+        startValue: start.format(INPUT_FORMAT),
+      });
+      mountComponent
+        .find(rangeInputClass('start'))
+        .find('.icon-clear')
+        .simulate('click');
+
+      const startState = mountComponent.state('start');
+      const startValue = mountComponent.state('startValue');
+
+      if (startState) {
+        expect(startState).toBeUndefined();
+        expect(startValue).toEqual('');
+      }
+    });
+
+    it('should end input clear click end & endValue init correctly', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        end,
+        endValue: start.format(INPUT_FORMAT),
+      });
+      mountComponent
+        .find(rangeInputClass('end'))
+        .find('.icon-clear')
+        .simulate('click');
+
+      const endState = mountComponent.state('end');
+      const endValue = mountComponent.state('endValue');
+
+      if (endState) {
+        expect(endState).toBeUndefined();
+        expect(endValue).toEqual('');
       }
     });
   });

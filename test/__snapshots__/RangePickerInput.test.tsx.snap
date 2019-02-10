@@ -11,6 +11,7 @@ exports[`<RagePickerInput /> should render without crash 1`] = `
       className="range"
       onBlur={[Function]}
       onChange={[Function]}
+      onClear={[Function]}
       onClick={[Function]}
     />
   </span>
@@ -28,6 +29,7 @@ exports[`<RagePickerInput /> should render without crash 1`] = `
       className="range"
       onBlur={[Function]}
       onChange={[Function]}
+      onClear={[Function]}
       onClick={[Function]}
     />
   </span>

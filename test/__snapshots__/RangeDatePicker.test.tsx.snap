@@ -11,6 +11,7 @@ exports[`<RangeDatePicker/> shallow test should render without crash 1`] = `
       endValue=""
       onBlur={[Function]}
       onChange={[Function]}
+      onClear={[Function]}
       onClick={[Function]}
       startValue=""
     />

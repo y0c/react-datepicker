@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import * as classNames from 'classnames';
-import { isDayAfter, isDayBefore, isDayEqual, isDayRange } from '../utils/DateUtil';
+import { isDayAfter, isDayBefore, isDayEqual } from '../utils/DateUtil';
 import RangePickerInput, { FieldType, InputProps } from './RangePickerInput';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import { Merge, Omit } from '../utils/TypeUtil';
+import { ifExistCall } from '../utils/FunctionUtil';
 import Backdrop from './Backdrop';
-import { format } from 'path';
 
 interface RangeDatePickerProps {
   /** To display input format (moment format) */
@@ -198,20 +198,28 @@ class RangeDatePicker extends React.Component<Props, State> {
     const { start, end } = this.state;
     if (isDayEqual(start, date)) return startText;
     if (isDayEqual(end, date)) return endText;
-    if (customDayText) return customDayText(date);
+    ifExistCall(customDayText, date);
     return '';
   };
 
+  public handleInputClear = (fieldType: FieldType) => {
+    if (fieldType === FieldType.START) {
+      this.setState({
+        ...this.state,
+        start: undefined,
+        startValue: '',
+      });
+    } else if (fieldType === FieldType.END) {
+      this.setState({
+        ...this.state,
+        end: undefined,
+        endValue: '',
+      });
+    }
+  };
+
   public renderRangePickerInput = () => {
-    const {
-      startPlaceholder,
-      endPlaceholder,
-      readOnly,
-      disabled,
-      clear,
-      onClear,
-      onChange,
-    } = this.props;
+    const { startPlaceholder, endPlaceholder, readOnly, disabled, clear, onChange } = this.props;
     const { startValue, endValue } = this.state;
     return (
       <RangePickerInput
@@ -219,13 +227,13 @@ class RangeDatePicker extends React.Component<Props, State> {
         readOnly={readOnly}
         disabled={disabled}
         clear={clear}
-        onClear={onClear}
         endPlaceholder={endPlaceholder}
         startValue={startValue}
         endValue={endValue}
         onClick={this.handleCalendar}
         onChange={this.handleInputChange}
         onBlur={this.handleInputBlur}
+        onClear={this.handleInputClear}
       />
     );
   };
