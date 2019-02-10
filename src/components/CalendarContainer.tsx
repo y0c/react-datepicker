@@ -6,6 +6,7 @@ import CalendarBody from './CalendarBody';
 import CalendarHead from './CalendarHead';
 import { Props as DayViewProps } from './DayView';
 import TodayPanel from './TodayPanel';
+import { ifExistCall } from '../utils/FunctionUtil';
 
 interface CalendarContainerProps {
   /** Locale to use */
@@ -87,11 +88,11 @@ class CalendarContainer extends React.Component<Props, State> {
 
   public handleChange = (value: string) => {
     const { viewMode } = this.state;
-    const { current, onChange, setBase, showMonthCnt = 1, base } = this.props;
+    const { current, onChange, setBase, showMonthCnt, base } = this.props;
     if (!value.trim()) return;
     if (showMonthCnt > 1) {
       const date = current.date(parseInt(value, 10));
-      if (onChange) onChange(date);
+      ifExistCall(onChange, date);
       return;
     }
 
@@ -110,7 +111,7 @@ class CalendarContainer extends React.Component<Props, State> {
       });
     } else {
       const date = current.date(parseInt(value, 10));
-      if (onChange) onChange(date);
+      ifExistCall(onChange, date);
     }
   };
 

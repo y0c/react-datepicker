@@ -3,6 +3,7 @@ import * as classNames from 'classnames';
 import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
 import { Omit } from '../utils/TypeUtil';
+import { ifExistCall } from '../utils/FunctionUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
 
@@ -77,9 +78,7 @@ class TimePicker extends React.Component<Props, State> {
       inputValue: inputFormat(hour, minute, type),
     });
 
-    if (onChange) {
-      onChange(hour, minute, type);
-    }
+    ifExistCall(onChange, hour, minute, type);
   };
 
   public handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {

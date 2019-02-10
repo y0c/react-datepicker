@@ -7,7 +7,7 @@ export interface Props {
   value: number;
 }
 
-const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, value = 0 }) => {
+const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, value }) => {
   return (
     <div className="time-input">
       <div className="time-input__up">
@@ -25,6 +25,10 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, val
       </div>
     </div>
   );
+};
+
+TimeInput.defaultProps = {
+  value: 0,
 };
 
 export default TimeInput;

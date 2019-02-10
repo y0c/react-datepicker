@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PickerInput, { Props as IPickerInputProps } from './PickerInput';
 import { Merge, Omit } from '../utils/TypeUtil';
+import { ifExistCall } from '../utils/FunctionUtil';
 
 export enum FieldType {
   START,
@@ -18,10 +19,12 @@ interface RangePickerInputProps {
   onBlur?: (fieldType: FieldType, value: string) => void;
   /** RangePickerInput click event field type is start or end */
   onClick?: (fieldTyp: FieldType) => void;
+  /** RangePickerInput clear event */
+  onClear?: (fieldType: FieldType) => void;
 }
 
 export type InputProps = Merge<
-  Omit<IPickerInputProps, 'onBlur' | 'onChange' | 'onClick' | 'placeholder'>,
+  Omit<IPickerInputProps, 'onBlur' | 'onClear' | 'onChange' | 'onClick' | 'placeholder'>,
   {
     /** start input placeholder */
     startPlaceholder?: string;
@@ -33,27 +36,12 @@ export type InputProps = Merge<
 type Props = RangePickerInputProps & InputProps;
 
 class RangePickerInput extends React.Component<Props> {
-  public handleChange = (fieldType: FieldType) => (e: React.FormEvent<HTMLInputElement>) => {
-    const { onChange } = this.props;
-    if (onChange) {
-      onChange(fieldType, e.currentTarget.value);
-    }
-  };
-
-  public handleBlur = (fieldType: FieldType) => (e: React.FormEvent<HTMLInputElement>) => {
-    const { onBlur } = this.props;
-    if (onBlur) {
-      onBlur(fieldType, e.currentTarget.value);
-    }
-  };
-
-  public handleClick = (fieldType: FieldType) => () => {
-    const { onClick } = this.props;
-
-    if (onClick) {
-      onClick(fieldType);
-    }
-  };
+  public handleChange = (fieldType: FieldType) => (e: React.FormEvent<HTMLInputElement>) =>
+    ifExistCall(this.props.onChange, fieldType, e.currentTarget.value);
+  public handleBlur = (fieldType: FieldType) => (e: React.FormEvent<HTMLInputElement>) =>
+    ifExistCall(this.props.onBlur, fieldType, e.currentTarget.value);
+  public handleClick = (fieldType: FieldType) => () => ifExistCall(this.props.onClick, fieldType);
+  public handleClear = (fieldType: FieldType) => () => ifExistCall(this.props.onClear, fieldType);
 
   public renderStartInput = () => {
     const { startValue, startPlaceholder } = this.props;
@@ -66,15 +54,15 @@ class RangePickerInput extends React.Component<Props> {
   };
 
   public renderPickerInput = (fieldType: FieldType, value?: string, placeholder?: string) => {
-    const { readOnly, disabled, clear, onClear } = this.props;
+    const { readOnly, disabled, clear } = this.props;
     return (
       <PickerInput
         value={value}
         readOnly={readOnly}
         disabled={disabled}
         clear={clear}
-        onClear={onClear}
         className="range"
+        onClear={this.handleClear(fieldType)}
         onClick={this.handleClick(fieldType)}
         onChange={this.handleChange(fieldType)}
         onBlur={this.handleBlur(fieldType)}
