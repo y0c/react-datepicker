@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RagePickerInput /> should render without crash 1`] = `
+<div
+  className="range-picker-input"
+>
+  <span
+    className="range-picker-input__start"
+  >
+    <PickerInput
+      className="range"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+    />
+  </span>
+  <span
+    className="range-picker-input__icon"
+  >
+    <i
+      className="icon icon-right-arrow"
+    />
+  </span>
+  <span
+    className="range-picker-input__end"
+  >
+    <PickerInput
+      className="range"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+    />
+  </span>
+</div>
+`;

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RangeDatePicker/> shallow test should render without crash 1`] = `
+<div
+  className="range-datepicker"
+>
+  <div
+    className="datepicker__input"
+  >
+    <RangePickerInput
+      endValue=""
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      startValue=""
+    />
+  </div>
+  <Backdrop
+    invert={false}
+    onClick={[Function]}
+    show={false}
+  />
+</div>
+`;
