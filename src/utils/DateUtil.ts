@@ -1,6 +1,13 @@
 import { chunk, range, repeat } from 'lodash';
 import * as moment from 'moment';
 
+const initHms = (date: moment.Moment) => {
+  return date
+    .hour(0)
+    .minute(0)
+    .second(0);
+};
+
 export const getDayMatrix = (year?: number, month?: number): string[][] => {
   const updateYear = year || moment().year();
   const updateMonth = month || moment().month();
@@ -57,20 +64,16 @@ export const isDayEqual = (day1?: moment.Moment, day2?: moment.Moment) => {
   return day1.format('YYYYMMDD') === day2.format('YYYYMMDD');
 };
 
+export const isDayAfter = (source: moment.Moment, target: moment.Moment) => {
+  return initHms(source).diff(initHms(target), 'days') > 0;
+};
+
+export const isDayBefore = (source: moment.Moment, target: moment.Moment) => {
+  return initHms(source).diff(initHms(target), 'days') < 0;
+};
+
 export const isDayRange = (date: moment.Moment, start?: moment.Moment, end?: moment.Moment) => {
   if (!start || !end) return false;
-  const updateDate = date
-    .hour(0)
-    .minute(0)
-    .second(0);
-  const updateStart = start
-    .hour(0)
-    .minute(0)
-    .second(0);
-  const updateEnd = end
-    .hour(0)
-    .minute(0)
-    .second(0);
 
-  return date.diff(updateStart, 'days') > 0 && date.diff(updateEnd, 'days') < 0;
+  return isDayAfter(date, start) && isDayBefore(date, end);
 };
