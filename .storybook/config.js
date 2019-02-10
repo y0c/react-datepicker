@@ -15,9 +15,6 @@ function loadStories() {
 addDecorator(
   withOptions({
     name: 'React Datepicker',
-    theme: Object.assign(themes.dark, {
-      mainFill: 'white',
-    }),
   })
 );
 
