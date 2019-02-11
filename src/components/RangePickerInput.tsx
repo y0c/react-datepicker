@@ -2,6 +2,7 @@ import * as React from 'react';
 import PickerInput, { Props as IPickerInputProps } from './PickerInput';
 import { Merge, Omit } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
+import SVGIcon from './SVGIcon';
 
 export enum FieldType {
   START,
@@ -76,7 +77,7 @@ class RangePickerInput extends React.Component<Props> {
       <div className="range-picker-input">
         <span className="range-picker-input__start">{this.renderStartInput()}</span>
         <span className="range-picker-input__icon">
-          <i className="icon icon-right-arrow" />
+	        <SVGIcon id="right-arrow"/>
         </span>
         <span className="range-picker-input__end">{this.renderEndInput()}</span>
       </div>

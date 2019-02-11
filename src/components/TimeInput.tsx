@@ -1,4 +1,5 @@
 import * as React from 'react';
+import SVGIcon from './SVGIcon';
 
 export interface Props {
   onUp: () => void;
@@ -12,7 +13,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, val
     <div className="time-input">
       <div className="time-input__up">
         <button onClick={onUp}>
-          <i className="icon icon-up" />
+	        <SVGIcon id="up"/>
         </button>
       </div>
       <div className="time-input__text">
@@ -20,7 +21,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, val
       </div>
       <div className="time-input__down">
         <button onClick={onDown}>
-          <i className="icon icon-down" />
+	        <SVGIcon id="down"/>
         </button>
       </div>
     </div>

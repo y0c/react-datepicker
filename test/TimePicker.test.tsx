@@ -1,8 +1,6 @@
 import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
-import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
-import TimeContainer from '../src/components/TimeContainer';
 import TimePicker from '../src/components/TimePicker';
 
 describe('<TimePicker/>', () => {
@@ -74,12 +72,12 @@ describe('<TimePicker/>', () => {
     });
 
     it('should clear button click inputValue empty', () => {
-      mountComponent.find('.icon-clear').simulate('click');
+      mountComponent.find('.icon-clear').first().simulate('click');
       expect(mountComponent.state('inputValue')).toEqual('');
     });
 
     it('should props showDefaultIcon correctly', () => {
-      expect(mountComponent.find('.icon-time')).toHaveLength(1);
+      expect(mountComponent.find('.icon-time').first()).toHaveLength(1);
     });
   });
 });

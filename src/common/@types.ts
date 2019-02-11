@@ -9,4 +9,12 @@ export namespace IDatePicker {
     bottom?: string;
     right?: string;
   }
+
+  export interface SVGIconProps {
+    size?: string;
+    className?: string;
+    color?: string;
+    onClick?: () => void;
+    style?: {};
+  }
 }

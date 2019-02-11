@@ -248,18 +248,18 @@ describe('<DatePicker/>', () => {
     });
 
     it('should clear button render correctly', () => {
-      expect(mountComponent.find('.icon-clear')).toHaveLength(1);
+      expect(mountComponent.find('.icon-clear').first()).toHaveLength(1);
     });
 
     it('should clear click state change correctly', () => {
-      mountComponent.find('.icon-clear').simulate('click');
+      mountComponent.find('.icon-clear').first().simulate('click');
       expect(mountComponent.state('dateValue')).toEqual('');
     });
 
     it('should clear click onChange fired!', () => {
       const onChange = sinon.spy();
       mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} clear />);
-      mountComponent.find('.icon-clear').simulate('click');
+      mountComponent.find('.icon-clear').first().simulate('click');
       expect(onChange).toHaveProperty('callCount', 1);
     });
   });
@@ -284,7 +284,7 @@ describe('<DatePicker/>', () => {
 
     it('should showDefaultIcon correctly', () => {
       mountComponent = mount(<DatePicker {...defaultProps} showDefaultIcon />);
-      expect(mountComponent.find('.icon-calendar')).toHaveLength(1);
+      expect(mountComponent.find('.icon-calendar').first()).toHaveLength(1);
     });
   });
 

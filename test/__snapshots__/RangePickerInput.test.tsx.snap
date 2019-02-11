@@ -18,8 +18,10 @@ exports[`<RagePickerInput /> should render without crash 1`] = `
   <span
     className="range-picker-input__icon"
   >
-    <i
-      className="icon icon-right-arrow"
+    <SVGIcon
+      color="currentColor"
+      id="right-arrow"
+      size="16"
     />
   </span>
   <span

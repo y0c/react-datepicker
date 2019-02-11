@@ -11,8 +11,10 @@ exports[`<CalendarHead/> should props onPrev, onNext correctly 1`] = `
       className="calendar__head--button"
       onClick={[Function]}
     >
-      <i
-        className="icon icon-left-arrow"
+      <SVGIcon
+        color="currentColor"
+        id="left-arrow"
+        size="16"
       />
     </button>
   </div>
@@ -26,8 +28,10 @@ exports[`<CalendarHead/> should props onPrev, onNext correctly 1`] = `
       className="calendar__head--button"
       onClick={[Function]}
     >
-      <i
-        className="icon icon-right-arrow"
+      <SVGIcon
+        color="currentColor"
+        id="right-arrow"
+        size="16"
       />
     </button>
   </div>
@@ -44,8 +48,10 @@ exports[`<CalendarHead/> should props prevIcon, nextIcon correctly 1`] = `
     <button
       className="calendar__head--button"
     >
-      <i
-        className="icon icon-left-arrow"
+      <SVGIcon
+        color="currentColor"
+        id="left-arrow"
+        size="16"
       />
     </button>
   </div>
@@ -58,8 +64,10 @@ exports[`<CalendarHead/> should props prevIcon, nextIcon correctly 1`] = `
     <button
       className="calendar__head--button"
     >
-      <i
-        className="icon icon-right-arrow"
+      <SVGIcon
+        color="currentColor"
+        id="right-arrow"
+        size="16"
       />
     </button>
   </div>

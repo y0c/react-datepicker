@@ -8,6 +8,7 @@ import { ifExistCall } from '../utils/FunctionUtil';
 import { getDivPosition } from '../utils/DOMUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
+import SVGIcon from './SVGIcon';
 
 interface TimePickerProps {
   /** Timepicker change event */
@@ -94,7 +95,7 @@ class TimePicker extends React.Component<Props, State> {
         {...this.props}
         onChange={this.handleInputChange}
         onClear={this.handleInputClear}
-        icon={this.props.showDefaultIcon ? <i className="icon icon-time" /> : undefined}
+        icon={this.props.showDefaultIcon ? <SVGIcon id="time"/> : undefined}
         value={inputValue}
       />
     );

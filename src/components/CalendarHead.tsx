@@ -1,4 +1,5 @@
 import * as React from 'react';
+import SVGIcon from './SVGIcon';
 
 interface Props {
   /** Prev button click event */
@@ -32,7 +33,7 @@ const CalendarHead: React.FunctionComponent<Props> = ({
       <div className="calendar__head--prev">
         {prevIcon && (
           <button onClick={onPrev} className="calendar__head--button">
-            <i className="icon icon-left-arrow" />
+	          <SVGIcon id="left-arrow"/>
           </button>
         )}
       </div>
@@ -42,7 +43,7 @@ const CalendarHead: React.FunctionComponent<Props> = ({
       <div className="calendar__head--next">
         {nextIcon && (
           <button onClick={onNext} className="calendar__head--button">
-            <i className="icon icon-right-arrow" />
+	          <SVGIcon id="right-arrow"/>
           </button>
         )}
       </div>

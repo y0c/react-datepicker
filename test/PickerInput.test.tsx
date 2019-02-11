@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import PickerInput from '../src/components/PickerInput';
 import * as sinon from 'sinon';
 
@@ -19,7 +19,7 @@ describe('<PickerInput/>', () => {
   });
 
   it('should onClear correctly', () => {
-    mountComponent.find('.icon-clear').simulate('click');
+    mountComponent.find('.icon-clear').first().simulate('click');
     expect(onClear).toHaveProperty('callCount', 1);
   });
 

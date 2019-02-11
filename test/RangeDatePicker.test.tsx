@@ -315,6 +315,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent
         .find(rangeInputClass('start'))
         .find('.icon-clear')
+	      .first()
         .simulate('click');
 
       const startState = mountComponent.state('start');
@@ -335,6 +336,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent
         .find(rangeInputClass('end'))
         .find('.icon-clear')
+	      .first()
         .simulate('click');
 
       const endState = mountComponent.state('end');

@@ -11,6 +11,7 @@ import { DatePickerDefaults } from '../common/Constant';
 import { getNormalHour, getMomentHour } from '../utils/DateUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
+import SVGIcon from './SVGIcon';
 
 export enum TabValue {
   DATE,
@@ -196,7 +197,7 @@ class DatePicker extends React.Component<Props, State> {
       onClear: this.handleInputClear,
       onBlur: this.handleInputBlur,
       value: dateValue,
-      icon: showDefaultIcon ? <i className="icon icon-calendar" /> : undefined,
+      icon: showDefaultIcon ? <SVGIcon id="calendar" /> : undefined,
     };
     return inputComponent ? inputComponent({ ...inputProps }) : <PickerInput {...inputProps} />;
   };
@@ -219,15 +220,15 @@ class DatePicker extends React.Component<Props, State> {
         })}
         onClick={this.handleTab(type)}
       >
-        <i className={icon} />
+	      <SVGIcon id={icon} />
         {label}
       </button>
     );
     if (includeTime) {
       return (
         <div className="datepicker__container__tab">
-          {renderButton(TabValue.DATE, 'DATE', 'icon icon-calendar')}
-          {renderButton(TabValue.TIME, 'TIME', 'icon icon-time')}
+          {renderButton(TabValue.DATE, 'DATE', 'calendar')}
+          {renderButton(TabValue.TIME, 'TIME', 'time')}
         </div>
       );
     }

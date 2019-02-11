@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
+import SVGIcon from './SVGIcon';
 
 export interface Props {
   value?: string;
@@ -72,7 +73,7 @@ class PickerInput extends React.Component<Props> {
         />
         {clear && (
           <span className="picker-input__clear" onClick={this.handleClear}>
-            <i className="icon icon-clear" />
+	          <SVGIcon id="clear"/>
           </span>
         )}
       </div>
