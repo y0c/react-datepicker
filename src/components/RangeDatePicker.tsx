@@ -28,6 +28,8 @@ interface RangeDatePickerProps {
   startText: string;
   /** end day display this prop(optional) */
   endText: string;
+  /** calendar wrapping element */
+  wrapper?: (calendar: JSX.Element) => JSX.Element;
 }
 
 export interface State {
@@ -41,7 +43,7 @@ export interface State {
 }
 
 type CalendarProps = Merge<
-  Omit<ICalendarProps, 'base' | 'onChange' | 'selected'>,
+  Omit<ICalendarProps, 'base' | 'onChange' | 'selected' | 'disabled'>,
   {
     showMonthCnt?: number;
   }
@@ -115,9 +117,7 @@ class RangeDatePicker extends React.Component<Props, State> {
       }
     }
 
-    if (onChange) {
-      onChange(startDate, endDate);
-    }
+    ifExistCall(onChange, startDate, endDate);
 
     this.setState({
       ...this.state,
@@ -224,9 +224,34 @@ class RangeDatePicker extends React.Component<Props, State> {
     );
   };
 
+  public renderCalendar = () => {
+    const { showMonthCnt, initialDate, wrapper } = this.props;
+    const { start, end } = this.state;
+    let component: JSX.Element;
+
+    const calendar = (
+      <Calendar
+        base={start ? start : moment(initialDate)}
+        startDay={start}
+        endDay={end}
+        showMonthCnt={showMonthCnt}
+        onChange={this.handleDateChange}
+        customDayText={this.handleCalendarText}
+      />
+    );
+
+    component = calendar;
+
+    if (wrapper) {
+      component = wrapper(calendar);
+    }
+
+    return component;
+  };
+
   public render() {
-    const { portal, showMonthCnt, initialDate } = this.props;
-    const { show, position, start, end } = this.state;
+    const { portal } = this.props;
+    const { show, position } = this.state;
     let style;
     if (!portal) {
       style = { ...position };
@@ -239,14 +264,7 @@ class RangeDatePicker extends React.Component<Props, State> {
         </div>
         {show && (
           <div className={classNames('datepicker__container', { portal })} style={{ ...style }}>
-            <Calendar
-              base={start ? start : moment(initialDate)}
-              startDay={start}
-              endDay={end}
-              showMonthCnt={showMonthCnt}
-              onChange={this.handleDateChange}
-              customDayText={this.handleCalendarText}
-            />
+            {this.renderCalendar()}
           </div>
         )}
         <Backdrop show={show} invert={portal} onClick={this.hideCalendar} />

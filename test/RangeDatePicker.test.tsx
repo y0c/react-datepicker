@@ -348,4 +348,27 @@ describe('<RangeDatePicker/>', () => {
       }
     });
   });
+
+  describe('Calendar Wrapper', () => {
+    let mountComponent: ReactWrapper;
+
+    beforeEach(() => {
+      const wrapper = (calendar: JSX.Element) => {
+        const container = (
+          <div className="wrapper-test">
+            {calendar}
+          </div>
+        );
+        return container;
+      };
+      mountComponent = mount(<RangeDatePicker {...defaultProps} wrapper={wrapper}/>);
+    });
+
+    it('should calendar wrapper render without crash', () => {
+      mountComponent.setState({
+        show: true
+      });
+      expect(mountComponent.find('.wrapper-test')).toHaveLength(1);
+    });
+  });
 });
