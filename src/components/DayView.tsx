@@ -3,12 +3,15 @@ import * as moment from 'moment';
 import * as React from 'react';
 import TableCell from './TableCell';
 import TableMatrixView from './TableMatrixView';
+import { ifExistCall } from '../utils/FunctionUtil';
 
 import { getDayMatrix, isDayEqual, isDayRange } from '../utils/DateUtil';
 
 export interface Props {
   /** Selected days to show in calendar */
   selected?: moment.Moment[];
+  /** Disable days show in calendar */
+  disabled?: moment.Moment[];
   /** Start day to show in calendar */
   startDay?: moment.Moment;
   /** End day to show in calendar */
@@ -32,7 +35,7 @@ class DayView extends React.Component<Props & PrivateProps> {
   };
 
   public getDayClass = (date: string): string => {
-    const { current, customDayClass, startDay, endDay } = this.props;
+    const { current, customDayClass, startDay, endDay, selected, disabled } = this.props;
     const currentDate = moment(current).date(parseInt(date, 10));
     let classArr: string[] = [];
 
@@ -48,7 +51,8 @@ class DayView extends React.Component<Props & PrivateProps> {
     const dayClass = classNames('calendar__day', `calendar__day--${currentDate.day()}`, classArr, {
       'calendar__day--end': isDayEqual(currentDate, endDay),
       'calendar__day--range': isDayRange(currentDate, startDay, endDay),
-      'calendar__day--selected': this.isSelected(date),
+      'calendar__day--selected': this.isIncludeDay(date, selected),
+      'calendar__day--disabled': this.isIncludeDay(date, disabled),
       'calendar__day--start': isDayEqual(currentDate, startDay),
       'calendar__day--today': isDayEqual(currentDate, moment()),
     });
@@ -69,16 +73,22 @@ class DayView extends React.Component<Props & PrivateProps> {
     return customDayText(currentDate);
   };
 
-  public isSelected = (date: string): boolean => {
-    const { selected, current } = this.props;
-    if (selected === undefined) {
+  public isIncludeDay = (date: string, dates?: moment.Moment[]): boolean => {
+    const { current } = this.props;
+    if (dates === undefined) {
       return false;
     }
-    return selected.some(v => isDayEqual(moment(current).date(parseInt(date, 10)), v));
+    return dates.some(v => isDayEqual(moment(current).date(parseInt(date, 10)), v));
   };
 
+  public handleClick = (date: string) => {
+    if(this.isIncludeDay(date, this.props.disabled)) return ;
+    ifExistCall(this.props.onClick, date);
+  };
+
+
   public render() {
-    const { current, onClick, locale } = this.props;
+    const { current, locale } = this.props;
 
     const dayMatrix = getDayMatrix(current.year(), current.month());
     const weekdays = moment.localeData(locale).weekdaysShort();
@@ -91,7 +101,7 @@ class DayView extends React.Component<Props & PrivateProps> {
           <TableCell
             className={this.getDayClass(date)}
             subText={this.getCustomText(date)}
-            onClick={onClick}
+            onClick={this.handleClick}
             text={date}
             key={key}
           />

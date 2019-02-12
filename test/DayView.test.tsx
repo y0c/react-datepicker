@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
 import * as moment from 'moment';
-import TestDayView from '../src/components/DayView';
+import DayView from '../src/components/DayView';
 import { mount, ReactWrapper } from 'enzyme';
 
 describe('<DayView/>', () => {
   // 20181201
   const mockMoment = moment.unix(1543622400);
 
-  const DayView = (props: any) => <TestDayView current={mockMoment} {...props} />;
+  const defaultProps = {
+    current: mockMoment
+  };
   let mountComponent: ReactWrapper;
 
-  let onClick: sinon.SinonSpy;
 
   describe('prop: selected', () => {
     beforeEach(() => {
@@ -22,7 +23,7 @@ describe('<DayView/>', () => {
         moment('20181222'),
       ];
 
-      mountComponent = mount(<DayView selected={selected} />);
+      mountComponent = mount(<DayView {...defaultProps} selected={selected} />);
     });
 
     it('should render correctly', () => {
@@ -30,8 +31,32 @@ describe('<DayView/>', () => {
       expect(mountComponent).toMatchSnapshot();
     });
 
-    it('should have selected elements', () => {
+    it('does selected add class --selected', () => {
       expect(mountComponent.find('td.calendar__day--selected')).toHaveLength(4);
+    });
+  });
+
+  describe('prop: disabled', () => {
+    let onClick:sinon.SinonSpy;
+
+    beforeEach(() => {
+      const disabled = [
+        moment('20181203'),
+        moment('20181204'),
+        moment('20181205'),
+        moment('20181209'),
+      ];
+      onClick = sinon.spy();
+      mountComponent = mount(<DayView {...defaultProps} disabled={disabled} onClick={onClick} />);
+    });
+
+    it('does disabled dates add class --disabled', () => {
+      expect(mountComponent.find('td.calendar__day--disabled')).toHaveLength(4);
+    });
+
+    it('does disabled dates onClick not fired', () => {
+      mountComponent.find('td.calendar__day--disabled').first().simulate('click');
+      expect(onClick).toHaveProperty('callCount', 0);
     });
   });
 
@@ -40,7 +65,7 @@ describe('<DayView/>', () => {
       const startDay = moment('20181205');
       const endDay = moment('20181211');
 
-      mountComponent = mount(<DayView startDay={startDay} endDay={endDay} />);
+      mountComponent = mount(<DayView {...defaultProps} startDay={startDay} endDay={endDay} />);
     });
     it('should render correctly', () => {
       expect(mountComponent).toBeTruthy();
@@ -54,7 +79,7 @@ describe('<DayView/>', () => {
 
     it('should only occur when startDay, endDay exists', () => {
       const startDay = moment('20181205');
-      mountComponent = mount(<DayView startDay={startDay} />);
+      mountComponent = mount(<DayView {...defaultProps} startDay={startDay} />);
       expect(mountComponent.find('td.calendar__day--range')).toHaveLength(0);
     });
   });
@@ -78,7 +103,7 @@ describe('<DayView/>', () => {
         return dayTextMap[date.format('YYYYMMDD')];
       };
       mountComponent = mount(
-        <DayView customDayClass={customDayClass} customDayText={customDayText} />
+        <DayView {...defaultProps} customDayClass={customDayClass} customDayText={customDayText} />
       );
     });
 
@@ -100,9 +125,10 @@ describe('<DayView/>', () => {
   });
 
   describe('prop: onClick', () => {
+    let onClick: sinon.SinonSpy;
     beforeEach(() => {
       onClick = sinon.spy();
-      mountComponent = mount(<DayView onClick={onClick} />);
+      mountComponent = mount(<DayView {...defaultProps} onClick={onClick} />);
     });
 
     it('should fire click event', () => {
