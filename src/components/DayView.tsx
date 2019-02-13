@@ -17,7 +17,9 @@ export interface Props {
   /** End day to show in calendar */
   endDay?: moment.Moment;
   /** Calendar day click Event */
-  onClick?: (value: string) => void;
+  onClick?: (date: string) => void;
+  /** Calendar day Mouseover Event */
+  onMouseOver?: (date: moment.Moment) => void;
   /** Custom day class to show in day */
   customDayClass?: (date: moment.Moment) => string | string[];
   /** Custom day text to show in day */
@@ -86,6 +88,11 @@ class DayView extends React.Component<Props & PrivateProps> {
     ifExistCall(this.props.onClick, date);
   };
 
+  public handleMouseOver = (date: string) => {
+    const { onMouseOver, current } = this.props;
+    ifExistCall(onMouseOver, moment(current).date(parseInt(date, 10)));
+  };
+
 
   public render() {
     const { current, locale } = this.props;
@@ -102,6 +109,7 @@ class DayView extends React.Component<Props & PrivateProps> {
             className={this.getDayClass(date)}
             subText={this.getCustomText(date)}
             onClick={this.handleClick}
+            onMouseOver={this.handleMouseOver}
             text={date}
             key={key}
           />

@@ -144,6 +144,7 @@ class CalendarContainer extends React.Component<Props, State> {
       prevIcon,
       nextIcon,
       show,
+      onMouseOver,
       current,
       locale = 'en-ca',
     } = this.props;
@@ -178,6 +179,7 @@ class CalendarContainer extends React.Component<Props, State> {
           startDay={startDay}
           endDay={endDay}
           onClick={this.handleChange}
+          onMouseOver={onMouseOver}
           customDayClass={customDayClass}
           customDayText={customDayText}
           locale={locale}
