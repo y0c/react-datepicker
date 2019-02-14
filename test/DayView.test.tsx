@@ -139,4 +139,20 @@ describe('<DayView/>', () => {
       expect(onClick).toHaveProperty('callCount', 1);
     });
   });
+
+  describe('prop: onMouseOver', () => {
+    let onMouseOver: sinon.SinonSpy;
+    beforeEach(() => {
+      onMouseOver = sinon.spy();
+      mountComponent = mount(<DayView {...defaultProps} onMouseOver={onMouseOver} />);
+    });
+
+    it('should fire click event', () => {
+      mountComponent
+        .find('td')
+        .at(6)
+        .simulate('mouseover');
+      expect(onMouseOver).toHaveProperty('callCount', 1);
+    });
+  });
 });
