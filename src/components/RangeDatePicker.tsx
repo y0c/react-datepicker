@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import * as classNames from 'classnames';
-import { isDayAfter, isDayBefore, isDayEqual } from '../utils/DateUtil';
+import { isDayAfter, isDayBefore, isDayEqual, isDayRange } from '../utils/DateUtil';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
 import { getDivPosition } from '../utils/DOMUtil';
@@ -36,6 +36,7 @@ export interface State {
   show: boolean;
   start?: moment.Moment;
   end?: moment.Moment;
+  hoverDate?: moment.Moment;
   startValue: string;
   endValue: string;
   mode?: FieldType;
@@ -137,6 +138,13 @@ class RangeDatePicker extends React.Component<Props, State> {
     });
   };
 
+  public handleMouseOver = (date: moment.Moment) => {
+    this.setState({
+      ...this.state,
+      hoverDate: date
+    });
+  };
+
   public handleInputBlur = (fieldType: FieldType, value: string) => {
     const { dateFormat } = this.props;
     const { start, end } = this.state;
@@ -188,6 +196,18 @@ class RangeDatePicker extends React.Component<Props, State> {
     return '';
   };
 
+  public handleCalendarClass = (date: moment.Moment) => {
+    const { customDayClass } = this.props;
+    const { start, hoverDate } = this.state;
+    if( start && hoverDate ) {
+      if(isDayRange(date, start, hoverDate)) {
+        return 'calendar__day--range';
+      }
+    }
+    ifExistCall(customDayClass, date);
+    return '';
+  };
+
   public handleInputClear = (fieldType: FieldType) => {
     if (fieldType === FieldType.START) {
       this.setState({
@@ -236,7 +256,9 @@ class RangeDatePicker extends React.Component<Props, State> {
         endDay={end}
         showMonthCnt={showMonthCnt}
         onChange={this.handleDateChange}
+        onMouseOver={this.handleMouseOver}
         customDayText={this.handleCalendarText}
+        customDayClass={this.handleCalendarClass}
       />
     );
 

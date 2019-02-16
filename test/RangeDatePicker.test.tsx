@@ -315,7 +315,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent
         .find(rangeInputClass('start'))
         .find('.icon-clear')
-	      .first()
+        .first()
         .simulate('click');
 
       const startState = mountComponent.state('start');
@@ -336,7 +336,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent
         .find(rangeInputClass('end'))
         .find('.icon-clear')
-	      .first()
+        .first()
         .simulate('click');
 
       const endState = mountComponent.state('end');
@@ -349,24 +349,63 @@ describe('<RangeDatePicker/>', () => {
     });
   });
 
+  describe('handleMouseOver', () => {
+    let mountComponent: ReactWrapper<Props, State>;
+
+    beforeEach(() => {
+      mountComponent = mount(<RangeDatePicker {...defaultProps} />);
+    });
+
+    it('does mouseover event set state hoverDate', () => {
+      mountComponent.setState({
+        show: true,
+      });
+      mountComponent
+        .find('td')
+        .at(5)
+        .simulate('mouseover');
+      const hoverDate = mountComponent.state('hoverDate');
+      expect(hoverDate).not.toBeUndefined();
+      if (hoverDate) {
+        expect(hoverDate.format('YYYYMMDD')).toEqual('20180504');
+      }
+    });
+
+    it('should mouseover range hover correctly', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        show: true,
+        start: moment(new Date(2018, 4, 1)),
+      });
+
+      mountComponent
+        .find('td')
+        .at(5)
+        .simulate('mouseover');
+
+      expect(
+        mountComponent
+          .find('td')
+          .at(4)
+          .hasClass('calendar__day--range')
+      ).toBeTruthy();
+    });
+  });
+
   describe('Calendar Wrapper', () => {
     let mountComponent: ReactWrapper;
 
     beforeEach(() => {
       const wrapper = (calendar: JSX.Element) => {
-        const container = (
-          <div className="wrapper-test">
-            {calendar}
-          </div>
-        );
+        const container = <div className="wrapper-test">{calendar}</div>;
         return container;
       };
-      mountComponent = mount(<RangeDatePicker {...defaultProps} wrapper={wrapper}/>);
+      mountComponent = mount(<RangeDatePicker {...defaultProps} wrapper={wrapper} />);
     });
 
     it('should calendar wrapper render without crash', () => {
       mountComponent.setState({
-        show: true
+        show: true,
       });
       expect(mountComponent.find('.wrapper-test')).toHaveLength(1);
     });
