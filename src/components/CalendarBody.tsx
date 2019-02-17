@@ -21,7 +21,6 @@ type Props = DayViewProps & CalendarBodyProps;
 class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
     viewMode: IDatePicker.ViewMode.DAY,
-    onClick: () => {},
     locale: DatePickerDefaults.locale,
   };
 
