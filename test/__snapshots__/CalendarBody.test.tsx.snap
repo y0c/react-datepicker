@@ -1,21 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CalendarBody /> prop: viewMode should ViewMode.DAY correctly 1`] = `
+exports[`<CalendarBody /> should render correctly 1`] = `
 <div
   className="calendar__body"
 >
   <DayView
     current={"2018-12-01T00:00:00.000Z"}
     locale="en-ca"
+    onClick={[Function]}
     viewMode={2}
   />
 </div>
-`;
-
-exports[`<CalendarBody /> should render correctly 1`] = `
-<CalendarBody
-  current={"2018-12-01T00:00:00.000Z"}
-  locale="en-ca"
-  viewMode={2}
-/>
 `;
