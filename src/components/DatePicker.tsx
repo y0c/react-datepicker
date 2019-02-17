@@ -67,8 +67,6 @@ type CalendarProps = Merge<
   {
     /** showMonth count at once */
     showMonthCnt?: number;
-    /** Calendar disable dates array */
-    disableDates?: moment.Moment[];
   }
 >;
 
