@@ -1,6 +1,6 @@
 {
   "name": "@y0c/react-datepicker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "React Datepicker Component",
   "author": "y0c",
   "license": "MIT",
@@ -34,8 +34,8 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.6",
-    "moment": "^2.22.2",
-    "lodash": "4.17.10"
+    "lodash": "4.17.10",
+    "moment": "^2.22.2"
   },
   "dependencies": {
     "react": "^16.6.3",
