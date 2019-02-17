@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import * as React from 'react';
 import * as sinon from 'sinon';
 import { DatePickerDefaults } from '../src/common/Constant';
+import { IDatePicker } from '../src/common/@types';
+import { formatTime } from '../src/utils/TimeUtil';
 import Calendar from '../src/components/Calendar';
 import DatePicker, { Props, State, TabValue } from '../src/components/DatePicker';
 
@@ -101,40 +103,6 @@ describe('<DatePicker/>', () => {
       expect(mountComponent.find('.time__container')).toBeTruthy();
     });
 
-    it('should hour == 0 display correctly', () => {
-      mountComponent.setState({
-        ...mountComponent.state,
-        date: moment()
-          .clone()
-          .hour(0),
-        tabValue: TabValue.TIME,
-      });
-
-      expect(
-        mountComponent
-          .find('.time-input__text input')
-          .at(0)
-          .prop('value')
-      ).toEqual(12);
-    });
-
-    it('should hour < 12 display correctly', () => {
-      mountComponent.setState({
-        ...mountComponent.state,
-        date: moment()
-          .clone()
-          .hour(13),
-        tabValue: TabValue.TIME,
-      });
-
-      expect(
-        mountComponent
-          .find('.time-input__text input')
-          .at(0)
-          .prop('value')
-      ).toEqual(1);
-    });
-
     it('should tab TIME click correctly', () => {
       mountComponent.setState({
         ...mountComponent.state,
@@ -164,23 +132,33 @@ describe('<DatePicker/>', () => {
         });
       });
 
-      it('should hour change 12', () => {
-        mountComponent
-          .find('.radio')
-          .at(0)
-          .simulate('change');
-        range(11).forEach(() => handleClick('up', 0));
+      it('should hour change 12 moment date eq 0', () => {
+        mountComponent = mount(
+          <DatePicker
+            {...defaultProps}
+            initialHour={11}
+            initialTimeType={IDatePicker.TimeType.AM}
+          />
+        );
+        mountComponent.setState({
+          show: true,
+          tabValue: TabValue.TIME,
+        });
+        handleClick('up', 0);
 
         expect(mountComponent.state('date').hour()).toEqual(0);
       });
 
-      it('should hour PM(not 12)', () => {
-        mountComponent
-          .find('.radio')
-          .at(1)
-          .simulate('change');
-
-        expect(mountComponent.state('date').hour()).toEqual(13);
+      it('should hour PM 2 moment date eq 14', () => {
+        mountComponent = mount(
+          <DatePicker {...defaultProps} initialHour={1} initialTimeType={IDatePicker.TimeType.PM} />
+        );
+        mountComponent.setState({
+          show: true,
+          tabValue: TabValue.TIME,
+        });
+        handleClick('up', 0);
+        expect(mountComponent.state('date').hour()).toEqual(14);
       });
 
       it('should fire onChange Event', () => {
@@ -201,14 +179,14 @@ describe('<DatePicker/>', () => {
       mountComponent = mount(<DatePicker {...defaultProps} />);
     });
 
-    it('should picker input invalid value return original date', () => {
+    it('should date picker input invalid value return original date', () => {
       const { dateFormat } = DatePickerDefaults;
       const originalDate = moment(new Date(2018, 4, 1));
       const testValue = 'teste333';
       mountComponent.setState({
         ...mountComponent.state,
         date: originalDate,
-        dateValue: testValue,
+        inputValue: testValue,
       });
 
       mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
@@ -221,14 +199,14 @@ describe('<DatePicker/>', () => {
       }
     });
 
-    it('should picker input valid value setState date', () => {
+    it('should date picker input valid value setState date', () => {
       const { dateFormat } = DatePickerDefaults;
       const originalDate = moment(new Date(2018, 4, 1));
       const correctValue = '2018-05-02';
       mountComponent.setState({
         ...mountComponent.state,
         date: originalDate,
-        dateValue: correctValue,
+        inputValue: correctValue,
       });
 
       mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
@@ -239,6 +217,68 @@ describe('<DatePicker/>', () => {
       if (dateState) {
         expect(dateState.format(dateFormat)).toEqual(correctValue);
       }
+    });
+
+    it('should time picker input invalid value return original time', () => {
+      const hour = 10;
+      const minute = 22;
+      const timeType = IDatePicker.TimeType.PM;
+
+      mountComponent = mount(
+        <DatePicker
+          {...defaultProps}
+          includeTime
+          initialHour={hour}
+          initialMinute={minute}
+          initialTimeType={timeType}
+        />
+      );
+      const originalDate = moment(new Date(2018, 4, 1));
+
+      mountComponent.setState({
+        ...mountComponent.state,
+        date: originalDate,
+        inputValue: `${originalDate.format(DatePickerDefaults.dateFormat)} 03:e0A`,
+      });
+
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
+
+      const inputValue = mountComponent.state('inputValue');
+
+      expect(inputValue).toEqual(
+        `${originalDate.format(DatePickerDefaults.dateFormat)} ${formatTime(
+          hour,
+          minute,
+          timeType
+        )}`
+      );
+    });
+
+    it('should time picker input valid value set state hour & date', () => {
+      const hour = 10;
+      const minute = 22;
+      const timeType = IDatePicker.TimeType.PM;
+
+      mountComponent = mount(
+        <DatePicker
+          {...defaultProps}
+          includeTime
+          initialHour={hour}
+          initialMinute={minute}
+          initialTimeType={timeType}
+        />
+      );
+      const originalDate = moment(new Date(2018, 4, 1));
+
+      mountComponent.setState({
+        ...mountComponent.state,
+        date: originalDate,
+        inputValue: `${originalDate.format(DatePickerDefaults.dateFormat)} 03:01 AM`,
+      });
+
+      mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
+      expect(mountComponent.state('hour')).toEqual(3);
+      expect(mountComponent.state('minute')).toEqual(1);
     });
   });
 
@@ -252,14 +292,20 @@ describe('<DatePicker/>', () => {
     });
 
     it('should clear click state change correctly', () => {
-      mountComponent.find('.icon-clear').first().simulate('click');
-      expect(mountComponent.state('dateValue')).toEqual('');
+      mountComponent
+        .find('.icon-clear')
+        .first()
+        .simulate('click');
+      expect(mountComponent.state('inputValue')).toEqual('');
     });
 
     it('should clear click onChange fired!', () => {
       const onChange = sinon.spy();
       mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} clear />);
-      mountComponent.find('.icon-clear').first().simulate('click');
+      mountComponent
+        .find('.icon-clear')
+        .first()
+        .simulate('click');
       expect(onChange).toHaveProperty('callCount', 1);
     });
   });
