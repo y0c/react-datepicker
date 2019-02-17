@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import * as moment from 'moment';
 import Calendar from '../src/components/Calendar';
+import { isDayRange } from '../src/utils/DateUtil';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';
@@ -34,6 +35,12 @@ storiesOf('Calendar', module)
   .add('showMonthCnt', () => {
     const showMontCnt = number('showMonthCnt', 2);
     return <Calendar showMonthCnt={showMontCnt} />;
+  })
+  .add('disableDay', () => {
+    const disableDay = (date: moment.Moment) => {
+      return date.date() < 7;
+    };
+    return <Calendar disableDay={disableDay} />;
   })
   .add('selected & onChange', () => {
     return <CalendarSelectedController />;
