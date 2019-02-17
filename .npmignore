@@ -11,6 +11,7 @@ webpack.config.js
 yarn-error.log
 yarn.lock
 .storybook
+.idea
 .vscode
 coverage
 examples
@@ -24,3 +25,4 @@ webpack*.js
 yarn-error.log
 assets/images
 dist
+out*/

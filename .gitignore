@@ -1,6 +1,7 @@
 ## System and generated files
-.idea
+.idea/
 .DS_Store
+.vscode/
 .sass-cache
 .jest.test.result.json
 
@@ -17,3 +18,4 @@ lib/
 ## Files
 result.xml
 *.log
+out*/
