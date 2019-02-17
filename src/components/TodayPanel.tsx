@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 interface IProps {
+  /** panel display today string */
   today: string;
+  /** today panel click event */
   onClick?: () => void;
+  /** today panel show or hide */
   show?: boolean;
 }
 

@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import * as moment from 'moment';
 import Calendar from '../src/components/Calendar';
-import { isDayRange } from '../src/utils/DateUtil';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';

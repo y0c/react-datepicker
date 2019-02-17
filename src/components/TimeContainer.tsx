@@ -3,9 +3,13 @@ import TimeInput from './TimeInput';
 import { IDatePicker } from '../common/@types';
 
 interface Props {
+  /** hour to display */
   hour?: number;
+  /** minute to display */
   minute?: number;
+  /** timetype(AM/PM) to display */
   type?: IDatePicker.TimeType;
+  /** hour, minute, type change event */
   onChange?: (hour: number, minute: number, type: IDatePicker.TimeType) => void;
 }
 

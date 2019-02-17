@@ -14,9 +14,6 @@ export interface State {
   base: moment.Moment;
 }
 
-/**
- * Wrapping Calendar Container Component for showMonthCnt
- */
 class Calendar extends React.Component<Props, State> {
   public static defaultProps = {
     base: moment(),
