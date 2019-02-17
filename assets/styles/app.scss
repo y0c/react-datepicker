@@ -76,6 +76,7 @@
 }
 
 .range-datepicker {
+  display: inline-block;
   &__container {
     position: absolute;
     z-index:100;
