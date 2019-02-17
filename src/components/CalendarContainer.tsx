@@ -137,6 +137,7 @@ class CalendarContainer extends React.Component<Props, State> {
     const {
       customDayClass,
       customDayText,
+      disableDay,
       selected,
       showToday,
       startDay,
@@ -178,6 +179,7 @@ class CalendarContainer extends React.Component<Props, State> {
           selected={selected}
           startDay={startDay}
           endDay={endDay}
+          disableDay={disableDay}
           onClick={this.handleChange}
           onMouseOver={onMouseOver}
           customDayClass={customDayClass}

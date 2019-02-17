@@ -44,7 +44,7 @@ export interface State {
 }
 
 type CalendarProps = Merge<
-  Omit<ICalendarProps, 'base' | 'onChange' | 'selected' | 'disabled'>,
+  Omit<ICalendarProps, 'base' | 'onChange' | 'selected'>,
   {
     showMonthCnt?: number;
   }
@@ -141,7 +141,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   public handleMouseOver = (date: moment.Moment) => {
     this.setState({
       ...this.state,
-      hoverDate: date
+      hoverDate: date,
     });
   };
 
@@ -199,8 +199,8 @@ class RangeDatePicker extends React.Component<Props, State> {
   public handleCalendarClass = (date: moment.Moment) => {
     const { customDayClass } = this.props;
     const { start, hoverDate } = this.state;
-    if( start && hoverDate ) {
-      if(isDayRange(date, start, hoverDate)) {
+    if (start && hoverDate) {
+      if (isDayRange(date, start, hoverDate)) {
         return 'calendar__day--range';
       }
     }
