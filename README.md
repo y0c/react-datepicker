@@ -1,4 +1,13 @@
+<center>
+
 # ![image](https://user-images.githubusercontent.com/2585676/51196670-fd492800-1932-11e9-932e-30920312460e.png) React Datepicker
+
+</center>
+
+---
+
+<center>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/%40y0c%2Freact-datepicker.svg)](https://badge.fury.io/js/%40y0c%2Freact-datepicker) 
 [![Build Status](https://travis-ci.com/y0c/react-datepicker.svg?branch=master)](https://travis-ci.com/y0c/react-datepicker)
 [![codecov](https://codecov.io/gh/y0c/react-datepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/y0c/react-datepicker)
@@ -6,20 +15,48 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![dependencies Status](https://david-dm.org/y0c/react-datepicker/status.svg)](https://david-dm.org/y0c/react-datepicker)
 [![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
+[![Storybook](https://github.com/storybooks/brand/blob/master/badges/storybook.svg)](https://y0c.github.io/react-datepicker)
 
+</center>
 
-> Simple and Reusable DatePicker Component 
+> Flexible, Reusable, Mobile friendly DatePicker Component 
+
+## 🎬 Intro 
+
+### DatePicker
+
+![datepicker](https://user-images.githubusercontent.com/2585676/52909193-a8992400-32c7-11e9-9266-7735c0e6e705.gif)
+
+### RangeDatePicker 
+
+![rangedatepicker](https://user-images.githubusercontent.com/2585676/52909117-d7ae9600-32c5-11e9-902a-4df671e82611.gif)
+
+### TimePicker
+
+![timepicker](https://user-images.githubusercontent.com/2585676/52909206-fd3c9f00-32c7-11e9-983e-94594c9847f4.gif)
+
+[Demo in Storybook](https://y0c.github.io/react-datepicker)
+
+## ✨ Major Component 
+
+* RangeDatePicker
+* DatePicker
+* Standalone Calendar
+* TimePicker
+
+The components that you can use are as follows: If you want to configure the `DatePicker` yourself, you can configure it any way you want through the `Default Calendar component`.
 
 ## 🔧 Built With
 
 * TypeScript
 * Sass
 * React
-* Moment
 
 ## 📦 Dependency 
 
 * [Moment](https://momentjs.com)
+
+`Moment` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use moment library to globalize and control date
 
 ## 📲 Installation 
 
@@ -31,12 +68,12 @@ npm install --save @y0c/react-datepicker
 
 ## 💡 Examples 
 
-### Simple Calendar Standalone 
+### Simple DatePicker 
 
 ```javascript
 // import Calendar Component 
 import React, { Component } from 'react';
-import { Calendar } from '@y0c/react-datepicker';
+import { DatePicker } from '@y0c/react-datepicker';
 // import calendar style 
 // You can customize style by copying asset folder.
 import '@y0c/react-datepicker/assets/styles/calendar.scss';
@@ -45,173 +82,62 @@ import '@y0c/react-datepicker/assets/styles/calendar.scss';
 // and delivery props to calendar component 
 import 'moment/locale/ko';
 
-class CalendarExample extends Component {
+class DatePickerExample extends Component {
 
-  state = {
-    selected: []
+  onChange = (date) => {
+    console.log(date);
   }
-
-  /**
-   * Signle Select
-   * @param {Moment} selected date  
-   */
-  handleChange = (date) => {
-    this.setState({
-      selected: [date]
-    });
-  }
-
-  /**
-   * MultiSelect Date
-    handleChange = (date) => {
-      this.setState({
-        selected: [...this.state.selected].concat(date) 
-      })
-    }
-  */
   
   render() {
-    const { selected } = this.state;
     return (
-      <Calendar 
-        onChange={this.handleChange}
-        selected={selected}
-      />
+      <DatePicker locale="ko" onChange={this.onChange}/>
     )
   }
 }
+```
+You can find more Exmaples and Demo in story book link
+
+### 🎨 Themeing
+
+1. Copy this project asset folder under scss file
+2. Override scss variable you want(_variable.scss) 
+( red theme examples )
+
+```scss
+$base-font-size: 12px;
+$title-font-size: 1.3em;
+
+$primary-color-dark:   #49599a;
+$primary-color:        red;
+$primary-color-light:  #aab6fe;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #03A9F4;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #e4e4e4;
+$today-bg-color:       #FFF9C4;
+
+@import "../_mixin.scss";
+@import "../app.scss";
 
 ```
-### Result 
-Single Select & Multi Select
-![image](https://user-images.githubusercontent.com/2585676/50602165-f0bbdd00-0ef9-11e9-95b7-1cc3e2c56f0e.png)
+if you want custom css rewrite `app.scss` file 
 
-### Range Select & Custom Text
-```javascript
-class CalendarExample extends Component {
-  state ={
-    startDay: null,
-    endDay: null
-  }
-
-  handleChange = (date) => {
-    const { startDay, endDay } = this.state;
-    if(!startDay) {
-      this.setState({
-        startDay: date
-      });
-    } else {
-      if(date.isAfter(startDay)) {
-        this.setState({
-          endDay: date
-        });
-      } else {
-        this.setState({
-          startDay: date
-        });
-      }
-    }
-  }
-
-  getDayText = (date) => {
-    const value = date.format('YYYYMMDD');
-    const { startDay, endDay } = this.state;
-    
-    //You can mapping date with specific text
-    const textMap = {
-      "20190101": "신정"
-    };
-    if(startDay) textMap[startDay.format('YYYYMMDD')] = "출발일"
-    if(endDay) textMap[endDay.format('YYYYMMDD')] = "도착일"
-    return textMap[value];
-  }
-
-  render() {
-    const { startDay, endDay } = this.state;
-    return (
-      <div className="App">
-        <Calendar
-          onChange={this.handleChange}
-          startDay={startDay}
-          endDay={endDay}
-          customDayText={this.getDayText}
-        />
-      </div>
-    );
-  }
-}
-
-```
-
-### Result
-
-![image](https://user-images.githubusercontent.com/2585676/50604018-ebae5c00-0f00-11e9-9990-205f252f0693.png)
-
-
-## 📋 Calendar Component Props Detail 
-
-| Props          | Description                               | defaultProps  | Type          |
-|----------------|-------------------------------------------|---------------|---------------|
-| locale         | Moment locale param                       | 'ko'          | string        |
-| headerFormat   | Header Year & Month Format(Moment Format) | 'YYYY년 MM월' | string        |
-| selected       | selected date(single or multi)            | []            | array         |
-| startDay       | Start Date to display                     |               | moment.Moment |
-| endDay         | End Date to display                       |               | moment.Moment |
-| customDayClass | you can grant class specific date         |               | function      |
-| customDayText  | you can grant text specific text          |               | function      |
-| show           | Calendar Display Y/N                      | true          | boolean       |
-
-### DatePicker Component
-> Datepicker Component is simply wrapping Calendar Component with input
-
-```javascript
- // ...
-
-  render() {
-    return (
-      <DatePicker 
-        inputFormat='YYYY/MM/DD'
-        onChange={this.handleChange}
-        selected={selected}
-      />
-    )
-  }
-```
-
-### Result
-![image](https://user-images.githubusercontent.com/2585676/50604620-e18d5d00-0f02-11e9-84f2-a0f87f68e41c.png)
 
 ## ⚙️ Local Development
+
+This component is managed by a `storybook` which is combined with `develop environment` and `documentation`. If you want develop in local environment, clone project and develop through a storybook
 
 ```sh
 # clone this project
 git clone https://github.com/y0c/react-datepicker.git
 # install dependency
 yarn
-# start development mode 
-# webpack dev server serving examples folder
-# This folder will later be added to the demo site It will be used.
-yarn run dev
+# start storybook 
+yarn run storybook
 ```
-Open your browser and connect http://localhost:8080
+Open your browser and connect http://localhost:6006
 
-
-## ✨ Feature
-
-* Custom Day Text 
-* Custom Day Class
-* Select Day
-* Mutiple Select
-* Today Check
-* i18n(with moment locale)
-* Select Range
-
-## 📋 Todo
-
-- [ ] Year & Month Selection Feature 
-- [ ] Abstraction Datepicker Component Input 
-- [ ] Demo site (Github Pages)
-- [ ] Range Datepicker Input 
 
 ## 📝 License 
 MIT
