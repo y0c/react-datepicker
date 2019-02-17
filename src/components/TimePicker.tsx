@@ -1,9 +1,11 @@
 import * as React from 'react';
+import * as moment from 'moment';
 import * as classNames from 'classnames';
 import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
 import { IDatePicker } from '../common/@types';
 import { Omit } from '../utils/TypeUtil';
+import { isValidTime, formatTime } from '../utils/TimeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
 import { getDivPosition } from '../utils/DOMUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
@@ -22,17 +24,16 @@ interface TimePickerProps {
 interface State {
   timeShow: boolean;
   inputValue: string;
+  originalValue: string;
   position: IDatePicker.Position;
 }
-
-const inputFormat = (hour: number, minute: number, type: string) =>
-  `${lpad(hour.toString(), 2)}:${lpad(minute.toString(), 2)} ${type}`;
 
 type Props = TimePickerProps & Omit<InputProps, 'onChange'>;
 class TimePicker extends React.Component<Props, State> {
   public state = {
     timeShow: false,
-    inputValue: inputFormat(1, 0, 'AM'),
+    inputValue: formatTime(1, 0, 'AM'),
+    originalValue: formatTime(1, 0, 'AM'),
     position: {
       left: '',
       top: '',
@@ -61,7 +62,8 @@ class TimePicker extends React.Component<Props, State> {
     const { onChange } = this.props;
     this.setState({
       ...this.state,
-      inputValue: inputFormat(hour, minute, type),
+      inputValue: formatTime(hour, minute, type),
+      originalValue: formatTime(hour, minute, type),
     });
 
     ifExistCall(onChange, hour, minute, type);
@@ -81,6 +83,15 @@ class TimePicker extends React.Component<Props, State> {
     });
   };
 
+  public handleInputBlur = () => {
+    const { inputValue } = this.state;
+    if (!isValidTime(inputValue)) {
+      this.setState({
+        inputValue: this.state.originalValue,
+      });
+    }
+  };
+
   public hideTimeContainer = () => {
     this.setState({
       ...this.state,
@@ -94,8 +105,9 @@ class TimePicker extends React.Component<Props, State> {
       <PickerInput
         {...this.props}
         onChange={this.handleInputChange}
+        onBlur={this.handleInputBlur}
         onClear={this.handleInputClear}
-        icon={this.props.showDefaultIcon ? <SVGIcon id="time"/> : undefined}
+        icon={this.props.showDefaultIcon ? <SVGIcon id="time" /> : undefined}
         value={inputValue}
       />
     );

@@ -1,17 +1,18 @@
 import * as React from 'react';
 import TimeInput from './TimeInput';
+import { IDatePicker } from '../common/@types';
 
 interface Props {
   hour?: number;
   minute?: number;
-  type?: string;
-  onChange?: (hour: number, minute: number, type: string) => void;
+  type?: IDatePicker.TimeType;
+  onChange?: (hour: number, minute: number, type: IDatePicker.TimeType) => void;
 }
 
 interface State {
   hour: number;
   minute: number;
-  type: string;
+  type: IDatePicker.TimeType;
 }
 
 interface TypeProps {
@@ -38,7 +39,7 @@ class TimeContainer extends React.Component<Props, State> {
   public state = {
     hour: this.props.hour || 1,
     minute: this.props.minute || 0,
-    type: this.props.type || 'AM',
+    type: this.props.type || IDatePicker.TimeType.AM,
   };
 
   public handleChange = (item: string) => (e: React.FormEvent<HTMLInputElement>) => {
@@ -55,8 +56,10 @@ class TimeContainer extends React.Component<Props, State> {
     this.setState(
       {
         ...this.state,
-        hour: 1,
-        type: e.currentTarget.value,
+        type:
+          e.currentTarget.value === IDatePicker.TimeType.AM
+            ? IDatePicker.TimeType.AM
+            : IDatePicker.TimeType.PM,
       },
       () => this.invokeOnChange()
     );
@@ -116,8 +119,18 @@ class TimeContainer extends React.Component<Props, State> {
           value={minute}
         />
         <div className="time__container__type">
-          <TimeType value="AM" checkValue={type} label="AM" onChange={this.handleTypeChange} />
-          <TimeType value="PM" checkValue={type} label="PM" onChange={this.handleTypeChange} />
+          <TimeType
+            value={IDatePicker.TimeType.AM}
+            checkValue={type}
+            label={IDatePicker.TimeType.AM}
+            onChange={this.handleTypeChange}
+          />
+          <TimeType
+            value={IDatePicker.TimeType.PM}
+            checkValue={type}
+            label={IDatePicker.TimeType.PM}
+            onChange={this.handleTypeChange}
+          />
         </div>
       </div>
     );

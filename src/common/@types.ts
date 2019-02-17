@@ -3,6 +3,11 @@ export namespace IDatePicker {
     TOP,
     BOTTOM,
   }
+
+  export enum TimeType {
+    AM = 'AM',
+    PM = 'PM',
+  }
   export interface Position {
     left?: string;
     top?: string;

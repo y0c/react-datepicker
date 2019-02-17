@@ -8,7 +8,14 @@ import { ifExistCall } from '../utils/FunctionUtil';
 import { getDivPosition } from '../utils/DOMUtil';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
-import { getNormalHour, getMomentHour } from '../utils/DateUtil';
+import {
+  getNormalHour,
+  getMomentHour,
+  getTimeType,
+  formatTime,
+  isValidTime,
+  parseTime,
+} from '../utils/TimeUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
 import SVGIcon from './SVGIcon';
@@ -33,14 +40,22 @@ interface DatePickerProps {
   onChange?: (rawValue: string, date?: moment.Moment) => void;
   /** DatePicker Input default Icon */
   showDefaultIcon: boolean;
+  /** initial Hour (1-12) */
+  initialHour?: number;
+  /** initial Minute (0-60) */
+  initialMinute?: number;
+  /** initial TimeType (AM/PM) */
+  initialTimeType?: IDatePicker.TimeType;
 }
 
 export interface State {
   show: boolean;
   tabValue: TabValue;
   date: moment.Moment;
-  dateValue: string;
-  timeValue: string;
+  hour: number;
+  minute: number;
+  timeType: IDatePicker.TimeType;
+  inputValue: string;
   selected: moment.Moment[];
   position: IDatePicker.Position;
 }
@@ -48,11 +63,21 @@ export interface State {
 type CalendarProps = Merge<
   Omit<ICalendarProps, 'base' | 'onChange' | 'selected'>,
   {
+    /** showMonth count at once */
     showMonthCnt?: number;
+    /** Calendar disable dates array */
+    disableDates?: moment.Moment[];
   }
 >;
 
 export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarProps;
+
+const setValueToInput = (dateValue: string, timeValue: string, includeTime: boolean) => {
+  if (!includeTime) {
+    return dateValue;
+  }
+  return `${dateValue} ${timeValue}`;
+};
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
     includeTime: false,
@@ -64,24 +89,34 @@ class DatePicker extends React.Component<Props, State> {
     showDefaultIcon: false,
   };
 
-  public state: State = {
-    show: false,
-    tabValue: TabValue.DATE,
-    date: moment(this.props.initialDate),
-    dateValue: this.setValueToInput(moment(this.props.initialDate)),
-    timeValue: '',
-    position: {
-      left: '',
-      top: '',
-    },
-    selected: [moment(this.props.initialDate)],
-  };
-
   public inputRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: Props) {
     super(props);
+    const date = moment(this.props.initialDate);
+    const { dateFormat, includeTime } = this.props;
+    const hour = this.props.initialHour || getNormalHour(date.hour());
+    const minute = this.props.initialMinute || date.minute();
+    const timeType = this.props.initialTimeType || getTimeType(date.hour());
     this.inputRef = React.createRef();
+    this.state = {
+      date,
+      hour,
+      minute,
+      timeType,
+      show: false,
+      tabValue: TabValue.DATE,
+      inputValue: setValueToInput(
+        date.format(dateFormat),
+        formatTime(hour, minute, timeType),
+        includeTime
+      ),
+      position: {
+        left: '',
+        top: '',
+      },
+      selected: [date],
+    };
   }
 
   public handleCalendar = (e: React.MouseEvent) => {
@@ -94,35 +129,40 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public handleDateChange = (date: moment.Moment) => {
-    const { onChange } = this.props;
-    const dateValue = this.setValueToInput(date);
+    const { onChange, dateFormat, includeTime } = this.props;
+    const { hour, minute, timeType } = this.state;
+    const dateValue = date.format(dateFormat);
+    const timeValue = formatTime(hour, minute, timeType);
 
     ifExistCall(onChange, dateValue, date);
 
     this.setState({
       ...this.state,
       date,
-      dateValue,
+      inputValue: setValueToInput(date.format(dateFormat), timeValue, includeTime),
       show: false,
       selected: [date],
     });
   };
 
-  public handleTimeChange = (hour: number, minute: number, type: string) => {
-    const { onChange } = this.props;
+  public handleTimeChange = (hour: number, minute: number, type: IDatePicker.TimeType) => {
+    const { onChange, dateFormat } = this.props;
+    const timeValue = formatTime(hour, minute, type);
     let date = this.state.date;
     date = date
       .clone()
       .hour(getMomentHour(hour, type))
       .minute(minute);
-    const dateValue = this.setValueToInput(date);
 
-    ifExistCall(onChange, dateValue, date);
+    ifExistCall(onChange, timeValue, date);
 
     this.setState({
       ...this.state,
       date,
-      dateValue,
+      hour,
+      minute,
+      timeType: type,
+      inputValue: setValueToInput(date.format(dateFormat), timeValue, true),
     });
   };
 
@@ -133,17 +173,6 @@ class DatePicker extends React.Component<Props, State> {
     });
   };
 
-  public setValueToInput(value: moment.Moment) {
-    const { includeTime, dateFormat, locale = DatePickerDefaults.locale } = this.props;
-    let inputValue: string;
-    if (!includeTime) {
-      inputValue = value.format(dateFormat);
-    } else {
-      inputValue = value.locale(locale).format(`${dateFormat} hh:mm A`);
-    }
-    return inputValue;
-  }
-
   public handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
     const value = e.currentTarget.value;
@@ -152,7 +181,7 @@ class DatePicker extends React.Component<Props, State> {
 
     this.setState({
       ...this.state,
-      dateValue: e.currentTarget.value,
+      inputValue: e.currentTarget.value,
     });
   };
 
@@ -163,31 +192,50 @@ class DatePicker extends React.Component<Props, State> {
 
     this.setState({
       ...this.state,
-      dateValue: '',
+      inputValue: '',
     });
   };
 
   public handleInputBlur = (e: React.FormEvent<HTMLInputElement>) => {
-    const { date } = this.state;
-    const { dateFormat } = this.props;
+    const { date, hour, minute, timeType } = this.state;
+    const { dateFormat, includeTime } = this.props;
     const value = e.currentTarget.value;
-    const parsedDate = moment(value, DatePickerDefaults.dateFormat);
+    const parsedDate = moment(value.substring(0, dateFormat.length), dateFormat);
     let updateDate: moment.Moment | undefined;
+    let updateHour = hour;
+    let updateMinute = minute;
+    let updateTimeType = timeType;
+    let timeValue = formatTime(updateHour, updateMinute, updateTimeType);
+
     updateDate = date;
+
     if (parsedDate.isValid() && dateFormat.length === value.length) {
       updateDate = parsedDate;
+    }
+
+    const inputTimeValue = value.substring(dateFormat.length + 1);
+    if (includeTime && isValidTime(inputTimeValue)) {
+      const parsedTime = parseTime(inputTimeValue);
+      updateHour = parsedTime.hour;
+      updateMinute = parsedTime.minute;
+      updateTimeType = parsedTime.type;
+      timeValue = formatTime(updateHour, updateMinute, updateTimeType);
+      updateDate.hour(getMomentHour(updateHour, updateTimeType)).minute(updateMinute);
     }
 
     this.setState({
       ...this.state,
       date: updateDate,
-      dateValue: updateDate.format(dateFormat),
+      hour: updateHour,
+      minute: updateMinute,
+      timeType: updateTimeType,
+      inputValue: setValueToInput(updateDate.format(dateFormat), timeValue, includeTime),
     });
   };
 
   public renderInputComponent = (): JSX.Element => {
     const { inputComponent, readOnly, disabled, clear, autoFocus, showDefaultIcon } = this.props;
-    const { dateValue } = this.state;
+    const { inputValue } = this.state;
     const inputProps = {
       readOnly,
       autoFocus,
@@ -196,7 +244,7 @@ class DatePicker extends React.Component<Props, State> {
       onChange: this.handleInputChange,
       onClear: this.handleInputClear,
       onBlur: this.handleInputBlur,
-      value: dateValue,
+      value: inputValue,
       icon: showDefaultIcon ? <SVGIcon id="calendar" /> : undefined,
     };
     return inputComponent ? inputComponent({ ...inputProps }) : <PickerInput {...inputProps} />;
@@ -220,7 +268,7 @@ class DatePicker extends React.Component<Props, State> {
         })}
         onClick={this.handleTab(type)}
       >
-	      <SVGIcon id={icon} />
+        <SVGIcon id={icon} />
         {label}
       </button>
     );
@@ -236,6 +284,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderCalendar = (): JSX.Element | null => {
+    const { disableDates } = this.props;
     const { tabValue, selected, date } = this.state;
     if (tabValue === TabValue.DATE) {
       return (
@@ -251,15 +300,14 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderTime = (): JSX.Element | null => {
-    const { tabValue, date } = this.state;
-    const hour = getNormalHour(date.hour());
+    const { tabValue, hour, minute, timeType } = this.state;
 
     if (tabValue === TabValue.TIME) {
       return (
         <TimeContainer
           hour={hour}
-          minute={date.minute()}
-          type={date.hour() > 11 ? 'PM' : 'AM'}
+          minute={minute}
+          type={timeType}
           onChange={this.handleTimeChange}
         />
       );

@@ -1,4 +1,5 @@
 import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
+import { mountInputSimulateChange } from './utils/TestingUtil';
 import * as React from 'react';
 import * as sinon from 'sinon';
 import TimePicker from '../src/components/TimePicker';
@@ -72,12 +73,48 @@ describe('<TimePicker/>', () => {
     });
 
     it('should clear button click inputValue empty', () => {
-      mountComponent.find('.icon-clear').first().simulate('click');
+      mountComponent
+        .find('.icon-clear')
+        .first()
+        .simulate('click');
       expect(mountComponent.state('inputValue')).toEqual('');
     });
 
     it('should props showDefaultIcon correctly', () => {
       expect(mountComponent.find('.icon-time').first()).toHaveLength(1);
+    });
+  });
+
+  describe('handleInputBlur', () => {
+    let mountComponent: ReactWrapper;
+    let timepickerInput: ReactWrapper;
+
+    beforeEach(() => {
+      mountComponent = mount(<TimePicker />);
+      timepickerInput = mountComponent.find('.picker-input__text');
+    });
+
+    it('should user invalid input after blur recover original', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        show: true,
+      });
+
+      mountInputSimulateChange(timepickerInput, '233232');
+      timepickerInput.simulate('blur');
+
+      expect(mountComponent.state('inputValue')).toEqual('01:00 AM');
+    });
+
+    it('should user valid input after blur set state inputValue', () => {
+      mountComponent.setState({
+        ...mountComponent.state,
+        show: true,
+      });
+
+      mountInputSimulateChange(timepickerInput, '02:22 AM');
+      timepickerInput.simulate('blur');
+      expect(mountComponent.state('inputValue')).toEqual('02:22 AM');
     });
   });
 });
