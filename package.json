@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "classnames": "^2.2.6"
   },
   "prettier": {
     "printWidth": 100,
@@ -97,7 +98,6 @@
     "@types/storybook__react": "^4.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
-    "classnames": "^2.2.6",
     "clean-webpack-plugin": "0.1.19",
     "cross-env": "5.2.0",
     "css-loader": "2.1.0",
