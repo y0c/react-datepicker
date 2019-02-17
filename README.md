@@ -1,12 +1,11 @@
-<center>
+<p align="justify">
 
 # ![image](https://user-images.githubusercontent.com/2585676/51196670-fd492800-1932-11e9-932e-30920312460e.png) React Datepicker
 
-</center>
+</p>
 
----
 
-<center>
+<p align="justify">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/%40y0c%2Freact-datepicker.svg)](https://badge.fury.io/js/%40y0c%2Freact-datepicker) 
 [![Build Status](https://travis-ci.com/y0c/react-datepicker.svg?branch=master)](https://travis-ci.com/y0c/react-datepicker)
@@ -17,7 +16,7 @@
 [![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
 [![Storybook](https://github.com/storybooks/brand/blob/master/badges/storybook.svg)](https://y0c.github.io/react-datepicker)
 
-</center>
+</p>
 
 > Flexible, Reusable, Mobile friendly DatePicker Component 
 
