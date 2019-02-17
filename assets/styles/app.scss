@@ -278,7 +278,7 @@
     vertical-align: top;
     padding-top:5px;
     height: 40px;
-    &:hover {
+    &:hover:not(&--disabled) {
       background: $primary-color-light;
       cursor: pointer;
     }
@@ -286,6 +286,7 @@
     &--0 { color:red; }
     &--6 { color:blue; }
     &--today{ background: $today-bg-color; }
+    &--disabled { color: #ddd; cursor: initial}
     &--start, &--end, &--selected {
       background: $primary-color;
       color: $primary-color-text;
