@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
+import { text } from '@storybook/addon-knobs';
 import RangeDatePicker from '../src/components/RangeDatePicker';
 import LayoutDecorator from './decorator/LayoutDecorator';
 
@@ -17,6 +18,9 @@ storiesOf('RangeDatePicker', module)
   })
   .add('show 3 month', () => {
     return <RangeDatePicker showMonthCnt={3} />;
+  })
+  .add('dateFormat', () => {
+    return <RangeDatePicker dateFormat={text('dateformat', 'YYYY/MM/DD')} />;
   })
   .add('wrapping calendar', () => {
     const wrapper = (calendar: JSX.Element) => (
