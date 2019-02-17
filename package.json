@@ -19,7 +19,8 @@
     "bump:patch": "yarn version --patch",
     "bump:minor": "yarn version --minor",
     "bump:major": "yarn version --major",
-    "prepublish": "yarn lint && yarn test"
+    "prepublish": "yarn lint && yarn test",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "lint-staged": {
     "{src}/**/*.ts*": [
@@ -82,6 +83,7 @@
     "@storybook/addons": "^4.1.11",
     "@storybook/cli": "^4.1.11",
     "@storybook/react": "^4.1.11",
+    "@storybook/storybook-deployer": "^2.8.1",
     "@types/classnames": "^2.2.6",
     "@types/enzyme": "^3.1.15",
     "@types/jest": "^23.3.12",
