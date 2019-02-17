@@ -7,12 +7,24 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 storiesOf('RangeDatePicker', module)
   .addDecorator(LayoutDecorator)
   .add('default', () => <RangeDatePicker />)
-  .add('startText & endText', () => <RangeDatePicker startText="Start" endText="End" />)
-  .add('portal version', () => <RangeDatePicker portal startText="Start" endText="End" />)
+  .add('startText & endText', () => (
+    <RangeDatePicker startText={text('startText', 'Start')} endText={text('endText', 'End')} />
+  ))
+  .add('portal version', () => (
+    <RangeDatePicker
+      portal
+      startText={text('startText', 'Start')}
+      endText={text('endText', 'End')}
+    />
+  ))
   .add('onTop', () => {
     return (
       <div style={{ paddingTop: '300px' }}>
-        <RangeDatePicker direction={0} startPlaceholder="Start Date" endPlaceholder="End Date" />
+        <RangeDatePicker
+          direction={0}
+          startPlaceholder={text('startPlaceholder', 'Start Date')}
+          endPlaceholder={text('endPlaceholder', 'End Date')}
+        />
       </div>
     );
   })
@@ -49,5 +61,8 @@ storiesOf('RangeDatePicker - Input Props', module)
   .add('disabled', () => <RangeDatePicker disabled />)
   .add('clear', () => <RangeDatePicker clear />)
   .add('placeholder', () => (
-    <RangeDatePicker startPlaceholder="Start Date" endPlaceholder="End Date" />
+    <RangeDatePicker
+      startPlaceholder={text('startPlaceholder', 'Start Date')}
+      endPlaceholder={text('endPlaceholder', 'End Date')}
+    />
   ));

@@ -8,38 +8,38 @@ import './css/custom.css';
 
 storiesOf('Calendar', module)
   .add('default', () => {
-    return <Calendar showToday={false} />;
+    return <CalendarSelectedController showToday={false} />;
   })
   .add('i18n internalizeation', () => {
     return (
       <div>
         <div className="panel">
           <h2>Korea</h2>
-          <Calendar locale="ko" />
+          <CalendarSelectedController locale="ko" />
         </div>
         <div className="panel">
           <h2>Japen</h2>
-          <Calendar locale="ja" />
+          <CalendarSelectedController locale="ja" />
         </div>
         <div className="panel">
           <h2>China</h2>
-          <Calendar locale="zh-cn" />
+          <CalendarSelectedController locale="zh-cn" />
         </div>
       </div>
     );
   })
   .add('todayPanel', () => {
-    return <Calendar showToday={true} />;
+    return <CalendarSelectedController showToday={true} />;
   })
   .add('showMonthCnt', () => {
     const showMontCnt = number('showMonthCnt', 2);
-    return <Calendar showMonthCnt={showMontCnt} />;
+    return <CalendarSelectedController showMonthCnt={showMontCnt} />;
   })
   .add('disableDay', () => {
     const disableDay = (date: moment.Moment) => {
       return date.date() < 7;
     };
-    return <Calendar disableDay={disableDay} />;
+    return <CalendarSelectedController disableDay={disableDay} />;
   })
   .add('selected & onChange', () => {
     return <CalendarSelectedController />;
@@ -59,7 +59,7 @@ storiesOf('Calendar', module)
     };
     return (
       <div>
-        <Calendar customDayClass={customDayClass} />
+        <CalendarSelectedController customDayClass={customDayClass} />
         custom-class, day-test class example
       </div>
     );
@@ -74,5 +74,5 @@ storiesOf('Calendar', module)
 
       return classMap[date.format('DD')];
     };
-    return <Calendar customDayText={customDayText} />;
+    return <CalendarSelectedController customDayText={customDayText} />;
   });

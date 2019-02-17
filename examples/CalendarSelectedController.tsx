@@ -1,14 +1,25 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import Calendar from '../src/components/Calendar';
+import Calendar, { Props as ICalendarProps } from '../src/components/Calendar';
+import { Omit, Merge } from '../src/utils/TypeUtil';
 
-interface Props {
+type CalendarProps = Merge<
+  Omit<ICalendarProps, 'base' | 'onChange' | 'selected'>,
+  {
+    /** showMonth count at once */
+    showMonthCnt?: number;
+  }
+>;
+
+interface IProps {
   multiple?: boolean;
 }
 
 interface State {
   selected: moment.Moment[];
 }
+
+type Props = CalendarProps & IProps;
 class CalendarSelectedController extends React.Component<Props, State> {
   public static defaultProps = {
     multiple: false,
@@ -35,7 +46,7 @@ class CalendarSelectedController extends React.Component<Props, State> {
     const { selected } = this.state;
     return (
       <div>
-        <Calendar selected={selected} onChange={this.handleChange} />
+        <Calendar {...this.props} selected={selected} onChange={this.handleChange} />
         {this.props.multiple && <button onClick={this.handleClear}>Clear</button>}
       </div>
     );
