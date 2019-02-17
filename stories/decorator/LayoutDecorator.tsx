@@ -3,7 +3,7 @@ import * as React from 'react';
 const LayoutDecorator = (storyFn: any) => (
   <div
     style={{
-      height: '300px',
+      height: '400px',
     }}
   >
     {storyFn()}

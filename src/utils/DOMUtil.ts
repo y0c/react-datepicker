@@ -9,13 +9,13 @@ const convertPx = (value: number) => `${value}px`;
 export const getDivPosition = (
   node: HTMLDivElement | null,
   direction: IDatePicker.PickerDirection = IDatePicker.PickerDirection.BOTTOM,
+  height: number,
   distance: number = 5
 ): IDatePicker.Position => {
   if (!node) return { left: '', top: '', bottom: '' };
 
   let top = 0;
   let left = 0;
-  let bottom = 0;
 
   switch (direction) {
     case IDatePicker.PickerDirection.BOTTOM:
@@ -23,13 +23,17 @@ export const getDivPosition = (
       left = node.offsetLeft;
       break;
     case IDatePicker.PickerDirection.TOP:
-      bottom = node.offsetTop - distance;
+      top = node.offsetTop - height - distance;
       left = node.offsetLeft;
       break;
   }
+
   return {
     top: convertPx(top),
     left: convertPx(left),
-    bottom: convertPx(bottom),
   };
+};
+
+export const getDomHeight = (node: HTMLDivElement | null): number => {
+  return node ? node.clientHeight : 0;
 };

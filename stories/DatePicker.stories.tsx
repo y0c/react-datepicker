@@ -20,6 +20,13 @@ storiesOf('DatePicker', module)
   })
   .add('showMonthCnt', () => {
     return <DatePicker {...defaultProps} showMonthCnt={2} />;
+  })
+  .add('onTop', () => {
+    return (
+      <div style={{ paddingTop: '300px' }}>
+        <DatePicker {...defaultProps} direction={0} />
+      </div>
+    );
   });
 
 storiesOf('DatePicker - Input Props', module)

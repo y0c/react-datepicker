@@ -5,7 +5,7 @@ import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
 import { Omit, Merge } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
-import { getDivPosition } from '../utils/DOMUtil';
+import { getDivPosition, getDomHeight } from '../utils/DOMUtil';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
 import {
@@ -46,6 +46,8 @@ interface DatePickerProps {
   initialMinute?: number;
   /** initial TimeType (AM/PM) */
   initialTimeType?: IDatePicker.TimeType;
+  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
+  direction?: IDatePicker.PickerDirection;
 }
 
 export interface State {
@@ -90,6 +92,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public inputRef: React.RefObject<HTMLDivElement>;
+  public containerRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: Props) {
     super(props);
@@ -99,6 +102,7 @@ class DatePicker extends React.Component<Props, State> {
     const minute = this.props.initialMinute || date.minute();
     const timeType = this.props.initialTimeType || getTimeType(date.hour());
     this.inputRef = React.createRef();
+    this.containerRef = React.createRef();
     this.state = {
       date,
       hour,
@@ -120,12 +124,24 @@ class DatePicker extends React.Component<Props, State> {
   }
 
   public handleCalendar = (e: React.MouseEvent) => {
-    const { disabled } = this.props;
+    const { disabled, direction } = this.props;
     if (disabled) return;
-    this.setState({
-      show: true,
-      position: getDivPosition(this.inputRef.current),
-    });
+    // show & set container position
+    // because show after calculate container height
+    this.setState(
+      {
+        show: true,
+      },
+      () => {
+        this.setState({
+          position: getDivPosition(
+            this.inputRef.current,
+            direction,
+            getDomHeight(this.containerRef.current)
+          ),
+        });
+      }
+    );
   };
 
   public handleDateChange = (date: moment.Moment) => {
@@ -284,7 +300,6 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderCalendar = (): JSX.Element | null => {
-    const { disableDates } = this.props;
     const { tabValue, selected, date } = this.state;
     if (tabValue === TabValue.DATE) {
       return (
@@ -315,14 +330,11 @@ class DatePicker extends React.Component<Props, State> {
     return null;
   };
   public render() {
-    const {
-      show,
-      position: { top, left },
-    } = this.state;
+    const { show } = this.state;
     const { includeTime, portal } = this.props;
     let position;
     if (!portal) {
-      position = { top, left };
+      position = { ...this.state.position };
     }
 
     return (
@@ -337,6 +349,7 @@ class DatePicker extends React.Component<Props, State> {
               include__time: includeTime,
             })}
             style={{ ...position }}
+            ref={this.containerRef}
           >
             {this.renderTabMenu()}
             {this.renderCalendar()}

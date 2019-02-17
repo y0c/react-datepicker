@@ -16,10 +16,10 @@ describe('utils.DOMUtil', () => {
       instanceDiv = instance(mockDiv);
 
       // when
-      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.TOP);
+      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.TOP, 30);
 
       // then
-      expect(position.bottom).toEqual('5px');
+      expect(position.top).toEqual('-25px');
       expect(position.left).toEqual('10px');
     });
 
@@ -32,7 +32,7 @@ describe('utils.DOMUtil', () => {
       instanceDiv = instance(mockDiv);
 
       // when
-      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.BOTTOM);
+      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.BOTTOM, 30);
 
       // then
       expect(position.top).toEqual('25px');
@@ -48,7 +48,7 @@ describe('utils.DOMUtil', () => {
       instanceDiv = instance(mockDiv);
 
       // when
-      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.BOTTOM, 10);
+      const position = getDivPosition(instanceDiv, IDatePicker.PickerDirection.BOTTOM, 10, 10);
 
       // then
       expect(position.top).toEqual('30px');
@@ -60,7 +60,7 @@ describe('utils.DOMUtil', () => {
       const nullNode = null;
 
       // when
-      const position = getDivPosition(nullNode, IDatePicker.PickerDirection.BOTTOM);
+      const position = getDivPosition(nullNode, IDatePicker.PickerDirection.BOTTOM, 10);
 
       // then
       expect(position.top).toEqual('');

@@ -4,7 +4,7 @@ import * as classNames from 'classnames';
 import { isDayAfter, isDayBefore, isDayEqual, isDayRange } from '../utils/DateUtil';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
-import { getDivPosition } from '../utils/DOMUtil';
+import { getDivPosition, getDomHeight } from '../utils/DOMUtil';
 import RangePickerInput, { FieldType, InputProps } from './RangePickerInput';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import { Merge, Omit } from '../utils/TypeUtil';
@@ -30,6 +30,8 @@ interface RangeDatePickerProps {
   endText: string;
   /** calendar wrapping element */
   wrapper?: (calendar: JSX.Element) => JSX.Element;
+  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
+  direction?: IDatePicker.PickerDirection;
 }
 
 export interface State {
@@ -63,6 +65,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public inputRef: React.RefObject<HTMLDivElement>;
+  public containerRef: React.RefObject<HTMLDivElement>;
 
   public state: State = {
     show: false,
@@ -77,14 +80,26 @@ class RangeDatePicker extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.inputRef = React.createRef<HTMLDivElement>();
+    this.containerRef = React.createRef<HTMLDivElement>();
   }
 
   public handleCalendar = (fieldType: FieldType) => {
-    this.setState({
-      show: true,
-      mode: fieldType,
-      position: getDivPosition(this.inputRef.current),
-    });
+    const { direction } = this.props;
+    this.setState(
+      {
+        show: true,
+        mode: fieldType,
+      },
+      () => {
+        this.setState({
+          position: getDivPosition(
+            this.inputRef.current,
+            direction,
+            getDomHeight(this.containerRef.current)
+          ),
+        });
+      }
+    );
   };
 
   public hideCalendar = () => {
@@ -198,8 +213,8 @@ class RangeDatePicker extends React.Component<Props, State> {
 
   public handleCalendarClass = (date: moment.Moment) => {
     const { customDayClass } = this.props;
-    const { start, hoverDate } = this.state;
-    if (start && hoverDate) {
+    const { start, end, hoverDate } = this.state;
+    if (start && !end && hoverDate) {
       if (isDayRange(date, start, hoverDate)) {
         return 'calendar__day--range';
       }
@@ -285,7 +300,11 @@ class RangeDatePicker extends React.Component<Props, State> {
           {this.renderRangePickerInput()}
         </div>
         {show && (
-          <div className={classNames('datepicker__container', { portal })} style={{ ...style }}>
+          <div
+            className={classNames('datepicker__container', { portal })}
+            style={{ ...style }}
+            ref={this.containerRef}
+          >
             {this.renderCalendar()}
           </div>
         )}

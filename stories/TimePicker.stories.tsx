@@ -7,6 +7,11 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 storiesOf('TimePicker', module)
   .addDecorator(LayoutDecorator)
   .add('default', () => <TimePicker />)
+  .add('onTop', () => (
+    <div style={{ paddingTop: '300px' }}>
+      <TimePicker direction={0} />
+    </div>
+  ))
   .add('portal version', () => <TimePicker portal />);
 
 storiesOf('TimePicker - Input Props', module)

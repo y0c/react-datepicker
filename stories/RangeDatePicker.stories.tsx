@@ -8,10 +8,19 @@ storiesOf('RangeDatePicker', module)
   .add('default', () => <RangeDatePicker />)
   .add('startText & endText', () => <RangeDatePicker startText="Start" endText="End" />)
   .add('portal version', () => <RangeDatePicker portal startText="Start" endText="End" />)
+  .add('onTop', () => {
+    return (
+      <div style={{ paddingTop: '300px' }}>
+        <RangeDatePicker direction={0} startPlaceholder="Start Date" endPlaceholder="End Date" />
+      </div>
+    );
+  })
+  .add('show 3 month', () => {
+    return <RangeDatePicker showMonthCnt={3} />;
+  })
   .add('wrapping calendar', () => {
-
     const wrapper = (calendar: JSX.Element) => (
-      <div style={{border : '1px solid #ddd', padding: '10px', background: 'white'}}>
+      <div style={{ border: '1px solid #ddd', padding: '10px', background: 'white' }}>
         <p>
           <strong>Please select a reservation date</strong>
         </p>
@@ -19,7 +28,15 @@ storiesOf('RangeDatePicker', module)
       </div>
     );
 
-    return <RangeDatePicker startText="Start" endText="End" startPlaceholder="Start Date" endPlaceholder="End Date" wrapper={wrapper}/>;
+    return (
+      <RangeDatePicker
+        startText="Start"
+        endText="End"
+        startPlaceholder="Start Date"
+        endPlaceholder="End Date"
+        wrapper={wrapper}
+      />
+    );
   });
 
 storiesOf('RangeDatePicker - Input Props', module)

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import * as classNames from 'classnames';
-import { lpad } from '../utils/StringUtil';
 import TimeContainer from './TimeContainer';
 import { IDatePicker } from '../common/@types';
 import { Omit } from '../utils/TypeUtil';
 import { isValidTime, formatTime } from '../utils/TimeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
-import { getDivPosition } from '../utils/DOMUtil';
+import { getDivPosition, getDomHeight } from '../utils/DOMUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import Backdrop from './Backdrop';
 import SVGIcon from './SVGIcon';
@@ -19,6 +18,8 @@ interface TimePickerProps {
   showDefaultIcon?: boolean;
   /** Timepicker portal version */
   portal?: boolean;
+  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
+  direction?: IDatePicker.PickerDirection;
 }
 
 interface State {
@@ -41,21 +42,33 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   public inputRef: React.RefObject<HTMLDivElement>;
+  public containerRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: Props) {
     super(props);
     this.inputRef = React.createRef();
+    this.containerRef = React.createRef();
   }
 
   public handleTimeContainer = (e: React.MouseEvent) => {
-    const { disabled } = this.props;
+    const { disabled, direction } = this.props;
     if (disabled) {
       return;
     }
-    this.setState({
-      timeShow: true,
-      position: getDivPosition(this.inputRef.current),
-    });
+    this.setState(
+      {
+        timeShow: true,
+      },
+      () => {
+        this.setState({
+          position: getDivPosition(
+            this.inputRef.current,
+            direction,
+            getDomHeight(this.containerRef.current)
+          ),
+        });
+      }
+    );
   };
 
   public handleChange = (hour: number, minute: number, type: string) => {
@@ -114,14 +127,11 @@ class TimePicker extends React.Component<Props, State> {
   };
 
   public render() {
-    const {
-      timeShow,
-      position: { top, left },
-    } = this.state;
+    const { timeShow } = this.state;
     const { portal } = this.props;
     let position;
     if (!portal) {
-      position = { top, left };
+      position = this.state.position;
     }
     return (
       <div className="timepicker">
@@ -131,6 +141,7 @@ class TimePicker extends React.Component<Props, State> {
         <div
           className={classNames('timepicker__container', { portal })}
           style={{ ...position, display: timeShow ? 'block' : 'none' }}
+          ref={this.containerRef}
         >
           <TimeContainer onChange={this.handleChange} />
         </div>
