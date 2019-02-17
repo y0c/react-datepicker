@@ -4,6 +4,7 @@ exports[`<TableCell/> renders with no props 1`] = `
 <td
   className="test"
   onClick={[Function]}
+  onMouseOver={[Function]}
 >
   <div>
     test
