@@ -1,6 +1,6 @@
 {
   "name": "@y0c/react-datepicker",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React Datepicker Component",
   "author": "y0c",
   "license": "MIT",
@@ -33,11 +33,11 @@
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
   "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
     "classnames": "^2.2.6",
     "lodash": "4.17.10",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "prettier": {
     "printWidth": 100,
