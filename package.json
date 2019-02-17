@@ -32,14 +32,12 @@
     "type": "git",
     "url": "git+https://y0c@github.com/y0c/react-datepicker.git"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "classnames": "^2.2.6",
     "lodash": "4.17.10",
     "moment": "^2.22.2"
-  },
-  "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
   },
   "prettier": {
     "printWidth": 100,
