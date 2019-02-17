@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import { CalendarEnums } from '../common/@enum';
+import { DatePickerDefaults } from '../common/Constant';
 import { getMonthMatrix, getYearMatrix } from '../utils/DateUtil';
 import DayView, { Props as DayViewProps } from './DayView';
 import TableCell from './TableCell';
@@ -21,7 +22,7 @@ class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
     viewMode: CalendarEnums.ViewMode.DAY,
     onClick: () => {},
-    locale: 'en-ca',
+    locale: DatePickerDefaults.locale,
   };
 
   public render() {

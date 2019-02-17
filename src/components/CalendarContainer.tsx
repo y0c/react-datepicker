@@ -7,6 +7,7 @@ import CalendarHead from './CalendarHead';
 import { Props as DayViewProps } from './DayView';
 import TodayPanel from './TodayPanel';
 import { ifExistCall } from '../utils/FunctionUtil';
+import { DatePickerDefaults } from '../common/Constant';
 
 interface CalendarContainerProps {
   /** Locale to use */
@@ -47,7 +48,7 @@ class CalendarContainer extends React.Component<Props, State> {
     show: true,
     showMonthCnt: 1,
     showToday: false,
-    locale: 'en-ca',
+    locale: DatePickerDefaults.locale,
   };
 
   public state = {
@@ -147,7 +148,7 @@ class CalendarContainer extends React.Component<Props, State> {
       show,
       onMouseOver,
       current,
-      locale = 'en-ca',
+      locale = DatePickerDefaults.locale,
     } = this.props;
 
     const calendarClass = classNames('calendar__container', {

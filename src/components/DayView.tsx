@@ -1,6 +1,7 @@
 import * as classNames from 'classnames';
 import * as moment from 'moment';
 import * as React from 'react';
+import { DatePickerDefaults } from '../common/Constant';
 import TableCell from './TableCell';
 import TableMatrixView from './TableMatrixView';
 import { ifExistCall } from '../utils/FunctionUtil';
@@ -33,7 +34,7 @@ interface PrivateProps {
 
 class DayView extends React.Component<Props & PrivateProps> {
   public static defaultProps = {
-    locale: 'en-ca',
+    locale: DatePickerDefaults.locale,
   };
 
   public getDayClass = (date: string): string => {
