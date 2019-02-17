@@ -9,10 +9,9 @@ describe('<DayView/>', () => {
   const mockMoment = moment.unix(1543622400);
 
   const defaultProps = {
-    current: mockMoment
+    current: mockMoment,
   };
   let mountComponent: ReactWrapper;
-
 
   describe('prop: selected', () => {
     beforeEach(() => {
@@ -37,25 +36,27 @@ describe('<DayView/>', () => {
   });
 
   describe('prop: disabled', () => {
-    let onClick:sinon.SinonSpy;
+    let onClick: sinon.SinonSpy;
 
     beforeEach(() => {
-      const disabled = [
-        moment('20181203'),
-        moment('20181204'),
-        moment('20181205'),
-        moment('20181209'),
-      ];
+      const disableDay = (date: moment.Moment) => {
+        return '20181201' === date.format('YYYYMMDD');
+      };
       onClick = sinon.spy();
-      mountComponent = mount(<DayView {...defaultProps} disabled={disabled} onClick={onClick} />);
+      mountComponent = mount(
+        <DayView {...defaultProps} disableDay={disableDay} onClick={onClick} />
+      );
     });
 
     it('does disabled dates add class --disabled', () => {
-      expect(mountComponent.find('td.calendar__day--disabled')).toHaveLength(4);
+      expect(mountComponent.find('td.calendar__day--disabled')).toHaveLength(1);
     });
 
     it('does disabled dates onClick not fired', () => {
-      mountComponent.find('td.calendar__day--disabled').first().simulate('click');
+      mountComponent
+        .find('td.calendar__day--disabled')
+        .first()
+        .simulate('click');
       expect(onClick).toHaveProperty('callCount', 0);
     });
   });
