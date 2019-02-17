@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as sinon from 'sinon';
 import DayView from '../src/components/DayView';
 import TestCalendarBody from '../src/components/CalendarBody';
-import { CalendarEnums } from '../src/common/@enum';
+import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarBody />', () => {
   // 20181201
@@ -23,19 +23,19 @@ describe('<CalendarBody />', () => {
   describe('prop: viewMode', () => {
     it('should ViewMode.DAY correctly', () => {
       shallowComponent = shallow(
-        <TestCalendarBody current={mockMoment} viewMode={CalendarEnums.ViewMode.DAY} />
+        <TestCalendarBody current={mockMoment} viewMode={IDatePicker.ViewMode.DAY} />
       );
       expect(shallowComponent).toMatchSnapshot();
       expect(shallowComponent.find(DayView)).toHaveLength(1);
     });
 
     it('should ViewMode.MONTH correctly', () => {
-      mountComponent = mount(<CalendarBody viewMode={CalendarEnums.ViewMode.MONTH} />);
+      mountComponent = mount(<CalendarBody viewMode={IDatePicker.ViewMode.MONTH} />);
       expect(mountComponent.find('td.calendar__month')).toHaveLength(12);
     });
 
     it('should ViewMode.YEAR correctly', () => {
-      mountComponent = mount(<CalendarBody viewMode={CalendarEnums.ViewMode.YEAR} />);
+      mountComponent = mount(<CalendarBody viewMode={IDatePicker.ViewMode.YEAR} />);
       expect(mountComponent.find('td.calendar__year')).toHaveLength(9);
     });
   });

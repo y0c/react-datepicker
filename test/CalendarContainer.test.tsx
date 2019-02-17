@@ -5,7 +5,7 @@ import * as React from 'react';
 import * as sinon from 'sinon';
 
 import CalendarContainer, { Props, State } from '../src/components/CalendarContainer';
-import { CalendarEnums } from '../src/common/@enum';
+import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarContainer/>', () => {
   const mockMoment = moment.unix(1543622400);
@@ -72,19 +72,19 @@ describe('<CalendarContainer/>', () => {
 
     it('should onPrev correctly', () => {
       mountComponent.setState({
-        viewMode: CalendarEnums.ViewMode.DAY,
+        viewMode: IDatePicker.ViewMode.DAY,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       expect(base.format('MM')).toEqual('11');
 
       mountComponent.setState({
-        viewMode: CalendarEnums.ViewMode.MONTH,
+        viewMode: IDatePicker.ViewMode.MONTH,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       expect(base.format('YYYY')).toEqual('2017');
 
       mountComponent.setState({
-        viewMode: CalendarEnums.ViewMode.YEAR,
+        viewMode: IDatePicker.ViewMode.YEAR,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       expect(base.format('YYYY')).toEqual('2008');
@@ -95,7 +95,7 @@ describe('<CalendarContainer/>', () => {
     it('should handle today correctly', () => {
       mountComponent = mount(<CalendarContainer {...defaultProps} showToday prevIcon nextIcon />);
       mountComponent.setState({
-        viewMode: CalendarEnums.ViewMode.DAY,
+        viewMode: IDatePicker.ViewMode.DAY,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       mountComponent.find('.calendar__head--prev > button').simulate('click');
@@ -109,18 +109,18 @@ describe('<CalendarContainer/>', () => {
       mountComponent = mount(<CalendarContainer {...defaultProps} />);
       // once click expect month
       mountComponent.find('.calendar__head--title').simulate('click');
-      expect(mountComponent.state().viewMode).toEqual(CalendarEnums.ViewMode.MONTH);
+      expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.MONTH);
 
       // twice click expect year
       mountComponent.find('.calendar__head--title').simulate('click');
-      expect(mountComponent.state().viewMode).toEqual(CalendarEnums.ViewMode.YEAR);
+      expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.YEAR);
     });
 
     it('should showMontCnt > 1 viewMode noChange', () => {
       mountComponent = mount(<CalendarContainer {...defaultProps} showMonthCnt={2} />);
       // once click expect day(showMontCnt > 1)
       mountComponent.find('.calendar__head--title').simulate('click');
-      expect(mountComponent.state().viewMode).toEqual(CalendarEnums.ViewMode.DAY);
+      expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.DAY);
     });
   });
 
@@ -157,7 +157,7 @@ describe('<CalendarContainer/>', () => {
 
       it('should year mode test', () => {
         mountComponent.setState({
-          viewMode: CalendarEnums.ViewMode.YEAR,
+          viewMode: IDatePicker.ViewMode.YEAR,
         });
 
         mountComponent
@@ -166,12 +166,12 @@ describe('<CalendarContainer/>', () => {
           .simulate('click');
 
         expect(base.format('YYYY')).toEqual('2020');
-        expect(mountComponent.state().viewMode).toEqual(CalendarEnums.ViewMode.MONTH);
+        expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.MONTH);
       });
 
       it('should month mode test', () => {
         mountComponent.setState({
-          viewMode: CalendarEnums.ViewMode.MONTH,
+          viewMode: IDatePicker.ViewMode.MONTH,
         });
 
         mountComponent
@@ -180,12 +180,12 @@ describe('<CalendarContainer/>', () => {
           .simulate('click');
 
         expect(base.format('MM')).toEqual('02');
-        expect(mountComponent.state().viewMode).toEqual(CalendarEnums.ViewMode.DAY);
+        expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.DAY);
       });
 
       it('should day mode test', () => {
         mountComponent.setState({
-          viewMode: CalendarEnums.ViewMode.DAY,
+          viewMode: IDatePicker.ViewMode.DAY,
         });
 
         mountComponent

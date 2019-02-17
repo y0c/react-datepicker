@@ -4,6 +4,12 @@ export namespace IDatePicker {
     BOTTOM,
   }
 
+  export enum ViewMode {
+    YEAR,
+    MONTH,
+    DAY,
+  }
+
   export enum TimeType {
     AM = 'AM',
     PM = 'PM',

@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { CalendarEnums } from '../common/@enum';
+import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
 import { getMonthMatrix, getYearMatrix } from '../utils/DateUtil';
 import DayView, { Props as DayViewProps } from './DayView';
@@ -9,7 +9,7 @@ import TableMatrixView from './TableMatrixView';
 
 interface CalendarBodyProps {
   /** Calendar viewMode(Year, Month, Day) */
-  viewMode: CalendarEnums.ViewMode;
+  viewMode: IDatePicker.ViewMode;
   /** Calendar current Date */
   current: moment.Moment;
   /** DayClick Event */
@@ -20,7 +20,7 @@ interface CalendarBodyProps {
 type Props = DayViewProps & CalendarBodyProps;
 class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
-    viewMode: CalendarEnums.ViewMode.DAY,
+    viewMode: IDatePicker.ViewMode.DAY,
     onClick: () => {},
     locale: DatePickerDefaults.locale,
   };
@@ -31,13 +31,13 @@ class CalendarBody extends React.Component<Props> {
       <TableCell className={className} text={value} onClick={text => onClick(text)} key={key} />
     );
     const viewMap = {
-      [CalendarEnums.ViewMode.YEAR]: (
+      [IDatePicker.ViewMode.YEAR]: (
         <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell('calendar__year')} />
       ),
-      [CalendarEnums.ViewMode.MONTH]: (
+      [IDatePicker.ViewMode.MONTH]: (
         <TableMatrixView matrix={getMonthMatrix(locale)} cell={cell('calendar__month')} />
       ),
-      [CalendarEnums.ViewMode.DAY]: <DayView {...this.props} />,
+      [IDatePicker.ViewMode.DAY]: <DayView {...this.props} />,
     };
 
     return <div className="calendar__body">{viewMap[this.props.viewMode]}</div>;
