@@ -8,11 +8,8 @@ const initHms = (date: moment.Moment) => {
     .second(0);
 };
 
-export const getDayMatrix = (year?: number, month?: number): string[][] => {
-  const updateYear = year || moment().year();
-  const updateMonth = month || moment().month();
-
-  const date = moment({ years: updateYear, months: updateMonth });
+export const getDayMatrix = (year: number, month: number): string[][] => {
+  const date = moment({ year, month });
 
   const startOfMonth = parseInt(date.startOf('month').format('DD'), 10);
   const endOfMonth = parseInt(date.endOf('month').format('DD'), 10);
@@ -28,26 +25,6 @@ export const getDayMatrix = (year?: number, month?: number): string[][] => {
     ],
     7
   );
-};
-
-export const getMomentHour = (hour: number, type: string) => {
-  let updateHour = hour;
-  if (hour === 12) {
-    updateHour = type === 'AM' ? 0 : 12;
-  } else {
-    updateHour = type === 'AM' ? hour : hour + 12;
-  }
-  return updateHour;
-};
-
-export const getNormalHour = (hour: number) => {
-  let updateHour = hour;
-  if (updateHour === 0) {
-    updateHour = 12;
-  } else if (hour > 12) {
-    updateHour = hour - 12;
-  }
-  return updateHour;
 };
 
 export const getMonthMatrix = (locale: string) => {
