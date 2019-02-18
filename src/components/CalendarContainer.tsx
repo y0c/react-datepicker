@@ -57,9 +57,6 @@ class CalendarContainer extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    if (props.locale) {
-      require(`moment/locale/${props.locale}`);
-    }
   }
 
   public getHeaderTitle = () => {
