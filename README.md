@@ -140,7 +140,7 @@ if you want custom css rewrite `app.scss` file
 
 Try this example! 
 
-[![Edit 1rw1lp8w7j](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1rw1lp8w7j)
+[![Edit 1rw1lp8w7j](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1rw1lp8w7j) [![Join the chat at https://gitter.im/react-datepicker/community](https://badges.gitter.im/react-datepicker/community.svg)](https://gitter.im/react-datepicker/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## ⚙️ Local Development
 
