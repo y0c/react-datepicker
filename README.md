@@ -1,11 +1,17 @@
-<p align="justify">
+<p align="center">
 
-# ![image](https://user-images.githubusercontent.com/2585676/51196670-fd492800-1932-11e9-932e-30920312460e.png) React Datepicker
+<img src="https://user-images.githubusercontent.com/2585676/52951566-75d55580-33c5-11e9-8e00-b8e227dc0280.png" alt="drawing" width="200"/>
+
 
 </p>
+<h1 align="center">
+
+React DatePicker
+
+</h1>
 
 
-<p align="justify">
+<p align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/%40y0c%2Freact-datepicker.svg)](https://badge.fury.io/js/%40y0c%2Freact-datepicker) 
 [![Build Status](https://travis-ci.com/y0c/react-datepicker.svg?branch=master)](https://travis-ci.com/y0c/react-datepicker)
@@ -15,6 +21,7 @@
 [![dependencies Status](https://david-dm.org/y0c/react-datepicker/status.svg)](https://david-dm.org/y0c/react-datepicker)
 [![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
 [![Storybook](https://github.com/storybooks/brand/blob/master/badges/storybook.svg)](https://y0c.github.io/react-datepicker)
+[![NPM Download](https://img.shields.io/npm/dt/@y0c/react-datepicker.svg?style=flat)](https://www.npmjs.com/package/@y0c/react-datepicker)
 
 </p>
 
@@ -35,6 +42,8 @@
 ![timepicker](https://user-images.githubusercontent.com/2585676/52909206-fd3c9f00-32c7-11e9-983e-94594c9847f4.gif)
 
 [Demo in Storybook](https://y0c.github.io/react-datepicker)
+
+[![Edit React Datepicker](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/pw6n17pk57)
 
 ## ✨ Major Component 
 
@@ -103,25 +112,35 @@ You can find more Exmaples and Demo in story book link
 ( red theme examples )
 
 ```scss
+// red_theme.scss
 $base-font-size: 12px;
 $title-font-size: 1.3em;
 
-$primary-color-dark:   #49599a;
-$primary-color:        red;
-$primary-color-light:  #aab6fe;
-$primary-color-text:   #FFFFFF;
-$accent-color:         #03A9F4;
-$primary-text-color:   #212121;
+// override scss variable
+$primary-color-dark: #e64a19;
+$primary-color: #ff5722;
+$primary-color-light: #ffccbc;
+$primary-color-text: #ffffff;
+$accent-color: #ff5252;
+$primary-text-color: #212121;
 $secondary-text-color: #757575;
-$divider-color:        #e4e4e4;
-$today-bg-color:       #FFF9C4;
+$divider-color: #e4e4e4;
+$today-bg-color: #fff9c4;
 
-@import "../_mixin.scss";
-@import "../app.scss";
+// import mixin 
+@import "../node_modules/@y0c/react-datepicker/assets/styles/_mixin.scss";
+// import app scss
+// if you want other style customize 
+// app.scss copy & rewrite !
+@import "../node_modules/@y0c/react-datepicker/assets/styles/app.scss";
 
 ```
+
 if you want custom css rewrite `app.scss` file 
 
+Try this example! 
+
+[![Edit 1rw1lp8w7j](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1rw1lp8w7j)
 
 ## ⚙️ Local Development
 
