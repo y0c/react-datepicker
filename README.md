@@ -22,6 +22,7 @@ React DatePicker
 [![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
 [![Storybook](https://github.com/storybooks/brand/blob/master/badges/storybook.svg)](https://y0c.github.io/react-datepicker)
 [![NPM Download](https://img.shields.io/npm/dt/@y0c/react-datepicker.svg?style=flat)](https://www.npmjs.com/package/@y0c/react-datepicker)
+[![Join the chat at https://gitter.im/react-datepicker/community](https://badges.gitter.im/react-datepicker/community.svg)](https://gitter.im/react-datepicker/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 </p>
 
@@ -64,7 +65,7 @@ The components that you can use are as follows: If you want to configure the `Da
 
 * [Moment](https://momentjs.com)
 
-`Moment` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use moment library to globalize and control date
+`Moment` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use moment library to globalize and control date. You can check the locale list through this [link](https://github.com/moment/moment/tree/develop/locale).
 
 ## 📲 Installation 
 
@@ -88,6 +89,7 @@ import '@y0c/react-datepicker/assets/styles/calendar.scss';
 
 // Please include the locale you want to use.
 // and delivery props to calendar component 
+// See locale list https://github.com/moment/moment/tree/develop/locale
 import 'moment/locale/ko';
 
 class DatePickerExample extends Component {
@@ -140,7 +142,7 @@ if you want custom css rewrite `app.scss` file
 
 Try this example! 
 
-[![Edit 1rw1lp8w7j](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1rw1lp8w7j) [![Join the chat at https://gitter.im/react-datepicker/community](https://badges.gitter.im/react-datepicker/community.svg)](https://gitter.im/react-datepicker/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Edit 1rw1lp8w7j](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1rw1lp8w7j) 
 
 ## ⚙️ Local Development
 
@@ -156,6 +158,12 @@ yarn run storybook
 ```
 Open your browser and connect http://localhost:6006
 
+## 💼 Get Support
+
+Please fork and use [https://codesandbox.io/s/pw6n17pk57](https://codesandbox.io/s/pw6n17pk57) to reproduce your problem.
+
+* Open a new issue(Bug or Feature) on [Github](https://github.com/y0c/react-datepicker/issues/new/choose)
+* Join the [Gitter room](https://gitter.im/react-datepicker/community) to chat with other developers.
 
 ## 📝 License 
 MIT
