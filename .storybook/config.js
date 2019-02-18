@@ -15,6 +15,8 @@ function loadStories() {
 addDecorator(
   withOptions({
     name: 'React Datepicker',
+    url: 'https://github.com/y0c/react-datepicker',
+    addonPanelInRight: true,
   })
 );
 
