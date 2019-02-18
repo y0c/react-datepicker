@@ -266,6 +266,7 @@ class RangeDatePicker extends React.Component<Props, State> {
 
     const calendar = (
       <Calendar
+        {...this.props}
         base={start ? start : moment(initialDate)}
         startDay={start}
         endDay={end}
