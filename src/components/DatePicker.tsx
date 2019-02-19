@@ -346,6 +346,8 @@ class DatePicker extends React.Component<Props, State> {
               portal,
               include__time: includeTime,
             })}
+            role="dialog"
+            aria-modal="true"
             style={{ ...position }}
             ref={this.containerRef}
           >

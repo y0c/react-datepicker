@@ -303,6 +303,8 @@ class RangeDatePicker extends React.Component<Props, State> {
         {show && (
           <div
             className={classNames('datepicker__container', { portal })}
+            role="dialog"
+            aria-modal="true"
             style={{ ...style }}
             ref={this.containerRef}
           >

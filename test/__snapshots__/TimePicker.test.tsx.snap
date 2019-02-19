@@ -16,7 +16,9 @@ exports[`<TimePicker/> shallow render test render with no props 1`] = `
     />
   </div>
   <div
+    aria-modal="true"
     className="timepicker__container"
+    role="dialog"
     style={
       Object {
         "display": "none",
