@@ -140,6 +140,8 @@ class TimePicker extends React.Component<Props, State> {
         </div>
         <div
           className={classNames('timepicker__container', { portal })}
+          role="dialog"
+          aria-modal="true"
           style={{ ...position, display: timeShow ? 'block' : 'none' }}
           ref={this.containerRef}
         >
