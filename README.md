@@ -20,7 +20,7 @@ React DatePicker
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![dependencies Status](https://david-dm.org/y0c/react-datepicker/status.svg)](https://david-dm.org/y0c/react-datepicker)
 [![devDependencies Status](https://david-dm.org/y0c/react-datepicker/dev-status.svg)](https://david-dm.org/y0c/react-datepicker?type=dev)
-[![Storybook](https://github.com/storybooks/brand/blob/master/badges/storybook.svg)](https://y0c.github.io/react-datepicker)
+[![Storybook](https://github.com/storybooks/brand/blob/master/badge/badge-storybook.svg)](https://y0c.github.io/react-datepicker)
 [![NPM Download](https://img.shields.io/npm/dt/@y0c/react-datepicker.svg?style=flat)](https://www.npmjs.com/package/@y0c/react-datepicker)
 [![Join the chat at https://gitter.im/react-datepicker/community](https://badges.gitter.im/react-datepicker/community.svg)](https://gitter.im/react-datepicker/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
