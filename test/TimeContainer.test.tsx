@@ -51,7 +51,7 @@ describe('<TimeContainer/>', () => {
 
     // if min -1 -> max value
     btnClick('down', 1);
-    expect(mountComponent.state('minute')).toEqual(60);
+    expect(mountComponent.state('minute')).toEqual(59);
   });
 
   it('should timetype change correctly', () => {
