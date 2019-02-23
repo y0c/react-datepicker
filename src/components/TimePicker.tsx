@@ -100,7 +100,13 @@ class TimePicker extends React.Component<Props, State> {
     const { inputValue } = this.state;
     if (!isValidTime(inputValue)) {
       this.setState({
+        ...this.state,
         inputValue: this.state.originalValue,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        originalValue: inputValue,
       });
     }
   };

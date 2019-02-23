@@ -27,8 +27,7 @@ export const getTimeType = (hour: number): IDatePicker.TimeType =>
 export const formatTime = (hour: number, minute: number, type: string) =>
   `${lpad(String(hour), 2)}:${lpad(String(minute), 2)} ${type}`;
 
-export const isValidTime = (time: string) =>
-  /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9] (AM|PM)$/.test(time);
+export const isValidTime = (time: string) => /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/.test(time);
 
 export const parseTime = (time: string) => {
   const hour = time.split(':')[0];

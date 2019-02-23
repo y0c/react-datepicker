@@ -71,7 +71,7 @@ class TimeContainer extends React.Component<Props, State> {
 
   public handleUp = (item: string) => () => {
     const min = item === 'hour' ? 1 : 0;
-    const max = item === 'hour' ? 12 : 60;
+    const max = item === 'hour' ? 12 : 59;
 
     const value = this.state[item];
 
@@ -86,7 +86,7 @@ class TimeContainer extends React.Component<Props, State> {
 
   public handleDown = (item: string) => () => {
     const min = item === 'hour' ? 1 : 0;
-    const max = item === 'hour' ? 12 : 60;
+    const max = item === 'hour' ? 12 : 59;
     const value = this.state[item];
     this.setState(
       {
