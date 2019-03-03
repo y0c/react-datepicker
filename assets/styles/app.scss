@@ -88,6 +88,19 @@
   }
 }
 
+.picker {
+  display: inline-block;
+  &__container {
+    position: absolute;
+    z-index:100;
+    &.portal {
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}
+
 .datepicker {
   display: inline-block;
   &__container {
