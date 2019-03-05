@@ -73,10 +73,11 @@ class Picker extends React.Component<Props, State> {
   public getPosition = () => {
     const { portal } = this.props;
     const { position } = this.state;
-    if (!portal) {
-      return position;
+    let pos;
+    if (portal) {
+      pos = position;
     }
-    return {};
+    return pos;
   };
 
   public render() {
