@@ -1,14 +1,10 @@
 import * as React from 'react';
-import * as moment from 'moment';
-import * as classNames from 'classnames';
 import TimeContainer from './TimeContainer';
-import { IDatePicker } from '../common/@types';
+import Picker, { PickerProps, PickerAction } from './Picker';
 import { Omit } from '../utils/TypeUtil';
 import { isValidTime, formatTime } from '../utils/TimeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
-import { getDivPosition, getDomHeight } from '../utils/DOMUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
-import Backdrop from './Backdrop';
 import SVGIcon from './SVGIcon';
 
 interface TimePickerProps {
@@ -16,62 +12,21 @@ interface TimePickerProps {
   onChange?: (hour: number, minute: number, type: string) => void;
   /** Timepicker default time icon show or hide */
   showDefaultIcon?: boolean;
-  /** Timepicker portal version */
-  portal?: boolean;
-  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
-  direction?: IDatePicker.PickerDirection;
 }
 
 interface State {
-  timeShow: boolean;
   inputValue: string;
   originalValue: string;
-  position: IDatePicker.Position;
 }
 
-type Props = TimePickerProps & Omit<InputProps, 'onChange'>;
+type Props = TimePickerProps & Omit<InputProps, 'onChange'> & PickerProps;
 class TimePicker extends React.Component<Props, State> {
   public state = {
-    timeShow: false,
     inputValue: formatTime(1, 0, 'AM'),
     originalValue: formatTime(1, 0, 'AM'),
-    position: {
-      left: '',
-      top: '',
-    },
   };
 
-  public inputRef: React.RefObject<HTMLDivElement>;
-  public containerRef: React.RefObject<HTMLDivElement>;
-
-  constructor(props: Props) {
-    super(props);
-    this.inputRef = React.createRef();
-    this.containerRef = React.createRef();
-  }
-
-  public handleTimeContainer = (e: React.MouseEvent) => {
-    const { disabled, direction } = this.props;
-    if (disabled) {
-      return;
-    }
-    this.setState(
-      {
-        timeShow: true,
-      },
-      () => {
-        this.setState({
-          position: getDivPosition(
-            this.inputRef.current,
-            direction,
-            getDomHeight(this.containerRef.current)
-          ),
-        });
-      }
-    );
-  };
-
-  public handleChange = (hour: number, minute: number, type: string) => {
+  public handleChange = (actions: PickerAction) => (hour: number, minute: number, type: string) => {
     const { onChange } = this.props;
     this.setState({
       ...this.state,
@@ -79,6 +34,7 @@ class TimePicker extends React.Component<Props, State> {
       originalValue: formatTime(hour, minute, type),
     });
 
+    actions.hide();
     ifExistCall(onChange, hour, minute, type);
   };
 
@@ -111,14 +67,7 @@ class TimePicker extends React.Component<Props, State> {
     }
   };
 
-  public hideTimeContainer = () => {
-    this.setState({
-      ...this.state,
-      timeShow: false,
-    });
-  };
-
-  public renderInputcomponent = (): JSX.Element | null => {
+  public renderInputcomponent = (): JSX.Element => {
     const { inputValue } = this.state;
     return (
       <PickerInput
@@ -132,29 +81,20 @@ class TimePicker extends React.Component<Props, State> {
     );
   };
 
+  public renderTimeContainer = (actions: PickerAction): JSX.Element => {
+    return <TimeContainer onChange={this.handleChange(actions)} />;
+  };
+
   public render() {
-    const { timeShow } = this.state;
-    const { portal } = this.props;
-    let position;
-    if (!portal) {
-      position = this.state.position;
-    }
+    const { portal, direction, disabled } = this.props;
     return (
-      <div className="timepicker">
-        <div className="timepicker__input" onClick={this.handleTimeContainer} ref={this.inputRef}>
-          {this.renderInputcomponent()}
-        </div>
-        <div
-          className={classNames('timepicker__container', { portal })}
-          role="dialog"
-          aria-modal="true"
-          style={{ ...position, display: timeShow ? 'block' : 'none' }}
-          ref={this.containerRef}
-        >
-          <TimeContainer onChange={this.handleChange} />
-        </div>
-        <Backdrop show={timeShow} invert={portal} onClick={this.hideTimeContainer} />
-      </div>
+      <Picker
+        portal={portal}
+        disabled={disabled}
+        direction={direction}
+        renderTrigger={() => this.renderInputcomponent()}
+        renderContents={({ actions }) => this.renderTimeContainer(actions)}
+      />
     );
   }
 }

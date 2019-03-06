@@ -9,24 +9,29 @@ export interface PickerAction {
   hide: () => void;
 }
 
-export interface PickerProps {
+export interface PickerRenderProps {
   actions: PickerAction;
 }
 
-export interface Props {
-  portal: boolean;
+export interface PickerProps {
+  /** DatePicker portal version */
+  portal?: boolean;
+  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
   direction?: IDatePicker.PickerDirection;
-  className: string;
-  renderTrigger: (props: PickerProps) => JSX.Element;
-  renderContents: (props: PickerProps) => JSX.Element;
+}
+
+export interface Props {
+  disabled?: boolean;
+  className?: string;
+  renderTrigger: (props: PickerRenderProps) => JSX.Element;
+  renderContents: (props: PickerRenderProps) => JSX.Element;
 }
 
 export interface State {
   show: boolean;
   position: IDatePicker.Position;
 }
-
-class Picker extends React.Component<Props, State> {
+class Picker extends React.Component<Props & PickerProps, State> {
   public state = {
     show: false,
     position: {
@@ -45,11 +50,18 @@ class Picker extends React.Component<Props, State> {
   }
 
   public showContents = () => {
+    const { portal, disabled } = this.props;
+    if (disabled) return;
+
     this.setState(
       {
         show: true,
       },
-      this.setPosition
+      () => {
+        if (!portal) {
+          this.setPosition();
+        }
+      }
     );
   };
 
@@ -70,19 +82,9 @@ class Picker extends React.Component<Props, State> {
     });
   };
 
-  public getPosition = () => {
-    const { portal } = this.props;
-    const { position } = this.state;
-    let pos;
-    if (portal) {
-      pos = position;
-    }
-    return pos;
-  };
-
   public render() {
     const { portal, className, renderTrigger, renderContents } = this.props;
-    const { show } = this.state;
+    const { show, position } = this.state;
     const actions = {
       show: this.showContents,
       hide: this.hideContents,
@@ -95,10 +97,10 @@ class Picker extends React.Component<Props, State> {
         </div>
         {show && (
           <div
-            className={CX('picker__container', [portal, className])}
+            className={CX('picker__container', { portal, className })}
             role="dialog"
             aria-modal="true"
-            style={{ ...this.getPosition() }}
+            style={position}
             ref={this.contentsRef}
           >
             {renderContents({ actions })}

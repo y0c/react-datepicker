@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
-import Picker, { PickerAction } from './Picker';
+import Picker, { PickerProps, PickerAction } from './Picker';
 import { Omit, Merge } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
 import { IDatePicker } from '../common/@types';
@@ -31,8 +31,6 @@ interface DatePickerProps {
   includeTime: boolean;
   /** Initial display date */
   initialDate: Date;
-  /** DatePicker portal version */
-  portal: boolean;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
@@ -45,8 +43,6 @@ interface DatePickerProps {
   initialMinute?: number;
   /** initial TimeType (AM/PM) */
   initialTimeType?: IDatePicker.TimeType;
-  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
-  direction?: IDatePicker.PickerDirection;
 }
 
 export interface State {
@@ -67,7 +63,7 @@ type CalendarProps = Merge<
   }
 >;
 
-export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarProps;
+export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarProps & PickerProps;
 
 const setValueToInput = (dateValue: string, timeValue: string, includeTime: boolean) => {
   if (!includeTime) {
@@ -294,12 +290,13 @@ class DatePicker extends React.Component<Props, State> {
     return null;
   };
   public render() {
-    const { includeTime, portal, direction } = this.props;
+    const { includeTime, portal, direction, disabled } = this.props;
 
     return (
       <Picker
         portal={portal}
         direction={direction}
+        disabled={disabled}
         className={classNames({ include__time: includeTime })}
         renderTrigger={() => this.renderInputComponent()}
         renderContents={({ actions }) => (

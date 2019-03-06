@@ -5,6 +5,11 @@ import * as sinon from 'sinon';
 import TimePicker from '../src/components/TimePicker';
 
 describe('<TimePicker/>', () => {
+  const pickerShow = (component: ReactWrapper) => {
+    component.find('Picker').setState({
+      show: true,
+    });
+  };
   describe('shallow render test', () => {
     let shallowComponent: ShallowWrapper<React.Component>;
 
@@ -24,6 +29,7 @@ describe('<TimePicker/>', () => {
     beforeEach(() => {
       onChange = sinon.spy();
       mountComponent = mount(<TimePicker onChange={onChange} />);
+      pickerShow(mountComponent);
     });
 
     it('should props onChange correctly', () => {
@@ -34,30 +40,12 @@ describe('<TimePicker/>', () => {
       expect(onChange).toHaveProperty('callCount', 1);
     });
 
-    it('should state top, left correctly', () => {
-      mountComponent.find('.timepicker__input').simulate('click');
-      expect(mountComponent.state('top')).not.toEqual('');
-      expect(mountComponent.state('left')).not.toEqual('');
-    });
-
     it('should input change event correctly', () => {
-      mountComponent.find('.timepicker__input input').simulate('change', {
+      mountComponent.find('.picker__trigger input').simulate('change', {
         currentTarget: {
           value: 'test',
         },
       });
-    });
-
-    it('should input interaction correctly', () => {
-      mountComponent.find('.timepicker__input').simulate('click');
-      expect(mountComponent.find('.rc-backdrop')).toHaveLength(1);
-      expect(mountComponent.state('timeShow')).toBeTruthy();
-    });
-
-    it('should hideCalendar correctly', () => {
-      mountComponent.find('.timepicker__input').simulate('click');
-      mountComponent.find('.rc-backdrop').simulate('click');
-      expect(mountComponent.state('timeShow')).toBeFalsy();
     });
   });
 
@@ -69,7 +57,7 @@ describe('<TimePicker/>', () => {
 
     it('should props disabled not run handleTimeContainer', () => {
       mountComponent.find('.picker-input__text').simulate('click');
-      expect(mountComponent.state('show')).toBeFalsy();
+      expect(mountComponent.find('Picker').state('show')).toBeFalsy();
     });
 
     it('should clear button click inputValue empty', () => {
@@ -97,8 +85,8 @@ describe('<TimePicker/>', () => {
     it('should user invalid input after blur recover original', () => {
       mountComponent.setState({
         ...mountComponent.state,
-        show: true,
       });
+      pickerShow(mountComponent);
 
       mountInputSimulateChange(timepickerInput, '233232');
       timepickerInput.simulate('blur');
@@ -109,8 +97,8 @@ describe('<TimePicker/>', () => {
     it('should user valid input after blur set state inputValue', () => {
       mountComponent.setState({
         ...mountComponent.state,
-        show: true,
       });
+      pickerShow(mountComponent);
 
       mountInputSimulateChange(timepickerInput, '02:22 AM');
       timepickerInput.simulate('blur');
