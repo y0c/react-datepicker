@@ -19,6 +19,11 @@ describe('<DatePicker/>', () => {
     initialDate: new Date(2018, 11, 1),
   };
 
+  const pickerShow = (component: ReactWrapper) => {
+    component.find('Picker').setState({
+      show: true,
+    });
+  };
   const daySelect = (at: number) => {
     mountComponent
       .find('td')
@@ -43,20 +48,17 @@ describe('<DatePicker/>', () => {
       mountComponent = mount(
         <DatePicker {...defaultProps} onChange={onChange} dateFormat="YYYY/MM/DD" />
       );
-      mountComponent.setState({
-        show: true,
-      });
+      pickerShow(mountComponent);
     });
 
     it('should input ref correctly', () => {
-      mountComponent.find('.datepicker__input').simulate('click');
-      expect(mountComponent.state().position.left).not.toEqual('');
-      expect(mountComponent.state().position.top).not.toEqual('');
+      mountComponent.find('.picker__trigger').simulate('click');
+      expect(mountComponent.find('Calendar')).toHaveLength(1);
     });
 
     it('should props dateFormat correctly', () => {
-      daySelect(6);
-      expect(mountComponent.find('.datepicker__input input').prop('value')).toEqual('2018/12/01');
+      daySelect(7);
+      expect(mountComponent.find('.picker__trigger input').prop('value')).toEqual('2018/12/02');
     });
 
     it('should props onChange correctly', () => {
@@ -70,33 +72,27 @@ describe('<DatePicker/>', () => {
       // 20180501
       const mockDate = new Date(2018, 5, 1);
       mountComponent = mount(<DatePicker initialDate={mockDate} showMonthCnt={3} />);
-      mountComponent.setState({
-        show: true,
-      });
-
+      pickerShow(mountComponent);
       expect(mountComponent.find('.calendar__container')).toHaveLength(3);
     });
 
     it('should input interaction correctly', () => {
-      mountComponent.find('.datepicker__input').simulate('click');
+      mountComponent.find('.picker__trigger').simulate('click');
       expect(mountComponent.find('.rc-backdrop')).toHaveLength(1);
       expect(mountComponent.find(Calendar)).toBeTruthy();
-      expect(mountComponent.state('show')).toBeTruthy();
+      expect(mountComponent.find('Picker').state('show')).toBeTruthy();
     });
 
     it('should hideCalendar correctly', () => {
-      mountComponent.find('.datepicker__input').simulate('click');
+      mountComponent.find('.picker__trigger').simulate('click');
       mountComponent.find('.rc-backdrop').simulate('click');
-      expect(mountComponent.state('show')).toBeFalsy();
+      expect(mountComponent.find('Picker').state('show')).toBeFalsy();
     });
   });
 
   describe('include time', () => {
     beforeEach(() => {
       mountComponent = mount(<DatePicker {...defaultProps} locale="en-ca" includeTime />);
-      mountComponent.setState({
-        show: true,
-      });
     });
 
     it('should time container render correctly', () => {
@@ -108,9 +104,10 @@ describe('<DatePicker/>', () => {
         ...mountComponent.state,
         tabValue: TabValue.DATE,
       });
+      pickerShow(mountComponent);
 
       mountComponent
-        .find('.datepicker__container__tab button')
+        .find('.picker__container__tab button')
         .at(1)
         .simulate('click');
       expect(mountComponent.state('tabValue')).toEqual(TabValue.TIME);
@@ -127,9 +124,9 @@ describe('<DatePicker/>', () => {
       beforeEach(() => {
         mountComponent = mount(<DatePicker includeTime />);
         mountComponent.setState({
-          show: true,
           tabValue: TabValue.TIME,
         });
+        pickerShow(mountComponent);
       });
 
       it('should hour change 12 moment date eq 0', () => {
@@ -141,9 +138,9 @@ describe('<DatePicker/>', () => {
           />
         );
         mountComponent.setState({
-          show: true,
           tabValue: TabValue.TIME,
         });
+        pickerShow(mountComponent);
         handleClick('up', 0);
 
         expect(mountComponent.state('date').hour()).toEqual(0);
@@ -154,9 +151,9 @@ describe('<DatePicker/>', () => {
           <DatePicker {...defaultProps} initialHour={1} initialTimeType={IDatePicker.TimeType.PM} />
         );
         mountComponent.setState({
-          show: true,
           tabValue: TabValue.TIME,
         });
+        pickerShow(mountComponent);
         handleClick('up', 0);
         expect(mountComponent.state('date').hour()).toEqual(14);
       });
@@ -165,9 +162,9 @@ describe('<DatePicker/>', () => {
         const onChange = sinon.spy();
         mountComponent = mount(<DatePicker {...defaultProps} onChange={onChange} includeTime />);
         mountComponent.setState({
-          show: true,
           tabValue: TabValue.TIME,
         });
+        pickerShow(mountComponent);
         handleClick('up', 0);
         expect(onChange).toHaveProperty('callCount', 1);
       });
@@ -345,21 +342,17 @@ describe('<DatePicker/>', () => {
           inputComponent={customInputComponent}
         />
       );
-      mountComponent.setState({
-        show: true,
-      });
+      pickerShow(mountComponent);
     });
 
     it('should customInput render correctly', () => {
-      expect(mountComponent.find('.datepicker__input textarea')).toBeTruthy();
+      expect(mountComponent.find('.picker__trigger textarea')).toBeTruthy();
     });
 
     it('should customInput value correctly', () => {
       daySelect(6);
-      expect(mountComponent.find('.datepicker__input textarea').props().value).toBeDefined();
-      expect(mountComponent.find('.datepicker__input textarea').props().value).toEqual(
-        '2018.12.01'
-      );
+      expect(mountComponent.find('.picker__trigger textarea').props().value).toBeDefined();
+      expect(mountComponent.find('.picker__trigger textarea').props().value).toEqual('2018.12.01');
     });
   });
 });

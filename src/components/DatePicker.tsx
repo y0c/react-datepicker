@@ -3,9 +3,9 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
+import Picker, { PickerProps, PickerAction } from './Picker';
 import { Omit, Merge } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
-import { getDivPosition, getDomHeight } from '../utils/DOMUtil';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
 import {
@@ -17,7 +17,6 @@ import {
   parseTime,
 } from '../utils/TimeUtil';
 import PickerInput, { Props as InputProps } from './PickerInput';
-import Backdrop from './Backdrop';
 import SVGIcon from './SVGIcon';
 
 export enum TabValue {
@@ -32,8 +31,6 @@ interface DatePickerProps {
   includeTime: boolean;
   /** Initial display date */
   initialDate: Date;
-  /** DatePicker portal version */
-  portal: boolean;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
@@ -46,12 +43,9 @@ interface DatePickerProps {
   initialMinute?: number;
   /** initial TimeType (AM/PM) */
   initialTimeType?: IDatePicker.TimeType;
-  /** DatePicker show direction (0 = TOP , 1 = BOTTOM) */
-  direction?: IDatePicker.PickerDirection;
 }
 
 export interface State {
-  show: boolean;
   tabValue: TabValue;
   date: moment.Moment;
   hour: number;
@@ -59,7 +53,6 @@ export interface State {
   timeType: IDatePicker.TimeType;
   inputValue: string;
   selected: moment.Moment[];
-  position: IDatePicker.Position;
 }
 
 type CalendarProps = Merge<
@@ -70,7 +63,7 @@ type CalendarProps = Merge<
   }
 >;
 
-export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarProps;
+export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarProps & PickerProps;
 
 const setValueToInput = (dateValue: string, timeValue: string, includeTime: boolean) => {
   if (!includeTime) {
@@ -106,41 +99,15 @@ class DatePicker extends React.Component<Props, State> {
       hour,
       minute,
       timeType,
-      show: false,
       tabValue: TabValue.DATE,
       inputValue: setValueToInput(
         date.format(dateFormat),
         formatTime(hour, minute, timeType),
         includeTime
       ),
-      position: {
-        left: '',
-        top: '',
-      },
       selected: [date],
     };
   }
-
-  public handleCalendar = (e: React.MouseEvent) => {
-    const { disabled, direction } = this.props;
-    if (disabled) return;
-    // show & set container position
-    // because show after calculate container height
-    this.setState(
-      {
-        show: true,
-      },
-      () => {
-        this.setState({
-          position: getDivPosition(
-            this.inputRef.current,
-            direction,
-            getDomHeight(this.containerRef.current)
-          ),
-        });
-      }
-    );
-  };
 
   public handleDateChange = (date: moment.Moment) => {
     const { onChange, dateFormat, includeTime } = this.props;
@@ -154,7 +121,6 @@ class DatePicker extends React.Component<Props, State> {
       ...this.state,
       date,
       inputValue: setValueToInput(date.format(dateFormat), timeValue, includeTime),
-      show: false,
       selected: [date],
     });
   };
@@ -177,13 +143,6 @@ class DatePicker extends React.Component<Props, State> {
       minute,
       timeType: type,
       inputValue: setValueToInput(date.format(dateFormat), timeValue, true),
-    });
-  };
-
-  public hideCalendar = () => {
-    this.setState({
-      ...this.state,
-      show: false,
     });
   };
 
@@ -288,7 +247,7 @@ class DatePicker extends React.Component<Props, State> {
     );
     if (includeTime) {
       return (
-        <div className="datepicker__container__tab">
+        <div className="picker__container__tab">
           {renderButton(TabValue.DATE, 'DATE', 'calendar')}
           {renderButton(TabValue.TIME, 'TIME', 'time')}
         </div>
@@ -297,14 +256,17 @@ class DatePicker extends React.Component<Props, State> {
     return null;
   };
 
-  public renderCalendar = (): JSX.Element | null => {
+  public renderCalendar = (actions: PickerAction): JSX.Element | null => {
     const { tabValue, selected, date } = this.state;
     if (tabValue === TabValue.DATE) {
       return (
         <Calendar
           {...this.props}
           base={date}
-          onChange={this.handleDateChange}
+          onChange={e => {
+            this.handleDateChange(e);
+            actions.hide();
+          }}
           selected={selected}
         />
       );
@@ -328,36 +290,23 @@ class DatePicker extends React.Component<Props, State> {
     return null;
   };
   public render() {
-    const { show } = this.state;
-    const { includeTime, portal } = this.props;
-    let position;
-    if (!portal) {
-      position = { ...this.state.position };
-    }
+    const { includeTime, portal, direction, disabled } = this.props;
 
     return (
-      <div className="datepicker">
-        <div className="datepicker__input" onClick={this.handleCalendar} ref={this.inputRef}>
-          {this.renderInputComponent()}
-        </div>
-        {show && (
-          <div
-            className={classNames('datepicker__container', {
-              portal,
-              include__time: includeTime,
-            })}
-            role="dialog"
-            aria-modal="true"
-            style={{ ...position }}
-            ref={this.containerRef}
-          >
+      <Picker
+        portal={portal}
+        direction={direction}
+        disabled={disabled}
+        className={classNames({ include__time: includeTime })}
+        renderTrigger={() => this.renderInputComponent()}
+        renderContents={({ actions }) => (
+          <React.Fragment>
             {this.renderTabMenu()}
-            {this.renderCalendar()}
+            {this.renderCalendar(actions)}
             {this.renderTime()}
-          </div>
+          </React.Fragment>
         )}
-        <Backdrop show={show} invert={portal} onClick={this.hideCalendar} />
-      </div>
+      />
     );
   }
 }
