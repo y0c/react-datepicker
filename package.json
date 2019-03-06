@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "lodash": "4.17.10",
+    "lodash": ">=4.17.11",
     "moment": "^2.22.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
