@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
+
 .rc-backdrop {
   position: fixed;
   top:0;
@@ -62,31 +63,6 @@
     cursor: pointer;
   }
 }
-.timepicker {
-  display: inline-block;
-  &__container {
-    position: absolute;
-    z-index:100;
-    &.portal {
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
-  }
-}
-
-.range-datepicker {
-  display: inline-block;
-  &__container {
-    position: absolute;
-    z-index:100;
-    &.portal {
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
-  }
-}
 
 .picker {
   display: inline-block;
@@ -94,19 +70,7 @@
     position: absolute;
     z-index:100;
     &.portal {
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
-  }
-}
-
-.datepicker {
-  display: inline-block;
-  &__container {
-    position: absolute;
-    z-index:100;
-    &.portal {
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
@@ -138,6 +102,7 @@
     }
   }
 }
+
 
 .time__container {
   display: inline-flex;
