@@ -14,51 +14,17 @@ describe('<RangeDatePicker/>', () => {
     initialDate: new Date(2018, 4, 1),
   };
 
+  const pickerShow = (component: ReactWrapper) => {
+    component.find('Picker').setState({
+      show: true,
+    });
+  };
+
   describe('shallow test', () => {
     it('should render without crash', () => {
       const shallowComponent = shallow(<RangeDatePicker />);
       expect(shallowComponent).toBeTruthy();
       expect(shallowComponent).toMatchSnapshot();
-    });
-  });
-
-  describe('props portal', () => {
-    it('should no portal version position top & left operate correctly', () => {
-      const mountComponent = mount(<RangeDatePicker />);
-      mountComponent.find(START_INPUT_CLASS).simulate('click');
-
-      const containerStyle = mountComponent.find('.datepicker__container').get(0).props.style;
-      expect(containerStyle.top).not.toEqual('');
-      expect(containerStyle.left).not.toEqual('');
-    });
-
-    it('should portal version container add portal class', () => {
-      const mountComponent = mount(<RangeDatePicker portal />);
-      mountComponent.find(START_INPUT_CLASS).simulate('click');
-
-      expect(mountComponent.find('.datepicker__container').hasClass('portal')).toBeTruthy();
-    });
-  });
-
-  describe('show & hide', () => {
-    let mountComponent: ReactWrapper;
-    beforeEach(() => {
-      mountComponent = mount(<RangeDatePicker />);
-    });
-
-    it('should range picker input click then show Calendar', () => {
-      mountComponent.find(START_INPUT_CLASS).simulate('click');
-      expect(mountComponent.find('.calendar')).toHaveLength(1);
-      expect(mountComponent.state('show')).toBeTruthy();
-    });
-
-    it('should backdrop click then hide Calendar', () => {
-      mountComponent.setState({
-        show: true,
-      });
-      mountComponent.find('.rc-backdrop').simulate('click');
-      expect(mountComponent.find('.calendar')).toHaveLength(0);
-      expect(mountComponent.state('show')).toBeFalsy();
     });
   });
 
@@ -357,9 +323,7 @@ describe('<RangeDatePicker/>', () => {
     });
 
     it('does mouseover event set state hoverDate', () => {
-      mountComponent.setState({
-        show: true,
-      });
+      pickerShow(mountComponent);
       mountComponent
         .find('td')
         .at(5)
@@ -372,9 +336,9 @@ describe('<RangeDatePicker/>', () => {
     });
 
     it('should mouseover range hover correctly', () => {
+      pickerShow(mountComponent);
       mountComponent.setState({
         ...mountComponent.state,
-        show: true,
         start: moment(new Date(2018, 4, 1)),
       });
 
@@ -404,9 +368,7 @@ describe('<RangeDatePicker/>', () => {
     });
 
     it('should calendar wrapper render without crash', () => {
-      mountComponent.setState({
-        show: true,
-      });
+      pickerShow(mountComponent);
       expect(mountComponent.find('.wrapper-test')).toHaveLength(1);
     });
   });
