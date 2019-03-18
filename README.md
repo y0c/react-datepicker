@@ -63,6 +63,8 @@ The components that you can use are as follows: If you want to configure the `Da
 
 ## 📦 Dependency 
 
+> In the next version v1.0.0, moment.js will be replaced by day.js or date-fns
+
 * [Moment](https://momentjs.com)
 
 `Moment` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use moment library to globalize and control date. You can check the locale list through this [link](https://github.com/moment/moment/tree/develop/locale).
