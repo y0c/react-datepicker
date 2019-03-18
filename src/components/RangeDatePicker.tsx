@@ -12,7 +12,7 @@ interface RangeDatePickerProps {
   /** To display input format (moment format) */
   dateFormat: string;
   /** Initial Calendar base date(if start date not set) */
-  initialDate?: Date;
+  initialDate: Date;
   /** Initial Start Date */
   initialStartDate?: Date;
   /** Initial End Date */
@@ -55,13 +55,18 @@ class RangeDatePicker extends React.Component<Props, State> {
     endText: '',
   };
 
-  public state: State = {
-    startValue: '',
-    endValue: '',
-  };
-
-  constructor(props: Props) {
+  public constructor(props: Props) {
     super(props);
+    const { dateFormat, initialStartDate, initialEndDate } = props;
+    const start = initialStartDate ? moment(initialStartDate) : undefined;
+    const end = initialEndDate ? moment(initialEndDate) : undefined;
+
+    this.state = {
+      start,
+      end,
+      startValue: start ? start.format(dateFormat) : '',
+      endValue: end ? end.format(dateFormat) : '',
+    };
   }
 
   public handleDateChange = (actions: PickerAction) => (date: moment.Moment) => {
