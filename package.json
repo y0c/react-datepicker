@@ -138,6 +138,10 @@
   },
   "keywords": [
     "react",
-    "datepicker"
+    "datepicker",
+    "timepicker",
+    "calendar",
+    "rangepicker",
+    "rangedatepicker"
   ]
 }
