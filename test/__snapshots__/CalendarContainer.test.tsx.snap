@@ -2,8 +2,8 @@
 
 exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
 <CalendarContainer
-  base={"2018-12-01T00:00:00.000Z"}
-  current={"2018-12-01T00:00:00.000Z"}
+  base={2018-12-04T15:00:00.000Z}
+  current={2018-12-04T15:00:00.000Z}
   locale="ko"
   setBase={[Function]}
   show={true}
@@ -37,7 +37,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
       </div>
     </CalendarHead>
     <CalendarBody
-      current={"2018-12-01T00:00:00.000Z"}
+      current={2018-12-04T15:00:00.000Z}
       locale="ko"
       onClick={[Function]}
       viewMode={2}
@@ -46,7 +46,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
         className="calendar__body"
       >
         <DayView
-          current={"2018-12-01T00:00:00.000Z"}
+          current={2018-12-04T15:00:00.000Z}
           locale="ko"
           onClick={[Function]}
           viewMode={2}
@@ -55,13 +55,13 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
             cell={[Function]}
             headers={
               Array [
-                "일",
-                "월",
-                "화",
-                "수",
-                "목",
-                "금",
-                "토",
+                "일요일",
+                "월요일",
+                "화요일",
+                "수요일",
+                "목요일",
+                "금요일",
+                "토요일",
               ]
             }
             matrix={
@@ -131,37 +131,37 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
                   <th
                     key="0"
                   >
-                    일
+                    일요일
                   </th>
                   <th
                     key="1"
                   >
-                    월
+                    월요일
                   </th>
                   <th
                     key="2"
                   >
-                    화
+                    화요일
                   </th>
                   <th
                     key="3"
                   >
-                    수
+                    수요일
                   </th>
                   <th
                     key="4"
                   >
-                    목
+                    목요일
                   </th>
                   <th
                     key="5"
                   >
-                    금
+                    금요일
                   </th>
                   <th
                     key="6"
                   >
-                    토
+                    토요일
                   </th>
                 </tr>
               </thead>
@@ -967,8 +967,8 @@ exports[`<CalendarContainer/> prop: show should render correctly 1`] = `
     title="2018.12"
   />
   <CalendarBody
-    current={"2018-12-01T00:00:00.000Z"}
-    locale="en-ca"
+    current={2018-12-04T15:00:00.000Z}
+    locale="en"
     onClick={[Function]}
     viewMode={2}
   />
