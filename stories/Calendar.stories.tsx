@@ -4,6 +4,9 @@ import * as dayjs from 'moment';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';
+import 'dayjs/locale/ko';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/ja';
 
 storiesOf('Calendar', module)
   .add('default', () => {
