@@ -1,5 +1,5 @@
-import * as moment from 'moment';
 import * as React from 'react';
+import * as dayjs from 'dayjs';
 import * as classNames from 'classnames';
 import Calendar, { Props as ICalendarProps } from './Calendar';
 import TimeContainer from './TimeContainer';
@@ -25,7 +25,7 @@ export enum TabValue {
 }
 
 interface DatePickerProps {
-  /** To display input format (moment format) */
+  /** To display input format (dayjs format) */
   dateFormat: string;
   /** include TimePicker true/false */
   includeTime: boolean;
@@ -34,7 +34,7 @@ interface DatePickerProps {
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
-  onChange?: (rawValue: string, date?: moment.Moment) => void;
+  onChange?: (rawValue: string, date?: Date) => void;
   /** DatePicker Input default Icon */
   showDefaultIcon: boolean;
   /** initial Hour (1-12) */
@@ -47,12 +47,12 @@ interface DatePickerProps {
 
 export interface State {
   tabValue: TabValue;
-  date: moment.Moment;
+  date: Date;
   hour: number;
   minute: number;
   timeType: IDatePicker.TimeType;
   inputValue: string;
-  selected: moment.Moment[];
+  selected: Date[];
 }
 
 type CalendarProps = Merge<
@@ -82,18 +82,13 @@ class DatePicker extends React.Component<Props, State> {
     showDefaultIcon: false,
   };
 
-  public inputRef: React.RefObject<HTMLDivElement>;
-  public containerRef: React.RefObject<HTMLDivElement>;
-
   constructor(props: Props) {
     super(props);
-    const date = moment(this.props.initialDate);
+    const date = this.props.initialDate;
     const { dateFormat, includeTime } = this.props;
-    const hour = this.props.initialHour || getNormalHour(date.hour());
-    const minute = this.props.initialMinute || date.minute();
-    const timeType = this.props.initialTimeType || getTimeType(date.hour());
-    this.inputRef = React.createRef();
-    this.containerRef = React.createRef();
+    const hour = this.props.initialHour || getNormalHour(dayjs(date).hour());
+    const minute = this.props.initialMinute || dayjs(date).minute();
+    const timeType = this.props.initialTimeType || getTimeType(dayjs(date).hour());
     this.state = {
       date,
       hour,
@@ -101,7 +96,7 @@ class DatePicker extends React.Component<Props, State> {
       timeType,
       tabValue: TabValue.DATE,
       inputValue: setValueToInput(
-        date.format(dateFormat),
+        dayjs(date).format(dateFormat),
         formatTime(hour, minute, timeType),
         includeTime
       ),
@@ -109,10 +104,10 @@ class DatePicker extends React.Component<Props, State> {
     };
   }
 
-  public handleDateChange = (date: moment.Moment) => {
+  public handleDateChange = (date: Date) => {
     const { onChange, dateFormat, includeTime } = this.props;
     const { hour, minute, timeType } = this.state;
-    const dateValue = date.format(dateFormat);
+    const dateValue = dayjs(date).format(dateFormat);
     const timeValue = formatTime(hour, minute, timeType);
 
     ifExistCall(onChange, dateValue, date);
@@ -120,7 +115,7 @@ class DatePicker extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       date,
-      inputValue: setValueToInput(date.format(dateFormat), timeValue, includeTime),
+      inputValue: setValueToInput(dayjs(date).format(dateFormat), timeValue, includeTime),
       selected: [date],
     });
   };
@@ -129,10 +124,10 @@ class DatePicker extends React.Component<Props, State> {
     const { onChange, dateFormat } = this.props;
     const timeValue = formatTime(hour, minute, type);
     let date = this.state.date;
-    date = date
-      .clone()
+    date = dayjs(date)
       .hour(getMomentHour(hour, type))
-      .minute(minute);
+      .minute(minute)
+      .toDate();
 
     ifExistCall(onChange, timeValue, date);
 
@@ -142,7 +137,7 @@ class DatePicker extends React.Component<Props, State> {
       hour,
       minute,
       timeType: type,
-      inputValue: setValueToInput(date.format(dateFormat), timeValue, true),
+      inputValue: setValueToInput(dayjs(date).format(dateFormat), timeValue, true),
     });
   };
 
@@ -173,8 +168,8 @@ class DatePicker extends React.Component<Props, State> {
     const { date, hour, minute, timeType } = this.state;
     const { dateFormat, includeTime } = this.props;
     const value = e.currentTarget.value;
-    const parsedDate = moment(value.substring(0, dateFormat.length), dateFormat);
-    let updateDate: moment.Moment | undefined;
+    const parsedDate = dayjs(value.substring(0, dateFormat.length), dateFormat).toDate();
+    let updateDate: Date | undefined;
     let updateHour = hour;
     let updateMinute = minute;
     let updateTimeType = timeType;
@@ -182,7 +177,7 @@ class DatePicker extends React.Component<Props, State> {
 
     updateDate = date;
 
-    if (parsedDate.isValid() && dateFormat.length === value.length) {
+    if (dayjs(parsedDate).isValid() && dateFormat.length === value.length) {
       updateDate = parsedDate;
     }
 
@@ -193,7 +188,9 @@ class DatePicker extends React.Component<Props, State> {
       updateMinute = parsedTime.minute;
       updateTimeType = parsedTime.type;
       timeValue = formatTime(updateHour, updateMinute, updateTimeType);
-      updateDate.hour(getMomentHour(updateHour, updateTimeType)).minute(updateMinute);
+      dayjs(updateDate)
+        .hour(getMomentHour(updateHour, updateTimeType))
+        .minute(updateMinute);
     }
 
     this.setState({
@@ -202,7 +199,7 @@ class DatePicker extends React.Component<Props, State> {
       hour: updateHour,
       minute: updateMinute,
       timeType: updateTimeType,
-      inputValue: setValueToInput(updateDate.format(dateFormat), timeValue, includeTime),
+      inputValue: setValueToInput(dayjs(updateDate).format(dateFormat), timeValue, includeTime),
     });
   };
 

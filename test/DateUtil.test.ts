@@ -1,27 +1,78 @@
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { getDayMatrix, isDayEqual, isDayRange } from '../src/utils/DateUtil';
 
 describe('DateUtil', () => {
-  it('func isDayEqual correctly', () => {
-    const day1 = moment('20190101').date(1);
-    const day2 = moment('20190101').date(2);
-    const day3 = moment('20190101').date(1);
-    const day4 = moment('20110101').date(1);
+  describe('isDayEqual', () => {
+    let day1: Date;
+    let day2: Date;
 
-    expect(isDayEqual(day1, day2)).toBeFalsy();
-    expect(isDayEqual(day1, day3)).toBeTruthy();
-    expect(isDayEqual(day1, day4)).toBeFalsy();
+    it('should eq date return true', () => {
+      // given
+      day1 = new Date(2019, 1, 1);
+      day2 = new Date(2019, 1, 1);
+
+      // when
+      const isEqual = isDayEqual(day1, day2);
+
+      // then
+      expect(isEqual).toBeTruthy();
+    });
+
+    it('should not eq date return false', () => {
+      // given
+      day1 = new Date(2019, 1, 1);
+      day2 = new Date(2019, 1, 2);
+
+      // when
+      const isEqual = isDayEqual(day1, day2);
+
+      // then
+      expect(isEqual).toBeFalsy();
+    });
   });
 
-  it('func isDayRange correctly', () => {
-    const base = moment('20190101').hour(11);
-    const start = moment('20190105').hour(9);
-    const end = moment('20190111').hour(10);
+  describe('isDayRange', () => {
+    let between: Date;
+    let start: Date;
+    let end: Date;
 
-    expect(
-      [5, 6, 7, 8, 9, 10, 11]
-        .map(date => isDayRange(base.date(date), start, end))
-        .filter(date => date)
-    ).toHaveLength(5);
+    it('should between eq start return false', () => {
+      // given
+      between = new Date(2019, 1, 1);
+      start = new Date(2019, 1, 1);
+      end = new Date(2019, 1, 6);
+
+      // when
+      const isRange = isDayRange(between, start, end);
+
+      // then
+      expect(isRange).toBeFalsy();
+    });
+
+    it('should between eq end return false', () => {
+      // given
+      between = new Date(2019, 1, 6);
+      start = new Date(2019, 1, 1);
+      end = new Date(2019, 1, 6);
+
+      // when
+      const isRange = isDayRange(between, start, end);
+
+      // then
+      expect(isRange).toBeFalsy();
+    });
+
+    it('should between gt start return true', () => {
+      // given
+      between = new Date(2019, 1, 2);
+      start = new Date(2019, 1, 1);
+      end = new Date(2019, 1, 6);
+
+      // when
+      const isRange = isDayRange(between, start, end);
+
+      // then
+      expect(isRange).toBeTruthy();
+    });
   });
 });

@@ -1,22 +1,22 @@
 import { range } from 'lodash';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';
 
 export interface Props extends ContainerProps {
   /** Calendar Initial Date Parameters */
-  base: moment.Moment;
+  base: Date;
   /** Number of months to show at once */
   showMonthCnt: number;
 }
 
 export interface State {
-  base: moment.Moment;
+  base: Date;
 }
 
 class Calendar extends React.Component<Props, State> {
   public static defaultProps = {
-    base: moment(),
+    base: dayjs().toDate(),
     showMonthCnt: 1,
     showToday: false,
   };
@@ -28,7 +28,7 @@ class Calendar extends React.Component<Props, State> {
     };
   }
 
-  public setBase = (base: moment.Moment) => {
+  public setBase = (base: Date) => {
     this.setState({ base });
   };
 
@@ -44,7 +44,9 @@ class Calendar extends React.Component<Props, State> {
               <CalendarContainer
                 {...this.props}
                 base={this.state.base}
-                current={base.clone().add(idx, 'months')}
+                current={dayjs(base)
+                  .add(idx, 'month')
+                  .toDate()}
                 prevIcon={idx === 0}
                 nextIcon={idx === showMonthCnt! - 1}
                 setBase={this.setBase}

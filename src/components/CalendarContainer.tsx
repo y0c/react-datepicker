@@ -1,5 +1,5 @@
 import * as classNames from 'classnames';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import { IDatePicker } from '../common/@types';
 import CalendarBody from './CalendarBody';
@@ -19,20 +19,20 @@ interface CalendarContainerProps {
   /** NextIcon Show or Hide */
   nextIcon?: boolean;
   /** Event for Calendar day click */
-  onChange?: (date: moment.Moment) => void;
+  onChange?: (date: Date) => void;
   /** TodayPanel show or hide */
   showToday?: boolean;
 }
 
 interface PrivateProps {
   /** CalendarContainer base prop */
-  current: moment.Moment;
+  current: Date;
   /** Default Date parameter in calendar, which is the parent component */
-  base: moment.Moment;
+  base: Date;
   /** Number of months to show at once */
   showMonthCnt: number;
   /** Set Calendar initial Date  */
-  setBase: (base: moment.Moment) => void;
+  setBase: (base: Date) => void;
 }
 
 export interface State {
@@ -44,7 +44,7 @@ export type Props = CalendarContainerProps & DayViewProps & PrivateProps;
 
 class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
-    current: moment(),
+    current: dayjs().toDate(),
     show: true,
     showMonthCnt: 1,
     showToday: false,
@@ -61,11 +61,11 @@ class CalendarContainer extends React.Component<Props, State> {
 
   public getHeaderTitle = () => {
     const { current } = this.props;
-    const year = current.year();
+    const year = dayjs(current).year();
     return {
       [IDatePicker.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [IDatePicker.ViewMode.MONTH]: `${year}`,
-      [IDatePicker.ViewMode.DAY]: current.format('YYYY.MM'),
+      [IDatePicker.ViewMode.DAY]: dayjs(current).format('YYYY.MM'),
     }[this.state.viewMode];
   };
 
@@ -89,26 +89,35 @@ class CalendarContainer extends React.Component<Props, State> {
     const { current, onChange, setBase, showMonthCnt, base } = this.props;
     if (!value.trim()) return;
     if (showMonthCnt > 1) {
-      const date = current.date(parseInt(value, 10));
+      const date = dayjs(current)
+        .date(parseInt(value, 10))
+        .toDate();
       ifExistCall(onChange, date);
       return;
     }
 
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(base.clone().year(parseInt(value, 10)));
+      setBase(
+        dayjs(base)
+          .year(parseInt(value, 10))
+          .toDate()
+      );
       this.setState({
         viewMode: IDatePicker.ViewMode.MONTH,
       });
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      const month = moment()
-        .month(value)
-        .format('M');
-      setBase(base.clone().month(parseInt(month, 10) - 1));
+      setBase(
+        dayjs(base)
+          .month(parseInt(value, 10))
+          .toDate()
+      );
       this.setState({
         viewMode: IDatePicker.ViewMode.DAY,
       });
     } else {
-      const date = current.date(parseInt(value, 10));
+      const date = dayjs(current)
+        .date(parseInt(value, 10))
+        .toDate();
       ifExistCall(onChange, date);
     }
   };
@@ -116,19 +125,19 @@ class CalendarContainer extends React.Component<Props, State> {
   public handleBase = (method: string) => () => {
     const { base, setBase } = this.props;
     const { viewMode } = this.state;
-    const clone = base.clone();
+    const date = dayjs(base).clone();
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(clone[method](10, 'years'));
+      setBase(date[method](10, 'year').toDate());
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      setBase(clone[method](1, 'years'));
+      setBase(date[method](1, 'year').toDate());
     } else {
-      setBase(clone[method](1, 'months'));
+      setBase(date[method](1, 'month').toDate());
     }
   };
 
   public handleToday = () => {
     const { setBase } = this.props;
-    setBase(moment());
+    setBase(dayjs().toDate());
   };
 
   public render() {
@@ -164,7 +173,7 @@ class CalendarContainer extends React.Component<Props, State> {
         />
         {showToday && (
           <TodayPanel
-            today={moment()
+            today={dayjs()
               .locale(locale)
               .format('LL')}
             onClick={this.handleToday}
