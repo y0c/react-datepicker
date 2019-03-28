@@ -1,26 +1,24 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/es';
 import DayView from '../src/components/DayView';
 import { mount, ReactWrapper } from 'enzyme';
 
 describe('<DayView/>', () => {
-  // 20181201
-  const mockMoment = moment.unix(1543622400);
-
   const defaultProps = {
-    current: mockMoment,
+    current: new Date(2018, 11, 5),
   };
   let mountComponent: ReactWrapper;
 
   describe('prop: selected', () => {
     beforeEach(() => {
       const selected = [
-        moment('20181201'),
-        moment('20181212'),
-        moment('20181215'),
-        moment('20181222'),
-      ];
+        dayjs('20181201'),
+        dayjs('20181212'),
+        dayjs('20181215'),
+        dayjs('20181222'),
+      ].map(v => v.toDate());
 
       mountComponent = mount(<DayView {...defaultProps} selected={selected} />);
     });
@@ -39,8 +37,8 @@ describe('<DayView/>', () => {
     let onClick: sinon.SinonSpy;
 
     beforeEach(() => {
-      const disableDay = (date: moment.Moment) => {
-        return '20181201' === date.format('YYYYMMDD');
+      const disableDay = (date: Date) => {
+        return dayjs(date).isSame(dayjs('20181201'), 'date');
       };
       onClick = sinon.spy();
       mountComponent = mount(
@@ -63,8 +61,8 @@ describe('<DayView/>', () => {
 
   describe('prop: startDay, endDay', () => {
     beforeEach(() => {
-      const startDay = moment('20181205');
-      const endDay = moment('20181211');
+      const startDay = dayjs('20181205').toDate();
+      const endDay = dayjs('20181211').toDate();
 
       mountComponent = mount(<DayView {...defaultProps} startDay={startDay} endDay={endDay} />);
     });
@@ -79,7 +77,7 @@ describe('<DayView/>', () => {
     });
 
     it('should only occur when startDay, endDay exists', () => {
-      const startDay = moment('20181205');
+      const startDay = dayjs('20181205').toDate();
       mountComponent = mount(<DayView {...defaultProps} startDay={startDay} />);
       expect(mountComponent.find('td.calendar__day--range')).toHaveLength(0);
     });
@@ -87,21 +85,21 @@ describe('<DayView/>', () => {
 
   describe('prop:customClass, customText', () => {
     beforeEach(() => {
-      const customDayClass = (date: moment.Moment) => {
+      const customDayClass = (date: Date) => {
         const dayClassMap = {
           '20181202': ['custom-day', 'day-test1', 'day-test2'],
           '20181211': 'custom-day',
         };
-        return dayClassMap[date.format('YYYYMMDD')];
+        return dayClassMap[dayjs(date).format('YYYYMMDD')];
       };
 
-      const customDayText = (date: moment.Moment) => {
+      const customDayText = (date: Date) => {
         // custom day class string or array
         const dayTextMap = {
           '20181202': '신정',
           '20181211': '공휴일',
         };
-        return dayTextMap[date.format('YYYYMMDD')];
+        return dayTextMap[dayjs(date).format('YYYYMMDD')];
       };
       mountComponent = mount(
         <DayView {...defaultProps} customDayClass={customDayClass} customDayText={customDayText} />

@@ -1,5 +1,5 @@
-import * as moment from 'moment';
 import * as React from 'react';
+import * as dayjs from 'dayjs';
 import { IDatePicker } from '../common/@types';
 import { DatePickerDefaults } from '../common/Constant';
 import { getMonthMatrix, getYearMatrix } from '../utils/DateUtil';
@@ -11,13 +11,14 @@ interface CalendarBodyProps {
   /** Calendar viewMode(Year, Month, Day) */
   viewMode: IDatePicker.ViewMode;
   /** Calendar current Date */
-  current: moment.Moment;
+  current: Date;
   /** DayClick Event */
   onClick: (value: string) => void;
   /** Locale to use */
   locale: string;
 }
 type Props = DayViewProps & CalendarBodyProps;
+
 class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
     viewMode: IDatePicker.ViewMode.DAY,
@@ -26,15 +27,32 @@ class CalendarBody extends React.Component<Props> {
 
   public render() {
     const { current, onClick, locale } = this.props;
-    const cell = (className: string) => (value: string, key: number) => (
-      <TableCell className={className} text={value} onClick={text => onClick(text)} key={key} />
-    );
     const viewMap = {
       [IDatePicker.ViewMode.YEAR]: (
-        <TableMatrixView matrix={getYearMatrix(current.year())} cell={cell('calendar__year')} />
+        <TableMatrixView
+          matrix={getYearMatrix(dayjs(current).year())}
+          cell={(value: string, key: number) => (
+            <TableCell
+              key={key}
+              className="calendar__year"
+              text={value}
+              onClick={() => onClick(value)}
+            />
+          )}
+        />
       ),
       [IDatePicker.ViewMode.MONTH]: (
-        <TableMatrixView matrix={getMonthMatrix(locale)} cell={cell('calendar__month')} />
+        <TableMatrixView
+          matrix={getMonthMatrix(locale)}
+          cell={(value: string, key: number) => (
+            <TableCell
+              key={key}
+              className="calendar__month"
+              text={value}
+              onClick={() => onClick(String(key))}
+            />
+          )}
+        />
       ),
       [IDatePicker.ViewMode.DAY]: <DayView {...this.props} />,
     };

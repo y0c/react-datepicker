@@ -1,6 +1,5 @@
 import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
-import { range } from 'lodash';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import * as sinon from 'sinon';
 import { DatePickerDefaults } from '../src/common/Constant';
@@ -92,7 +91,7 @@ describe('<DatePicker/>', () => {
 
   describe('include time', () => {
     beforeEach(() => {
-      mountComponent = mount(<DatePicker {...defaultProps} locale="en-ca" includeTime />);
+      mountComponent = mount(<DatePicker {...defaultProps} includeTime />);
     });
 
     it('should time container render correctly', () => {
@@ -129,7 +128,7 @@ describe('<DatePicker/>', () => {
         pickerShow(mountComponent);
       });
 
-      it('should hour change 12 moment date eq 0', () => {
+      it('should hour change 12 day.js date eq 0', () => {
         mountComponent = mount(
           <DatePicker
             {...defaultProps}
@@ -143,10 +142,10 @@ describe('<DatePicker/>', () => {
         pickerShow(mountComponent);
         handleClick('up', 0);
 
-        expect(mountComponent.state('date').hour()).toEqual(0);
+        expect(dayjs(mountComponent.state('date')).hour()).toEqual(0);
       });
 
-      it('should hour PM 2 moment date eq 14', () => {
+      it('should hour PM 2 day.js date eq 14', () => {
         mountComponent = mount(
           <DatePicker {...defaultProps} initialHour={1} initialTimeType={IDatePicker.TimeType.PM} />
         );
@@ -155,7 +154,7 @@ describe('<DatePicker/>', () => {
         });
         pickerShow(mountComponent);
         handleClick('up', 0);
-        expect(mountComponent.state('date').hour()).toEqual(14);
+        expect(dayjs(mountComponent.state('date')).hour()).toEqual(14);
       });
 
       it('should fire onChange Event', () => {
@@ -178,7 +177,7 @@ describe('<DatePicker/>', () => {
 
     it('should date picker input invalid value return original date', () => {
       const { dateFormat } = DatePickerDefaults;
-      const originalDate = moment(new Date(2018, 4, 1));
+      const originalDate = new Date(2018, 4, 1);
       const testValue = 'teste333';
       mountComponent.setState({
         ...mountComponent.state,
@@ -192,13 +191,13 @@ describe('<DatePicker/>', () => {
       expect(dateState).not.toBeUndefined();
 
       if (dateState) {
-        expect(dateState.format(dateFormat)).toEqual(originalDate.format(dateFormat));
+        expect(dayjs(dateState).format(dateFormat)).toEqual(dayjs(originalDate).format(dateFormat));
       }
     });
 
     it('should date picker input valid value setState date', () => {
       const { dateFormat } = DatePickerDefaults;
-      const originalDate = moment(new Date(2018, 4, 1));
+      const originalDate = new Date(2018, 4, 1);
       const correctValue = '2018-05-02';
       mountComponent.setState({
         ...mountComponent.state,
@@ -212,7 +211,7 @@ describe('<DatePicker/>', () => {
       expect(dateState).not.toBeUndefined();
 
       if (dateState) {
-        expect(dateState.format(dateFormat)).toEqual(correctValue);
+        expect(dayjs(dateState).format(dateFormat)).toEqual(correctValue);
       }
     });
 
@@ -230,12 +229,12 @@ describe('<DatePicker/>', () => {
           initialTimeType={timeType}
         />
       );
-      const originalDate = moment(new Date(2018, 4, 1));
+      const originalDate = new Date(2018, 4, 1);
 
       mountComponent.setState({
         ...mountComponent.state,
         date: originalDate,
-        inputValue: `${originalDate.format(DatePickerDefaults.dateFormat)} 03:e0A`,
+        inputValue: `${dayjs(originalDate).format(DatePickerDefaults.dateFormat)} 03:e0A`,
       });
 
       mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
@@ -243,7 +242,7 @@ describe('<DatePicker/>', () => {
       const inputValue = mountComponent.state('inputValue');
 
       expect(inputValue).toEqual(
-        `${originalDate.format(DatePickerDefaults.dateFormat)} ${formatTime(
+        `${dayjs(originalDate).format(DatePickerDefaults.dateFormat)} ${formatTime(
           hour,
           minute,
           timeType
@@ -265,12 +264,12 @@ describe('<DatePicker/>', () => {
           initialTimeType={timeType}
         />
       );
-      const originalDate = moment(new Date(2018, 4, 1));
+      const originalDate = new Date(2018, 4, 1);
 
       mountComponent.setState({
         ...mountComponent.state,
         date: originalDate,
-        inputValue: `${originalDate.format(DatePickerDefaults.dateFormat)} 03:01 AM`,
+        inputValue: `${dayjs(originalDate).format(DatePickerDefaults.dateFormat)} 03:01 AM`,
       });
 
       mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');

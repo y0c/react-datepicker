@@ -1,18 +1,14 @@
-import { chunk, range, repeat } from 'lodash';
-import * as moment from 'moment';
-
-const initHms = (date: moment.Moment) => {
-  return date
-    .hour(0)
-    .minute(0)
-    .second(0);
-};
+import { chunk, repeat, range } from 'lodash';
+import * as dayjs from 'dayjs';
+import { getMonthShort } from './LocaleUtil';
 
 export const getDayMatrix = (year: number, month: number): string[][] => {
-  const date = moment({ year, month });
+  const date = dayjs()
+    .year(year)
+    .month(month);
 
-  const startOfMonth = parseInt(date.startOf('month').format('DD'), 10);
-  const endOfMonth = parseInt(date.endOf('month').format('DD'), 10);
+  const startOfMonth = date.startOf('month').date();
+  const endOfMonth = date.endOf('month').date();
 
   const startDay = date.startOf('month').day();
   const remain = (startDay + endOfMonth) % 7;
@@ -28,28 +24,27 @@ export const getDayMatrix = (year: number, month: number): string[][] => {
 };
 
 export const getMonthMatrix = (locale: string) => {
-  const months = moment.localeData(locale).monthsShort();
-  return chunk(months, 3);
+  return chunk(getMonthShort(locale), 3);
 };
 
 export const getYearMatrix = (year: number) => {
   return chunk(range(year - 4, year + 5).map(v => `${v}`), 3);
 };
 
-export const isDayEqual = (day1?: moment.Moment, day2?: moment.Moment) => {
+export const isDayEqual = (day1?: Date, day2?: Date) => {
   if (!day1 || !day2) return false;
-  return day1.format('YYYYMMDD') === day2.format('YYYYMMDD');
+  return dayjs(day1).isSame(day2, 'date');
 };
 
-export const isDayAfter = (source: moment.Moment, target: moment.Moment) => {
-  return initHms(source).diff(initHms(target), 'days') > 0;
+export const isDayAfter = (day1: Date, day2: Date) => {
+  return dayjs(day1).isAfter(day2, 'date');
 };
 
-export const isDayBefore = (source: moment.Moment, target: moment.Moment) => {
-  return initHms(source).diff(initHms(target), 'days') < 0;
+export const isDayBefore = (day1: Date, day2: Date) => {
+  return dayjs(day1).isBefore(day2, 'date');
 };
 
-export const isDayRange = (date: moment.Moment, start?: moment.Moment, end?: moment.Moment) => {
+export const isDayRange = (date: Date, start?: Date, end?: Date) => {
   if (!start || !end) return false;
 
   return isDayAfter(date, start) && isDayBefore(date, end);

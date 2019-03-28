@@ -1,10 +1,12 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import * as moment from 'moment';
-import Calendar from '../src/components/Calendar';
+import * as dayjs from 'dayjs';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';
+import 'dayjs/locale/ko';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/ja';
 
 storiesOf('Calendar', module)
   .add('default', () => {
@@ -36,8 +38,8 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController showMonthCnt={showMontCnt} />;
   })
   .add('disableDay', () => {
-    const disableDay = (date: moment.Moment) => {
-      return date.date() < 7;
+    const disableDay = (date: Date) => {
+      return dayjs(date).date() < 7;
     };
     return <CalendarSelectedController disableDay={disableDay} />;
   })
@@ -48,14 +50,14 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController multiple={true} />;
   })
   .add('custom day class', () => {
-    const customDayClass = (date: moment.Moment) => {
+    const customDayClass = (date: Date) => {
       // for test (year, month remove)
       const classMap = {
         '01': 'custom-class',
         '02': 'day-test1',
       };
 
-      return classMap[date.format('DD')];
+      return classMap[dayjs(date).format('DD')];
     };
     return (
       <div>
@@ -65,14 +67,14 @@ storiesOf('Calendar', module)
     );
   })
   .add('custom day text', () => {
-    const customDayText = (date: moment.Moment) => {
+    const customDayText = (date: Date) => {
       // for test (year, month remove)
       const classMap = {
         '01': '첫째날',
         '02': '둘째날',
       };
 
-      return classMap[date.format('DD')];
+      return classMap[dayjs(date).format('DD')];
     };
     return <CalendarSelectedController customDayText={customDayText} />;
   });

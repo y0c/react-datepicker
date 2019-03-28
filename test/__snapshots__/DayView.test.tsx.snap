@@ -2,14 +2,14 @@
 
 exports[`<DayView/> prop: selected should render correctly 1`] = `
 <DayView
-  current={"2018-12-01T00:00:00.000Z"}
-  locale="en-ca"
+  current={2018-12-04T15:00:00.000Z}
+  locale="en"
   selected={
     Array [
-      "2018-11-30T15:00:00.000Z",
-      "2018-12-11T15:00:00.000Z",
-      "2018-12-14T15:00:00.000Z",
-      "2018-12-21T15:00:00.000Z",
+      2018-11-30T15:00:00.000Z,
+      2018-12-11T15:00:00.000Z,
+      2018-12-14T15:00:00.000Z,
+      2018-12-21T15:00:00.000Z,
     ]
   }
 >
@@ -916,10 +916,10 @@ exports[`<DayView/> prop: selected should render correctly 1`] = `
 
 exports[`<DayView/> prop: startDay, endDay should render correctly 1`] = `
 <DayView
-  current={"2018-12-01T00:00:00.000Z"}
-  endDay={"2018-12-10T15:00:00.000Z"}
-  locale="en-ca"
-  startDay={"2018-12-04T15:00:00.000Z"}
+  current={2018-12-04T15:00:00.000Z}
+  endDay={2018-12-10T15:00:00.000Z}
+  locale="en"
+  startDay={2018-12-04T15:00:00.000Z}
 >
   <TableMatrixView
     cell={[Function]}
@@ -1824,10 +1824,10 @@ exports[`<DayView/> prop: startDay, endDay should render correctly 1`] = `
 
 exports[`<DayView/> prop:customClass, customText should render correctly 1`] = `
 <DayView
-  current={"2018-12-01T00:00:00.000Z"}
+  current={2018-12-04T15:00:00.000Z}
   customDayClass={[Function]}
   customDayText={[Function]}
-  locale="en-ca"
+  locale="en"
 >
   <TableMatrixView
     cell={[Function]}

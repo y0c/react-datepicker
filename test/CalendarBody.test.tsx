@@ -1,16 +1,13 @@
 import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import * as sinon from 'sinon';
-import * as moment from 'moment';
 import * as React from 'react';
 import DayView from '../src/components/DayView';
 import CalendarBody from '../src/components/CalendarBody';
 import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarBody />', () => {
-  // 20181201
-  const mockMoment = moment.unix(1543622400);
   const defaultProps = {
-    current: mockMoment,
+    current: new Date(2018, 11, 1),
     onClick: sinon.spy(),
   };
   let shallowComponent: ShallowWrapper<React.Component>;
