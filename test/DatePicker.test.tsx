@@ -128,7 +128,7 @@ describe('<DatePicker/>', () => {
         pickerShow(mountComponent);
       });
 
-      it('should hour change 12 moment date eq 0', () => {
+      it('should hour change 12 day.js date eq 0', () => {
         mountComponent = mount(
           <DatePicker
             {...defaultProps}
@@ -145,7 +145,7 @@ describe('<DatePicker/>', () => {
         expect(dayjs(mountComponent.state('date')).hour()).toEqual(0);
       });
 
-      it('should hour PM 2 moment date eq 14', () => {
+      it('should hour PM 2 day.js date eq 14', () => {
         mountComponent = mount(
           <DatePicker {...defaultProps} initialHour={1} initialTimeType={IDatePicker.TimeType.PM} />
         );

@@ -9,7 +9,7 @@ import { Merge, Omit } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
 
 interface RangeDatePickerProps {
-  /** To display input format (moment format) */
+  /** To display input format (Day.js format) */
   dateFormat: string;
   /** Initial Calendar base date(if start date not set) */
   initialDate: Date;

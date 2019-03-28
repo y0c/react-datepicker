@@ -62,7 +62,7 @@ describe('<CalendarContainer/>', () => {
           .find('th')
           .first()
           .text()
-      ).toEqual('일');
+      ).toEqual('일요일');
     });
   });
 

@@ -1,6 +1,5 @@
 import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import * as sinon from 'sinon';
-import * as moment from 'moment';
 import * as React from 'react';
 import DayView from '../src/components/DayView';
 import CalendarBody from '../src/components/CalendarBody';

@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import * as dayjs from 'moment';
+import * as dayjs from 'dayjs';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';
