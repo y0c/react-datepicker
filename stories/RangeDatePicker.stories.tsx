@@ -10,12 +10,7 @@ storiesOf('RangeDatePicker', module)
   .add('default', () => <RangeDatePicker />)
   .add('initial Start & End Date', () => {
     return (
-      <RangeDatePicker
-        initialStartDate={dayjs()
-          .subtract(7, 'day')
-          .toDate()}
-        initialEndDate={dayjs().toDate()}
-      />
+      <RangeDatePicker initialStartDate={dayjs().subtract(7, 'day')} initialEndDate={dayjs()} />
     );
   })
   .add('startText & endText', () => (

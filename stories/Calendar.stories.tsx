@@ -38,7 +38,7 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController showMonthCnt={showMontCnt} />;
   })
   .add('disableDay', () => {
-    const disableDay = (date: Date) => {
+    const disableDay = (date: dayjs.Dayjs) => {
       return dayjs(date).date() < 7;
     };
     return <CalendarSelectedController disableDay={disableDay} />;
@@ -50,7 +50,7 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController multiple={true} />;
   })
   .add('custom day class', () => {
-    const customDayClass = (date: Date) => {
+    const customDayClass = (date: dayjs.Dayjs) => {
       // for test (year, month remove)
       const classMap = {
         '01': 'custom-class',
@@ -67,7 +67,7 @@ storiesOf('Calendar', module)
     );
   })
   .add('custom day text', () => {
-    const customDayText = (date: Date) => {
+    const customDayText = (date: dayjs.Dayjs) => {
       // for test (year, month remove)
       const classMap = {
         '01': '첫째날',
