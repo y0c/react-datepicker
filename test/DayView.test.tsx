@@ -7,18 +7,13 @@ import { mount, ReactWrapper } from 'enzyme';
 
 describe('<DayView/>', () => {
   const defaultProps = {
-    current: new Date(2018, 11, 5),
+    current: dayjs(new Date(2018, 11, 5)),
   };
   let mountComponent: ReactWrapper;
 
   describe('prop: selected', () => {
     beforeEach(() => {
-      const selected = [
-        dayjs('20181201'),
-        dayjs('20181212'),
-        dayjs('20181215'),
-        dayjs('20181222'),
-      ].map(v => v.toDate());
+      const selected = [dayjs('20181201'), dayjs('20181212'), dayjs('20181215'), dayjs('20181222')];
 
       mountComponent = mount(<DayView {...defaultProps} selected={selected} />);
     });
@@ -37,7 +32,7 @@ describe('<DayView/>', () => {
     let onClick: sinon.SinonSpy;
 
     beforeEach(() => {
-      const disableDay = (date: Date) => {
+      const disableDay = (date: dayjs.Dayjs) => {
         return dayjs(date).isSame(dayjs('20181201'), 'date');
       };
       onClick = sinon.spy();
@@ -61,8 +56,8 @@ describe('<DayView/>', () => {
 
   describe('prop: startDay, endDay', () => {
     beforeEach(() => {
-      const startDay = dayjs('20181205').toDate();
-      const endDay = dayjs('20181211').toDate();
+      const startDay = dayjs('20181205');
+      const endDay = dayjs('20181211');
 
       mountComponent = mount(<DayView {...defaultProps} startDay={startDay} endDay={endDay} />);
     });
@@ -77,7 +72,7 @@ describe('<DayView/>', () => {
     });
 
     it('should only occur when startDay, endDay exists', () => {
-      const startDay = dayjs('20181205').toDate();
+      const startDay = dayjs('20181205');
       mountComponent = mount(<DayView {...defaultProps} startDay={startDay} />);
       expect(mountComponent.find('td.calendar__day--range')).toHaveLength(0);
     });
@@ -85,7 +80,7 @@ describe('<DayView/>', () => {
 
   describe('prop:customClass, customText', () => {
     beforeEach(() => {
-      const customDayClass = (date: Date) => {
+      const customDayClass = (date: dayjs.Dayjs) => {
         const dayClassMap = {
           '20181202': ['custom-day', 'day-test1', 'day-test2'],
           '20181211': 'custom-day',
@@ -93,7 +88,7 @@ describe('<DayView/>', () => {
         return dayClassMap[dayjs(date).format('YYYYMMDD')];
       };
 
-      const customDayText = (date: Date) => {
+      const customDayText = (date: dayjs.Dayjs) => {
         // custom day class string or array
         const dayTextMap = {
           '20181202': '신정',

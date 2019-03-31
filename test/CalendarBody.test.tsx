@@ -1,5 +1,6 @@
 import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import * as sinon from 'sinon';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import DayView from '../src/components/DayView';
 import CalendarBody from '../src/components/CalendarBody';
@@ -7,7 +8,7 @@ import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarBody />', () => {
   const defaultProps = {
-    current: new Date(2018, 11, 1),
+    current: dayjs(new Date(2018, 11, 1)),
     onClick: sinon.spy(),
   };
   let shallowComponent: ShallowWrapper<React.Component>;

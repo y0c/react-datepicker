@@ -11,7 +11,7 @@ const INPUT_FORMAT = 'YYYY-MM-DD';
 
 describe('<RangeDatePicker/>', () => {
   const defaultProps = {
-    initialDate: new Date(2018, 4, 1),
+    initialDate: dayjs(new Date(2018, 4, 1)),
   };
 
   const pickerShow = (component: ReactWrapper) => {
@@ -53,7 +53,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: new Date(2018, 4, 5),
+        start: dayjs(new Date(2018, 4, 5)),
       });
       dayClick(0)(2);
       const start = mountComponent.state('start');
@@ -67,7 +67,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: new Date(2018, 4, 2),
+        start: dayjs(new Date(2018, 4, 2)),
       });
       dayClick(0)(5);
       const end = mountComponent.state('end');
@@ -81,8 +81,8 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: new Date(2019, 4, 2),
-        end: new Date(2018, 4, 9),
+        start: dayjs(new Date(2019, 4, 2)),
+        end: dayjs(new Date(2018, 4, 9)),
       });
       dayClick(0)(5);
       const start = mountComponent.state('start');
@@ -124,8 +124,8 @@ describe('<RangeDatePicker/>', () => {
 
   describe('handleInputBlur', () => {
     let mountComponent: ReactWrapper<Props, State>;
-    const start = new Date(2018, 4, 1);
-    const end = new Date(2018, 4, 11);
+    const start = dayjs(new Date(2018, 4, 1));
+    const end = dayjs(new Date(2018, 4, 11));
 
     beforeEach(() => {
       mountComponent = mount(<RangeDatePicker dateFormat={INPUT_FORMAT} {...defaultProps} />);
@@ -265,8 +265,8 @@ describe('<RangeDatePicker/>', () => {
   describe('handleInputClear', () => {
     let mountComponent: ReactWrapper;
     const rangeInputClass = (value: string) => `.range-picker-input__${value}`;
-    const start = new Date(2018, 4, 1);
-    const end = new Date(2018, 4, 11);
+    const start = dayjs(new Date(2018, 4, 1));
+    const end = dayjs(new Date(2018, 4, 11));
 
     beforeEach(() => {
       mountComponent = mount(<RangeDatePicker clear {...defaultProps} />);
@@ -339,7 +339,7 @@ describe('<RangeDatePicker/>', () => {
       pickerShow(mountComponent);
       mountComponent.setState({
         ...mountComponent.state,
-        start: new Date(2018, 4, 1),
+        start: dayjs(new Date(2018, 4, 1)),
       });
 
       mountComponent

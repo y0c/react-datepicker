@@ -3,13 +3,13 @@ import { getDayMatrix, isDayEqual, isDayRange } from '../src/utils/DateUtil';
 
 describe('DateUtil', () => {
   describe('isDayEqual', () => {
-    let day1: Date;
-    let day2: Date;
+    let day1: dayjs.Dayjs;
+    let day2: dayjs.Dayjs;
 
     it('should eq date return true', () => {
       // given
-      day1 = new Date(2019, 1, 1);
-      day2 = new Date(2019, 1, 1);
+      day1 = dayjs(new Date(2019, 1, 1));
+      day2 = dayjs(new Date(2019, 1, 1));
 
       // when
       const isEqual = isDayEqual(day1, day2);
@@ -20,8 +20,8 @@ describe('DateUtil', () => {
 
     it('should not eq date return false', () => {
       // given
-      day1 = new Date(2019, 1, 1);
-      day2 = new Date(2019, 1, 2);
+      day1 = dayjs(new Date(2019, 1, 1));
+      day2 = dayjs(new Date(2019, 1, 2));
 
       // when
       const isEqual = isDayEqual(day1, day2);
@@ -32,15 +32,15 @@ describe('DateUtil', () => {
   });
 
   describe('isDayRange', () => {
-    let between: Date;
-    let start: Date;
-    let end: Date;
+    let between: dayjs.Dayjs;
+    let start: dayjs.Dayjs;
+    let end: dayjs.Dayjs;
 
     it('should between eq start return false', () => {
       // given
-      between = new Date(2019, 1, 1);
-      start = new Date(2019, 1, 1);
-      end = new Date(2019, 1, 6);
+      between = dayjs(new Date(2019, 1, 1));
+      start = dayjs(new Date(2019, 1, 1));
+      end = dayjs(new Date(2019, 1, 6));
 
       // when
       const isRange = isDayRange(between, start, end);
@@ -51,9 +51,9 @@ describe('DateUtil', () => {
 
     it('should between eq end return false', () => {
       // given
-      between = new Date(2019, 1, 6);
-      start = new Date(2019, 1, 1);
-      end = new Date(2019, 1, 6);
+      between = dayjs(new Date(2019, 1, 6));
+      start = dayjs(new Date(2019, 1, 1));
+      end = dayjs(new Date(2019, 1, 6));
 
       // when
       const isRange = isDayRange(between, start, end);
@@ -64,9 +64,9 @@ describe('DateUtil', () => {
 
     it('should between gt start return true', () => {
       // given
-      between = new Date(2019, 1, 2);
-      start = new Date(2019, 1, 1);
-      end = new Date(2019, 1, 6);
+      between = dayjs(new Date(2019, 1, 2));
+      start = dayjs(new Date(2019, 1, 1));
+      end = dayjs(new Date(2019, 1, 6));
 
       // when
       const isRange = isDayRange(between, start, end);

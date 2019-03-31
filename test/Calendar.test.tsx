@@ -9,7 +9,7 @@ describe('<Calendar/>', () => {
   let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
   let mountComponent: ReactWrapper<Props, State>;
   const defaultProps = {
-    base: new Date(2018, 4, 1),
+    base: dayjs(new Date(2018, 4, 1)),
   };
 
   it('redners with no props', () => {

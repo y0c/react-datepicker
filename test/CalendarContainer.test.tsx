@@ -11,9 +11,9 @@ import CalendarContainer, { Props, State } from '../src/components/CalendarConta
 import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarContainer/>', () => {
-  const current = new Date(2018, 11, 5);
+  const current = dayjs(new Date(2018, 11, 5));
   let base = current;
-  const setBase = (val: Date) => {
+  const setBase = (val: dayjs.Dayjs) => {
     base = val;
   };
   const defaultProps = {
@@ -133,7 +133,7 @@ describe('<CalendarContainer/>', () => {
       mountComponent = mount(
         <CalendarContainer
           {...defaultProps}
-          base={new Date(2018, 12, 4)}
+          base={dayjs(new Date(2018, 12, 4))}
           showMonthCnt={2}
           onChange={onChange}
         />

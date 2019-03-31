@@ -15,7 +15,7 @@ describe('<DatePicker/>', () => {
   let mountComponent: ReactWrapper<Props, State>;
 
   const defaultProps = {
-    initialDate: new Date(2018, 11, 1),
+    initialDate: dayjs(new Date(2018, 11, 1)),
   };
 
   const pickerShow = (component: ReactWrapper) => {
@@ -69,7 +69,7 @@ describe('<DatePicker/>', () => {
 
     it('should props showMonthCnt correctly', () => {
       // 20180501
-      const mockDate = new Date(2018, 5, 1);
+      const mockDate = dayjs(new Date(2018, 5, 1));
       mountComponent = mount(<DatePicker initialDate={mockDate} showMonthCnt={3} />);
       pickerShow(mountComponent);
       expect(mountComponent.find('.calendar__container')).toHaveLength(3);
@@ -177,7 +177,7 @@ describe('<DatePicker/>', () => {
 
     it('should date picker input invalid value return original date', () => {
       const { dateFormat } = DatePickerDefaults;
-      const originalDate = new Date(2018, 4, 1);
+      const originalDate = dayjs(new Date(2018, 4, 1));
       const testValue = 'teste333';
       mountComponent.setState({
         ...mountComponent.state,
@@ -197,7 +197,7 @@ describe('<DatePicker/>', () => {
 
     it('should date picker input valid value setState date', () => {
       const { dateFormat } = DatePickerDefaults;
-      const originalDate = new Date(2018, 4, 1);
+      const originalDate = dayjs(new Date(2018, 4, 1));
       const correctValue = '2018-05-02';
       mountComponent.setState({
         ...mountComponent.state,
@@ -229,7 +229,7 @@ describe('<DatePicker/>', () => {
           initialTimeType={timeType}
         />
       );
-      const originalDate = new Date(2018, 4, 1);
+      const originalDate = dayjs(new Date(2018, 4, 1));
 
       mountComponent.setState({
         ...mountComponent.state,
@@ -264,7 +264,7 @@ describe('<DatePicker/>', () => {
           initialTimeType={timeType}
         />
       );
-      const originalDate = new Date(2018, 4, 1);
+      const originalDate = dayjs(new Date(2018, 4, 1));
 
       mountComponent.setState({
         ...mountComponent.state,
