@@ -30,11 +30,11 @@ interface DatePickerProps {
   /** include TimePicker true/false */
   includeTime: boolean;
   /** Initial display date */
-  initialDate: Date;
+  initialDate: dayjs.Dayjs;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
-  onChange?: (rawValue: string, date?: Date) => void;
+  onChange?: (rawValue: string, date?: dayjs.Dayjs) => void;
   /** DatePicker Input default Icon */
   showDefaultIcon: boolean;
   /** initial Hour (1-12) */
@@ -47,12 +47,12 @@ interface DatePickerProps {
 
 export interface State {
   tabValue: TabValue;
-  date: Date;
+  date: dayjs.Dayjs;
   hour: number;
   minute: number;
   timeType: IDatePicker.TimeType;
   inputValue: string;
-  selected: Date[];
+  selected: dayjs.Dayjs[];
 }
 
 type CalendarProps = Merge<
@@ -74,7 +74,7 @@ const setValueToInput = (dateValue: string, timeValue: string, includeTime: bool
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
     includeTime: false,
-    initialDate: new Date(),
+    initialDate: dayjs(),
     showMonthCnt: 1,
     locale: DatePickerDefaults.locale,
     dateFormat: DatePickerDefaults.dateFormat,
@@ -104,7 +104,7 @@ class DatePicker extends React.Component<Props, State> {
     };
   }
 
-  public handleDateChange = (date: Date) => {
+  public handleDateChange = (date: dayjs.Dayjs) => {
     const { onChange, dateFormat, includeTime } = this.props;
     const { hour, minute, timeType } = this.state;
     const dateValue = dayjs(date).format(dateFormat);
@@ -126,8 +126,7 @@ class DatePicker extends React.Component<Props, State> {
     let date = this.state.date;
     date = dayjs(date)
       .hour(getMomentHour(hour, type))
-      .minute(minute)
-      .toDate();
+      .minute(minute);
 
     ifExistCall(onChange, timeValue, date);
 
@@ -168,8 +167,8 @@ class DatePicker extends React.Component<Props, State> {
     const { date, hour, minute, timeType } = this.state;
     const { dateFormat, includeTime } = this.props;
     const value = e.currentTarget.value;
-    const parsedDate = dayjs(value.substring(0, dateFormat.length), dateFormat).toDate();
-    let updateDate: Date | undefined;
+    const parsedDate = dayjs(value.substring(0, dateFormat.length), dateFormat);
+    let updateDate: dayjs.Dayjs | undefined;
     let updateHour = hour;
     let updateMinute = minute;
     let updateTimeType = timeType;

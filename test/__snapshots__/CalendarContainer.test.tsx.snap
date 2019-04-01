@@ -2,8 +2,8 @@
 
 exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
 <CalendarContainer
-  base={2018-12-04T15:00:00.000Z}
-  current={2018-12-04T15:00:00.000Z}
+  base={"2018-12-04T15:00:00.000Z"}
+  current={"2018-12-04T15:00:00.000Z"}
   locale="ko"
   setBase={[Function]}
   show={true}
@@ -37,7 +37,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
       </div>
     </CalendarHead>
     <CalendarBody
-      current={2018-12-04T15:00:00.000Z}
+      current={"2018-12-04T15:00:00.000Z"}
       locale="ko"
       onClick={[Function]}
       viewMode={2}
@@ -46,7 +46,7 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
         className="calendar__body"
       >
         <DayView
-          current={2018-12-04T15:00:00.000Z}
+          current={"2018-12-04T15:00:00.000Z"}
           locale="ko"
           onClick={[Function]}
           viewMode={2}
@@ -967,7 +967,7 @@ exports[`<CalendarContainer/> prop: show should render correctly 1`] = `
     title="2018.12"
   />
   <CalendarBody
-    current={2018-12-04T15:00:00.000Z}
+    current={"2018-12-04T15:00:00.000Z"}
     locale="en"
     onClick={[Function]}
     viewMode={2}

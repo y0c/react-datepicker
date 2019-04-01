@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as dayjs from 'dayjs';
 import Calendar, { Props as ICalendarProps } from '../src/components/Calendar';
 import { Omit, Merge } from '../src/utils/TypeUtil';
 
@@ -15,7 +16,7 @@ interface IProps {
 }
 
 interface State {
-  selected: Date[];
+  selected: dayjs.Dayjs[];
 }
 
 type Props = CalendarProps & IProps;
@@ -28,7 +29,7 @@ class CalendarSelectedController extends React.Component<Props, State> {
     selected: [],
   };
 
-  public handleChange = (date: Date) => {
+  public handleChange = (date: dayjs.Dayjs) => {
     const { multiple } = this.props;
     this.setState({
       selected: multiple ? [...this.state.selected, date] : [date],

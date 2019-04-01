@@ -12,13 +12,13 @@ interface RangeDatePickerProps {
   /** To display input format (Day.js format) */
   dateFormat: string;
   /** Initial Calendar base date(if start date not set) */
-  initialDate: Date;
+  initialDate: dayjs.Dayjs;
   /** Initial Start Date */
-  initialStartDate?: Date;
+  initialStartDate?: dayjs.Dayjs;
   /** Initial End Date */
-  initialEndDate?: Date;
+  initialEndDate?: dayjs.Dayjs;
   /** RangeDatePicker change event */
-  onChange?: (start?: Date, end?: Date) => void;
+  onChange?: (start?: dayjs.Dayjs, end?: dayjs.Dayjs) => void;
   /** start day display this prop(optional) */
   startText: string;
   /** end day display this prop(optional) */
@@ -28,9 +28,9 @@ interface RangeDatePickerProps {
 }
 
 export interface State {
-  start?: Date;
-  end?: Date;
-  hoverDate?: Date;
+  start?: dayjs.Dayjs;
+  end?: dayjs.Dayjs;
+  hoverDate?: dayjs.Dayjs;
   startValue: string;
   endValue: string;
   mode?: FieldType;
@@ -49,7 +49,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   public static defaultProps = {
     dateFormat: DatePickerDefaults.dateFormat,
     portal: false,
-    initialDate: new Date(),
+    initialDate: dayjs(),
     showMonthCnt: 2,
     startText: '',
     endText: '',
@@ -69,11 +69,11 @@ class RangeDatePicker extends React.Component<Props, State> {
     };
   }
 
-  public handleDateChange = (actions: PickerAction) => (date: Date) => {
+  public handleDateChange = (actions: PickerAction) => (date: dayjs.Dayjs) => {
     const { onChange, dateFormat } = this.props;
     const { start, end } = this.state;
-    let startDate: Date | undefined;
-    let endDate: Date | undefined;
+    let startDate: dayjs.Dayjs | undefined;
+    let endDate: dayjs.Dayjs | undefined;
 
     startDate = start;
     endDate = end;
@@ -119,7 +119,7 @@ class RangeDatePicker extends React.Component<Props, State> {
     });
   };
 
-  public handleMouseOver = (date: Date) => {
+  public handleMouseOver = (date: dayjs.Dayjs) => {
     this.setState({
       ...this.state,
       hoverDate: date,
@@ -135,16 +135,16 @@ class RangeDatePicker extends React.Component<Props, State> {
 
     if (parsedDate.isValid() && dateFormat.length === value.length) {
       if (fieldType === FieldType.END) {
-        endDate = parsedDate.toDate();
+        endDate = parsedDate;
       } else if (fieldType === FieldType.START) {
-        startDate = parsedDate.toDate();
+        startDate = parsedDate;
       }
     }
 
     if (startDate && endDate) {
       if (isDayBefore(endDate, startDate) || isDayAfter(startDate, endDate)) {
         // Swapping Date
-        let temp: Date;
+        let temp: dayjs.Dayjs;
         temp = startDate;
         startDate = endDate;
         endDate = temp;
@@ -160,7 +160,7 @@ class RangeDatePicker extends React.Component<Props, State> {
     });
   };
 
-  public handleCalendarText = (date: Date) => {
+  public handleCalendarText = (date: dayjs.Dayjs) => {
     const { startText, endText, customDayText } = this.props;
     const { start, end } = this.state;
     if (isDayEqual(start, date)) return startText;
@@ -169,7 +169,7 @@ class RangeDatePicker extends React.Component<Props, State> {
     return '';
   };
 
-  public handleCalendarClass = (date: Date) => {
+  public handleCalendarClass = (date: dayjs.Dayjs) => {
     const { customDayClass } = this.props;
     const { start, end, hoverDate } = this.state;
     if (start && !end && hoverDate) {

@@ -11,25 +11,25 @@ import { getDayMatrix, isDayEqual, isDayRange } from '../utils/DateUtil';
 
 export interface Props {
   /** Selected days to show in calendar */
-  selected?: Date[];
+  selected?: dayjs.Dayjs[];
   /** Start day to show in calendar */
-  startDay?: Date;
+  startDay?: dayjs.Dayjs;
   /** End day to show in calendar */
-  endDay?: Date;
+  endDay?: dayjs.Dayjs;
   /** Calendar day click Event */
   onClick?: (date: string) => void;
   /** Calendar day Mouseover Event */
-  onMouseOver?: (date: Date) => void;
+  onMouseOver?: (date: dayjs.Dayjs) => void;
   /** Custom day class to show in day */
-  customDayClass?: (date: Date) => string | string[];
+  customDayClass?: (date: dayjs.Dayjs) => string | string[];
   /** Custom day text to show in day */
-  customDayText?: (date: Date) => string;
+  customDayText?: (date: dayjs.Dayjs) => string;
   /** Calendar day disable */
-  disableDay?: (date: Date) => void;
+  disableDay?: (date: dayjs.Dayjs) => void;
 }
 
 interface PrivateProps {
-  current: Date;
+  current: dayjs.Dayjs;
   locale: string;
 }
 
@@ -40,9 +40,8 @@ class DayView extends React.Component<Props & PrivateProps> {
 
   public getDayClass = (date: string): string => {
     const { current, customDayClass, startDay, endDay, selected, disableDay } = this.props;
-    const currentDate = dayjs(current)
-      .date(parseInt(date, 10))
-      .toDate();
+    const currentDate = dayjs(current).date(parseInt(date, 10));
+
     let classArr: string[] = [];
 
     if (!date.trim()) {
@@ -64,7 +63,7 @@ class DayView extends React.Component<Props & PrivateProps> {
         'calendar__day--selected': this.isIncludeDay(date, selected),
         'calendar__day--disabled': disableDay ? disableDay(currentDate) : false,
         'calendar__day--start': isDayEqual(currentDate, startDay),
-        'calendar__day--today': isDayEqual(currentDate, dayjs().toDate()),
+        'calendar__day--today': isDayEqual(currentDate, dayjs()),
       }
     );
 
@@ -73,9 +72,8 @@ class DayView extends React.Component<Props & PrivateProps> {
 
   public getCustomText = (date: string): string => {
     const { current, customDayText } = this.props;
-    const currentDate = dayjs(current)
-      .date(parseInt(date, 10))
-      .toDate();
+    const currentDate = dayjs(current).date(parseInt(date, 10));
+
     if (!date.trim()) {
       return '';
     }
@@ -86,26 +84,17 @@ class DayView extends React.Component<Props & PrivateProps> {
     return customDayText(currentDate);
   };
 
-  public isIncludeDay = (date: string, dates?: Date[]): boolean => {
+  public isIncludeDay = (date: string, dates?: dayjs.Dayjs[]): boolean => {
     const { current } = this.props;
     if (dates === undefined) {
       return false;
     }
-    return dates.some(v =>
-      isDayEqual(
-        dayjs(current)
-          .date(parseInt(date, 10))
-          .toDate(),
-        v
-      )
-    );
+    return dates.some(v => isDayEqual(dayjs(current).date(parseInt(date, 10)), v));
   };
 
   public handleClick = (date: string) => {
     const { current, disableDay } = this.props;
-    const currentDate = dayjs(current)
-      .date(parseInt(date, 10))
-      .toDate();
+    const currentDate = dayjs(current).date(parseInt(date, 10));
     if (!(disableDay && disableDay(currentDate))) {
       ifExistCall(this.props.onClick, date);
     }
@@ -113,12 +102,7 @@ class DayView extends React.Component<Props & PrivateProps> {
 
   public handleMouseOver = (date: string) => {
     const { onMouseOver, current } = this.props;
-    ifExistCall(
-      onMouseOver,
-      dayjs(current)
-        .date(parseInt(date, 10))
-        .toDate()
-    );
+    ifExistCall(onMouseOver, dayjs(current).date(parseInt(date, 10)));
   };
 
   public render() {

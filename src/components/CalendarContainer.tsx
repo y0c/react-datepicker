@@ -20,20 +20,20 @@ interface CalendarContainerProps {
   /** NextIcon Show or Hide */
   nextIcon?: boolean;
   /** Event for Calendar day click */
-  onChange?: (date: Date) => void;
+  onChange?: (date: dayjs.Dayjs) => void;
   /** TodayPanel show or hide */
   showToday?: boolean;
 }
 
 interface PrivateProps {
   /** CalendarContainer base prop */
-  current: Date;
+  current: dayjs.Dayjs;
   /** Default Date parameter in calendar, which is the parent component */
-  base: Date;
+  base: dayjs.Dayjs;
   /** Number of months to show at once */
   showMonthCnt: number;
   /** Set Calendar initial Date  */
-  setBase: (base: Date) => void;
+  setBase: (base: dayjs.Dayjs) => void;
 }
 
 export interface State {
@@ -45,7 +45,7 @@ export type Props = CalendarContainerProps & DayViewProps & PrivateProps;
 
 class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
-    current: dayjs().toDate(),
+    current: dayjs(),
     show: true,
     showMonthCnt: 1,
     showToday: false,
@@ -98,27 +98,17 @@ class CalendarContainer extends React.Component<Props, State> {
     }
 
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(
-        dayjs(base)
-          .year(parseInt(value, 10))
-          .toDate()
-      );
+      setBase(dayjs(base).year(parseInt(value, 10)));
       this.setState({
         viewMode: IDatePicker.ViewMode.MONTH,
       });
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      setBase(
-        dayjs(base)
-          .month(parseInt(value, 10))
-          .toDate()
-      );
+      setBase(dayjs(base).month(parseInt(value, 10)));
       this.setState({
         viewMode: IDatePicker.ViewMode.DAY,
       });
     } else {
-      const date = dayjs(current)
-        .date(parseInt(value, 10))
-        .toDate();
+      const date = dayjs(current).date(parseInt(value, 10));
       ifExistCall(onChange, date);
     }
   };
@@ -126,19 +116,19 @@ class CalendarContainer extends React.Component<Props, State> {
   public handleBase = (method: string) => () => {
     const { base, setBase } = this.props;
     const { viewMode } = this.state;
-    const date = dayjs(base).clone();
+    const date = dayjs(base);
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(date[method](10, 'year').toDate());
+      setBase(date[method](10, 'year'));
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      setBase(date[method](1, 'year').toDate());
+      setBase(date[method](1, 'year'));
     } else {
-      setBase(date[method](1, 'month').toDate());
+      setBase(date[method](1, 'month'));
     }
   };
 
   public handleToday = () => {
     const { setBase } = this.props;
-    setBase(dayjs().toDate());
+    setBase(dayjs());
   };
 
   public render() {

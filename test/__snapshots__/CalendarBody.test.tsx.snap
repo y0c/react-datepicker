@@ -5,7 +5,7 @@ exports[`<CalendarBody /> should render correctly 1`] = `
   className="calendar__body"
 >
   <DayView
-    current={2018-11-30T15:00:00.000Z}
+    current={"2018-11-30T15:00:00.000Z"}
     locale="en"
     onClick={[Function]}
     viewMode={2}

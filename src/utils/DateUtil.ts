@@ -31,20 +31,20 @@ export const getYearMatrix = (year: number) => {
   return chunk(range(year - 4, year + 5).map(v => `${v}`), 3);
 };
 
-export const isDayEqual = (day1?: Date, day2?: Date) => {
+export const isDayEqual = (day1?: dayjs.Dayjs, day2?: dayjs.Dayjs) => {
   if (!day1 || !day2) return false;
   return dayjs(day1).isSame(day2, 'date');
 };
 
-export const isDayAfter = (day1: Date, day2: Date) => {
+export const isDayAfter = (day1: dayjs.Dayjs, day2: dayjs.Dayjs) => {
   return dayjs(day1).isAfter(day2, 'date');
 };
 
-export const isDayBefore = (day1: Date, day2: Date) => {
+export const isDayBefore = (day1: dayjs.Dayjs, day2: dayjs.Dayjs) => {
   return dayjs(day1).isBefore(day2, 'date');
 };
 
-export const isDayRange = (date: Date, start?: Date, end?: Date) => {
+export const isDayRange = (date: dayjs.Dayjs, start?: dayjs.Dayjs, end?: dayjs.Dayjs) => {
   if (!start || !end) return false;
 
   return isDayAfter(date, start) && isDayBefore(date, end);

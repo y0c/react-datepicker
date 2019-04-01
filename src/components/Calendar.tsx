@@ -5,18 +5,18 @@ import CalendarContainer, { InheritProps as ContainerProps } from './CalendarCon
 
 export interface Props extends ContainerProps {
   /** Calendar Initial Date Parameters */
-  base: Date;
+  base: dayjs.Dayjs;
   /** Number of months to show at once */
   showMonthCnt: number;
 }
 
 export interface State {
-  base: Date;
+  base: dayjs.Dayjs;
 }
 
 class Calendar extends React.Component<Props, State> {
   public static defaultProps = {
-    base: dayjs().toDate(),
+    base: dayjs(),
     showMonthCnt: 1,
     showToday: false,
   };
@@ -28,7 +28,7 @@ class Calendar extends React.Component<Props, State> {
     };
   }
 
-  public setBase = (base: Date) => {
+  public setBase = (base: dayjs.Dayjs) => {
     this.setState({ base });
   };
 
@@ -44,9 +44,7 @@ class Calendar extends React.Component<Props, State> {
               <CalendarContainer
                 {...this.props}
                 base={this.state.base}
-                current={dayjs(base)
-                  .add(idx, 'month')
-                  .toDate()}
+                current={dayjs(base).add(idx, 'month')}
                 prevIcon={idx === 0}
                 nextIcon={idx === showMonthCnt! - 1}
                 setBase={this.setBase}
