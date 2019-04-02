@@ -15,7 +15,7 @@ interface CalendarBodyProps {
   /** DayClick Event */
   onClick: (value: string) => void;
   /** Locale to use */
-  locale: string;
+  locale: IDatePicker.Locale;
 }
 type Props = DayViewProps & CalendarBodyProps;
 

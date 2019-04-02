@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "dayjs": "^1.8.11",
+    "dayjs": "^1.8.12",
     "lodash": "4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
