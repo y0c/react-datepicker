@@ -8,6 +8,7 @@ import { ifExistCall } from '../utils/FunctionUtil';
 import { getWeekDays } from '../utils/LocaleUtil';
 
 import { getDayMatrix, isDayEqual, isDayRange } from '../utils/DateUtil';
+import { IDatePicker } from '../common/@types';
 
 export interface Props {
   /** Selected days to show in calendar */
@@ -30,7 +31,7 @@ export interface Props {
 
 interface PrivateProps {
   current: dayjs.Dayjs;
-  locale: string;
+  locale: IDatePicker.Locale;
 }
 
 class DayView extends React.Component<Props & PrivateProps> {

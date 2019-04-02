@@ -1,4 +1,5 @@
 import { chunk, repeat, range } from 'lodash';
+import { IDatePicker } from '../common/@types';
 import * as dayjs from 'dayjs';
 import { getMonthShort } from './LocaleUtil';
 
@@ -23,7 +24,7 @@ export const getDayMatrix = (year: number, month: number): string[][] => {
   );
 };
 
-export const getMonthMatrix = (locale: string) => {
+export const getMonthMatrix = (locale: IDatePicker.Locale) => {
   return chunk(getMonthShort(locale), 3);
 };
 

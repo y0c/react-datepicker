@@ -12,7 +12,7 @@ import { getToday } from '../utils/LocaleUtil';
 
 interface CalendarContainerProps {
   /** Locale to use */
-  locale?: string;
+  locale?: IDatePicker.Locale;
   /** Calendar Show or Hide */
   show?: boolean;
   /** PrevIcon Show or Hide */
