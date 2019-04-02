@@ -55,13 +55,13 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
             cell={[Function]}
             headers={
               Array [
-                "일요일",
-                "월요일",
-                "화요일",
-                "수요일",
-                "목요일",
-                "금요일",
-                "토요일",
+                "일",
+                "월",
+                "화",
+                "수",
+                "목",
+                "금",
+                "토",
               ]
             }
             matrix={
@@ -131,37 +131,37 @@ exports[`<CalendarContainer/> prop: locale should locale prop correctly 1`] = `
                   <th
                     key="0"
                   >
-                    일요일
+                    일
                   </th>
                   <th
                     key="1"
                   >
-                    월요일
+                    월
                   </th>
                   <th
                     key="2"
                   >
-                    화요일
+                    화
                   </th>
                   <th
                     key="3"
                   >
-                    수요일
+                    수
                   </th>
                   <th
                     key="4"
                   >
-                    목요일
+                    목
                   </th>
                   <th
                     key="5"
                   >
-                    금요일
+                    금
                   </th>
                   <th
                     key="6"
                   >
-                    토요일
+                    토
                   </th>
                 </tr>
               </thead>
