@@ -85,7 +85,7 @@ class RangeDatePicker extends React.Component<Props, State> {
         startDate = date;
         endDate = undefined;
       } else {
-        if (isDayAfter(date, start)) {
+        if (!isDayBefore(date, start)) {
           endDate = date;
         } else {
           startDate = date;
