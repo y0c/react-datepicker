@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<TimePicker/> shallow render test render with no props 1`] = `
-<Picker
-  renderContents={[Function]}
-  renderTrigger={[Function]}
-/>
-`;

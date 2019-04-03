@@ -34,13 +34,11 @@ React DatePicker
 
 ![datepicker](https://user-images.githubusercontent.com/2585676/52909193-a8992400-32c7-11e9-9266-7735c0e6e705.gif)
 
+
 ### RangeDatePicker 
 
 ![rangedatepicker](https://user-images.githubusercontent.com/2585676/52909117-d7ae9600-32c5-11e9-902a-4df671e82611.gif)
 
-### TimePicker
-
-![timepicker](https://user-images.githubusercontent.com/2585676/52909206-fd3c9f00-32c7-11e9-983e-94594c9847f4.gif)
 
 [Demo in Storybook](https://y0c.github.io/react-datepicker)
 
@@ -51,7 +49,6 @@ React DatePicker
 * RangeDatePicker
 * DatePicker
 * Standalone Calendar
-* TimePicker
 
 The components that you can use are as follows: If you want to configure the `DatePicker` yourself, you can configure it any way you want through the `Default Calendar component`.
 
@@ -111,10 +108,12 @@ class DatePickerExample extends Component {
 
 You can find more Exmaples and Demo in story book link
 
-## 🌎i18n
+## 🌎 i18n
 
 Features for i18n are provided by Day.js by default.
+
 see locale list https://github.com/iamkun/dayjs/tree/dev/src/
+
 and you can customize the locale object
 
 ```javascript

@@ -1,7 +1,7 @@
 {
   "name": "@y0c/react-datepicker",
   "version": "0.3.7",
-  "description": "React Datepicker Component",
+  "description": "Flexible, Reusable, Mobile friendly DatePicker Component",
   "author": "y0c",
   "license": "MIT",
   "main": "lib/index.js",
@@ -138,7 +138,6 @@
   "keywords": [
     "react",
     "datepicker",
-    "timepicker",
     "calendar",
     "rangepicker",
     "rangedatepicker"

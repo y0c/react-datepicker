@@ -3,8 +3,6 @@ import * as dayjs from 'dayjs';
 import * as React from 'react';
 import * as sinon from 'sinon';
 import { DatePickerDefaults } from '../src/common/Constant';
-import { IDatePicker } from '../src/common/@types';
-import { formatTime } from '../src/utils/TimeUtil';
 import Calendar from '../src/components/Calendar';
 import DatePicker, { Props, State, TabValue } from '../src/components/DatePicker';
 
@@ -38,6 +36,33 @@ describe('<DatePicker/>', () => {
     it('renders with no props', () => {
       expect(shallowComponent).toBeTruthy();
     });
+
+    it('should includeTime & showTimeOnly cannot be used together', () => {
+      expect(() => {
+        shallowComponent = shallow(<DatePicker includeTime showTimeOnly />);
+      }).toThrowError(Error);
+    });
+
+    describe('dateFormat', () => {
+      it('should includeTime dateFormat correctly', () => {
+        const shallowDatePicker = shallow<DatePicker>(<DatePicker {...defaultProps} includeTime />);
+        expect(shallowDatePicker.instance().getDateFormat()).toBe(
+          DatePickerDefaults.dateTimeFormat
+        );
+      });
+
+      it('should calendarOnly dateFormat correctly', () => {
+        const shallowDatePicker = shallow<DatePicker>(<DatePicker {...defaultProps} />);
+        expect(shallowDatePicker.instance().getDateFormat()).toBe(DatePickerDefaults.dateFormat);
+      });
+
+      it('should timeOnly dateFormat correctly', () => {
+        const shallowDatePicker = shallow<DatePicker>(
+          <DatePicker {...defaultProps} showTimeOnly />
+        );
+        expect(shallowDatePicker.instance().getDateFormat()).toBe(DatePickerDefaults.timeFormat);
+      });
+    });
   });
 
   describe('mount test', () => {
@@ -48,6 +73,12 @@ describe('<DatePicker/>', () => {
         <DatePicker {...defaultProps} onChange={onChange} dateFormat="YYYY/MM/DD" />
       );
       pickerShow(mountComponent);
+    });
+
+    it('should showTimeonly render only timeContainer', () => {
+      mountComponent = mount(<DatePicker showTimeOnly />);
+      pickerShow(mountComponent);
+      expect(mountComponent.find('.picker__container__timeonly')).toHaveLength(1);
     });
 
     it('should input ref correctly', () => {
@@ -128,33 +159,15 @@ describe('<DatePicker/>', () => {
         pickerShow(mountComponent);
       });
 
-      it('should hour change 12 day.js date eq 0', () => {
-        mountComponent = mount(
-          <DatePicker
-            {...defaultProps}
-            initialHour={11}
-            initialTimeType={IDatePicker.TimeType.AM}
-          />
-        );
+      it('should time change set date & input value correctly', () => {
+        mountComponent = mount(<DatePicker initialDate={dayjs('201904032320')} includeTime />);
         mountComponent.setState({
           tabValue: TabValue.TIME,
         });
+
         pickerShow(mountComponent);
         handleClick('up', 0);
-
-        expect(dayjs(mountComponent.state('date')).hour()).toEqual(0);
-      });
-
-      it('should hour PM 2 day.js date eq 14', () => {
-        mountComponent = mount(
-          <DatePicker {...defaultProps} initialHour={1} initialTimeType={IDatePicker.TimeType.PM} />
-        );
-        mountComponent.setState({
-          tabValue: TabValue.TIME,
-        });
-        pickerShow(mountComponent);
-        handleClick('up', 0);
-        expect(dayjs(mountComponent.state('date')).hour()).toEqual(14);
+        expect(mountComponent.state('date').format('YYYYMMDDHHmm')).toBe('201904032320');
       });
 
       it('should fire onChange Event', () => {
@@ -216,20 +229,8 @@ describe('<DatePicker/>', () => {
     });
 
     it('should time picker input invalid value return original time', () => {
-      const hour = 10;
-      const minute = 22;
-      const timeType = IDatePicker.TimeType.PM;
-
-      mountComponent = mount(
-        <DatePicker
-          {...defaultProps}
-          includeTime
-          initialHour={hour}
-          initialMinute={minute}
-          initialTimeType={timeType}
-        />
-      );
-      const originalDate = dayjs(new Date(2018, 4, 1));
+      mountComponent = mount(<DatePicker {...defaultProps} includeTime />);
+      const originalDate = dayjs('201904031022');
 
       mountComponent.setState({
         ...mountComponent.state,
@@ -241,40 +242,7 @@ describe('<DatePicker/>', () => {
 
       const inputValue = mountComponent.state('inputValue');
 
-      expect(inputValue).toEqual(
-        `${dayjs(originalDate).format(DatePickerDefaults.dateFormat)} ${formatTime(
-          hour,
-          minute,
-          timeType
-        )}`
-      );
-    });
-
-    it('should time picker input valid value set state hour & date', () => {
-      const hour = 10;
-      const minute = 22;
-      const timeType = IDatePicker.TimeType.PM;
-
-      mountComponent = mount(
-        <DatePicker
-          {...defaultProps}
-          includeTime
-          initialHour={hour}
-          initialMinute={minute}
-          initialTimeType={timeType}
-        />
-      );
-      const originalDate = dayjs(new Date(2018, 4, 1));
-
-      mountComponent.setState({
-        ...mountComponent.state,
-        date: originalDate,
-        inputValue: `${dayjs(originalDate).format(DatePickerDefaults.dateFormat)} 03:01 AM`,
-      });
-
-      mountComponent.find(PICKER_INPUT_CLASS).simulate('blur');
-      expect(mountComponent.state('hour')).toEqual(3);
-      expect(mountComponent.state('minute')).toEqual(1);
+      expect(inputValue).toBe(originalDate.format(DatePickerDefaults.dateTimeFormat));
     });
   });
 
