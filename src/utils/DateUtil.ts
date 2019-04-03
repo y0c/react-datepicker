@@ -1,4 +1,4 @@
-import { chunk, repeat, range } from 'lodash';
+import { chunk, repeat, range } from './ArrayUtil';
 import { IDatePicker } from '../common/@types';
 import * as dayjs from 'dayjs';
 import { getMonthShort } from './LocaleUtil';
@@ -16,9 +16,9 @@ export const getDayMatrix = (year: number, month: number): string[][] => {
 
   return chunk(
     [
-      ...repeat(' ', startDay).split(''),
+      ...repeat(' ', startDay),
       ...range(startOfMonth, endOfMonth + 1).map(v => `${v}`),
-      ...(7 - remain === 7 ? [] : repeat(' ', 7 - remain).split('')),
+      ...(7 - remain === 7 ? [] : repeat(' ', 7 - remain)),
     ],
     7
   );
