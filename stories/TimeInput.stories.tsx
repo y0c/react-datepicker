@@ -12,6 +12,7 @@ storiesOf('TimeInput', module)
         onUp={action('onUp')}
         onDown={action('onDown')}
         onChange={action('onChange')}
+        onBlur={action('onBlur')}
         value={0}
       />
     ),
