@@ -19,6 +19,9 @@ storiesOf('DatePicker', module)
   .add('includeTime', () => {
     return <DatePicker {...defaultProps} includeTime />;
   })
+  .add('showTimeOnly', () => {
+    return <DatePicker {...defaultProps} showTimeOnly />;
+  })
   .add('dateFormat', () => {
     return <DatePicker {...defaultProps} dateFormat={text('dateformat', 'YYYY/MM/DD')} />;
   })
