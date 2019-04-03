@@ -1,6 +1,6 @@
 import * as dayjs from 'dayjs';
 import { IDatePicker } from '../common/@types';
-import { range } from 'lodash';
+import { range } from '../utils/ArrayUtil';
 import * as localeData from 'dayjs/plugin/localeData';
 import * as localizedFormat from 'dayjs/plugin/localizedFormat';
 

@@ -1,4 +1,4 @@
-import { range } from 'lodash';
+import { range } from '../utils/ArrayUtil';
 import * as dayjs from 'dayjs';
 import * as React from 'react';
 import CalendarContainer, { InheritProps as ContainerProps } from './CalendarContainer';

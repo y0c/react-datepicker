@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
-import { range } from 'lodash';
 import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme';
 import TimeInput from '../src/components/TimeInput';
 
