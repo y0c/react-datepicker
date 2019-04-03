@@ -1,10 +1,10 @@
 // load the default config generator.
 const path = require('path');
 
-module.exports = (baseConfig, env, defaultConfig) => {
+module.exports = ({ config }) => {
   // Extend it as you need.
   // For example, add typescript loader:
-  defaultConfig.module.rules.push({
+  config.module.rules.push({
     test: /\.(ts|tsx)$/,
     use: [
       require.resolve('awesome-typescript-loader'),
@@ -12,12 +12,16 @@ module.exports = (baseConfig, env, defaultConfig) => {
     ],
   });
 
-  defaultConfig.module.rules.push({
+  config.module.rules.push({
     test: /\.scss$/,
-    loaders: ['style-loader', 'css-loader', 'sass-loader'],
+    use: [
+      require.resolve('style-loader'),
+      require.resolve('css-loader'),
+      require.resolve('sass-loader'),
+    ],
   });
 
-  defaultConfig.resolve.modules.push(path.join(__dirname, '../'));
-  defaultConfig.resolve.extensions.push('.ts', '.tsx');
-  return defaultConfig;
+  config.resolve.modules.push(path.join(__dirname, '../'));
+  config.resolve.extensions.push('.ts', '.tsx');
+  return config;
 };
