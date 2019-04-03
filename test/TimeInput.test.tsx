@@ -8,6 +8,7 @@ describe('<TimeInput/>', () => {
   let onChange: sinon.SinonSpy;
   let onUp: sinon.SinonSpy;
   let onDown: sinon.SinonSpy;
+  let onBlur: sinon.SinonSpy;
 
   let shallowComponent: ShallowWrapper<React.Component>;
 
@@ -15,8 +16,9 @@ describe('<TimeInput/>', () => {
     onUp = sinon.spy();
     onDown = sinon.spy();
     onChange = sinon.spy();
+    onBlur = sinon.spy();
     shallowComponent = shallow(
-      <TimeInput onUp={onUp} onDown={onDown} onChange={onChange} value={0} />
+      <TimeInput onUp={onUp} onDown={onDown} onBlur={onBlur} onChange={onChange} value={0} />
     );
   });
 
