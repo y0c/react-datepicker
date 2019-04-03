@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as sinon from 'sinon';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { shallow, mount, ReactWrapper } from 'enzyme';
 import RangeDatePicker, { Props, State } from '../src/components/RangeDatePicker';
 import { mountInputSimulateChange } from './utils/TestingUtil';
@@ -11,7 +11,7 @@ const INPUT_FORMAT = 'YYYY-MM-DD';
 
 describe('<RangeDatePicker/>', () => {
   const defaultProps = {
-    initialDate: new Date(2018, 4, 1),
+    initialDate: dayjs(new Date(2018, 4, 1)),
   };
 
   const pickerShow = (component: ReactWrapper) => {
@@ -45,7 +45,7 @@ describe('<RangeDatePicker/>', () => {
       const start = mountComponent.state('start');
       expect(start).not.toBeUndefined();
       if (start) {
-        expect(start.format('YYYYMMDD')).toEqual('20180501');
+        expect(dayjs(start).format('YYYYMMDD')).toEqual('20180501');
       }
     });
 
@@ -53,13 +53,13 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: moment(new Date(2018, 4, 5)),
+        start: dayjs(new Date(2018, 4, 5)),
       });
       dayClick(0)(2);
       const start = mountComponent.state('start');
       expect(start).not.toBeUndefined();
       if (start) {
-        expect(start.format('YYYYMMDD')).toEqual('20180501');
+        expect(dayjs(start).format('YYYYMMDD')).toEqual('20180501');
       }
     });
 
@@ -67,13 +67,13 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: moment(new Date(2018, 4, 2)),
+        start: dayjs(new Date(2018, 4, 2)),
       });
       dayClick(0)(5);
       const end = mountComponent.state('end');
       expect(end).not.toBeUndefined();
       if (end) {
-        expect(end.format('YYYYMMDD')).toEqual('20180504');
+        expect(dayjs(end).format('YYYYMMDD')).toEqual('20180504');
       }
     });
 
@@ -81,8 +81,8 @@ describe('<RangeDatePicker/>', () => {
       mountComponent = mount(<RangeDatePicker {...defaultProps} />);
       mountComponent.find(START_INPUT_CLASS).simulate('click');
       mountComponent.setState({
-        start: moment(new Date(2018, 4, 2)),
-        end: moment(new Date(2018, 4, 9)),
+        start: dayjs(new Date(2019, 4, 2)),
+        end: dayjs(new Date(2018, 4, 9)),
       });
       dayClick(0)(5);
       const start = mountComponent.state('start');
@@ -90,7 +90,7 @@ describe('<RangeDatePicker/>', () => {
       expect(start).not.toBeUndefined();
       expect(end).toBeUndefined();
       if (start) {
-        expect(start.format('YYYYMMDD')).toEqual('20180504');
+        expect(dayjs(start).format('YYYYMMDD')).toEqual('20180504');
       }
     });
 
@@ -124,8 +124,8 @@ describe('<RangeDatePicker/>', () => {
 
   describe('handleInputBlur', () => {
     let mountComponent: ReactWrapper<Props, State>;
-    const start = moment(new Date(2018, 4, 1));
-    const end = moment(new Date(2018, 4, 11));
+    const start = dayjs(new Date(2018, 4, 1));
+    const end = dayjs(new Date(2018, 4, 11));
 
     beforeEach(() => {
       mountComponent = mount(<RangeDatePicker dateFormat={INPUT_FORMAT} {...defaultProps} />);
@@ -151,7 +151,7 @@ describe('<RangeDatePicker/>', () => {
         start,
         end,
         startValue: '20183343j',
-        endValue: end.format(INPUT_FORMAT),
+        endValue: dayjs(end).format(INPUT_FORMAT),
       });
 
       mountComponent.find(START_INPUT_CLASS).simulate('blur');
@@ -165,14 +165,14 @@ describe('<RangeDatePicker/>', () => {
         start,
         end,
         startValue: changedValue,
-        endValue: end.format(INPUT_FORMAT),
+        endValue: dayjs(end).format(INPUT_FORMAT),
       });
 
       mountComponent.find(START_INPUT_CLASS).simulate('blur');
       const startState = mountComponent.state('start');
       expect(startState).not.toBeNull();
       if (startState) {
-        expect(startState.format(INPUT_FORMAT)).toEqual(changedValue);
+        expect(dayjs(startState).format(INPUT_FORMAT)).toEqual(changedValue);
       }
     });
 
@@ -181,7 +181,7 @@ describe('<RangeDatePicker/>', () => {
         ...mountComponent.state,
         start,
         end,
-        startValue: start.format(INPUT_FORMAT),
+        startValue: dayjs(start).format(INPUT_FORMAT),
         endValue: '201804244',
       });
 
@@ -195,7 +195,7 @@ describe('<RangeDatePicker/>', () => {
         ...mountComponent.state,
         start,
         end,
-        startValue: start.format(INPUT_FORMAT),
+        startValue: dayjs(start).format(INPUT_FORMAT),
         endValue: changedValue,
       });
 
@@ -203,7 +203,7 @@ describe('<RangeDatePicker/>', () => {
       const endState = mountComponent.state('end');
       expect(endState).not.toBeNull();
       if (endState) {
-        expect(endState.format(INPUT_FORMAT)).toEqual(changedValue);
+        expect(dayjs(endState).format(INPUT_FORMAT)).toEqual(changedValue);
       }
     });
 
@@ -211,7 +211,7 @@ describe('<RangeDatePicker/>', () => {
       const endInput = mountComponent.find(END_INPUT_CLASS);
       const testValue = '2018-04-23';
       // 2018-04-01
-      const startValue = start.format(INPUT_FORMAT);
+      const startValue = dayjs(start).format(INPUT_FORMAT);
       mountComponent.setState({
         ...mountComponent.state,
         start,
@@ -229,8 +229,8 @@ describe('<RangeDatePicker/>', () => {
       expect(endState).not.toBeNull();
 
       if (startState && endState) {
-        expect(startState.format(INPUT_FORMAT)).toEqual(testValue);
-        expect(endState.format(INPUT_FORMAT)).toEqual(startValue);
+        expect(dayjs(startState).format(INPUT_FORMAT)).toEqual(testValue);
+        expect(dayjs(endState).format(INPUT_FORMAT)).toEqual(startValue);
       }
     });
 
@@ -238,7 +238,7 @@ describe('<RangeDatePicker/>', () => {
       const startInput = mountComponent.find(START_INPUT_CLASS);
       const testValue = '2018-06-23';
       // 2018-04-01
-      const endValue = end.format(INPUT_FORMAT);
+      const endValue = dayjs(end).format(INPUT_FORMAT);
       mountComponent.setState({
         ...mountComponent.state,
         start,
@@ -256,8 +256,8 @@ describe('<RangeDatePicker/>', () => {
       expect(endState).not.toBeNull();
 
       if (startState && endState) {
-        expect(startState.format(INPUT_FORMAT)).toEqual(endValue);
-        expect(endState.format(INPUT_FORMAT)).toEqual(testValue);
+        expect(dayjs(startState).format(INPUT_FORMAT)).toEqual(endValue);
+        expect(dayjs(endState).format(INPUT_FORMAT)).toEqual(testValue);
       }
     });
   });
@@ -265,8 +265,8 @@ describe('<RangeDatePicker/>', () => {
   describe('handleInputClear', () => {
     let mountComponent: ReactWrapper;
     const rangeInputClass = (value: string) => `.range-picker-input__${value}`;
-    const start = moment(new Date(2018, 4, 1));
-    const end = moment(new Date(2018, 4, 11));
+    const start = dayjs(new Date(2018, 4, 1));
+    const end = dayjs(new Date(2018, 4, 11));
 
     beforeEach(() => {
       mountComponent = mount(<RangeDatePicker clear {...defaultProps} />);
@@ -276,7 +276,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent.setState({
         ...mountComponent.state,
         start,
-        startValue: start.format(INPUT_FORMAT),
+        startValue: dayjs(start).format(INPUT_FORMAT),
       });
       mountComponent
         .find(rangeInputClass('start'))
@@ -297,7 +297,7 @@ describe('<RangeDatePicker/>', () => {
       mountComponent.setState({
         ...mountComponent.state,
         end,
-        endValue: start.format(INPUT_FORMAT),
+        endValue: dayjs(start).format(INPUT_FORMAT),
       });
       mountComponent
         .find(rangeInputClass('end'))
@@ -331,7 +331,7 @@ describe('<RangeDatePicker/>', () => {
       const hoverDate = mountComponent.state('hoverDate');
       expect(hoverDate).not.toBeUndefined();
       if (hoverDate) {
-        expect(hoverDate.format('YYYYMMDD')).toEqual('20180504');
+        expect(dayjs(hoverDate).format('YYYYMMDD')).toEqual('20180504');
       }
     });
 
@@ -339,7 +339,7 @@ describe('<RangeDatePicker/>', () => {
       pickerShow(mountComponent);
       mountComponent.setState({
         ...mountComponent.state,
-        start: moment(new Date(2018, 4, 1)),
+        start: dayjs(new Date(2018, 4, 1)),
       });
 
       mountComponent

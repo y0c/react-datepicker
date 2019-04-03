@@ -1,21 +1,16 @@
 import * as React from 'react';
+import * as dayjs from 'dayjs';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import RangeDatePicker from '../src/components/RangeDatePicker';
 import LayoutDecorator from './decorator/LayoutDecorator';
-import moment = require('moment');
 
 storiesOf('RangeDatePicker', module)
   .addDecorator(LayoutDecorator)
   .add('default', () => <RangeDatePicker />)
   .add('initial Start & End Date', () => {
     return (
-      <RangeDatePicker
-        initialStartDate={moment()
-          .subtract(7, 'days')
-          .toDate()}
-        initialEndDate={moment().toDate()}
-      />
+      <RangeDatePicker initialStartDate={dayjs().subtract(7, 'day')} initialEndDate={dayjs()} />
     );
   })
   .add('startText & endText', () => (

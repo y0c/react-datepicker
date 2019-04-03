@@ -1,4 +1,6 @@
 export const DatePickerDefaults = {
   dateFormat: 'YYYY-MM-DD',
-  locale: 'en-ca',
+  dateTimeFormat: 'YYYY-MM-DD HH:mm A',
+  timeFormat: 'HH:mm A',
+  locale: 'en',
 };

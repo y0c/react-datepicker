@@ -1,5 +1,5 @@
 import * as classNames from 'classnames';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import { IDatePicker } from '../common/@types';
 import CalendarBody from './CalendarBody';
@@ -8,10 +8,11 @@ import { Props as DayViewProps } from './DayView';
 import TodayPanel from './TodayPanel';
 import { ifExistCall } from '../utils/FunctionUtil';
 import { DatePickerDefaults } from '../common/Constant';
+import { getToday } from '../utils/LocaleUtil';
 
 interface CalendarContainerProps {
   /** Locale to use */
-  locale?: string;
+  locale?: IDatePicker.Locale;
   /** Calendar Show or Hide */
   show?: boolean;
   /** PrevIcon Show or Hide */
@@ -19,20 +20,20 @@ interface CalendarContainerProps {
   /** NextIcon Show or Hide */
   nextIcon?: boolean;
   /** Event for Calendar day click */
-  onChange?: (date: moment.Moment) => void;
+  onChange?: (date: dayjs.Dayjs) => void;
   /** TodayPanel show or hide */
   showToday?: boolean;
 }
 
 interface PrivateProps {
   /** CalendarContainer base prop */
-  current: moment.Moment;
+  current: dayjs.Dayjs;
   /** Default Date parameter in calendar, which is the parent component */
-  base: moment.Moment;
+  base: dayjs.Dayjs;
   /** Number of months to show at once */
   showMonthCnt: number;
   /** Set Calendar initial Date  */
-  setBase: (base: moment.Moment) => void;
+  setBase: (base: dayjs.Dayjs) => void;
 }
 
 export interface State {
@@ -44,7 +45,7 @@ export type Props = CalendarContainerProps & DayViewProps & PrivateProps;
 
 class CalendarContainer extends React.Component<Props, State> {
   public static defaultProps = {
-    current: moment(),
+    current: dayjs(),
     show: true,
     showMonthCnt: 1,
     showToday: false,
@@ -61,11 +62,11 @@ class CalendarContainer extends React.Component<Props, State> {
 
   public getHeaderTitle = () => {
     const { current } = this.props;
-    const year = current.year();
+    const year = dayjs(current).year();
     return {
       [IDatePicker.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [IDatePicker.ViewMode.MONTH]: `${year}`,
-      [IDatePicker.ViewMode.DAY]: current.format('YYYY.MM'),
+      [IDatePicker.ViewMode.DAY]: dayjs(current).format('YYYY.MM'),
     }[this.state.viewMode];
   };
 
@@ -89,26 +90,25 @@ class CalendarContainer extends React.Component<Props, State> {
     const { current, onChange, setBase, showMonthCnt, base } = this.props;
     if (!value.trim()) return;
     if (showMonthCnt > 1) {
-      const date = current.date(parseInt(value, 10));
+      const date = dayjs(current)
+        .date(parseInt(value, 10))
+        .toDate();
       ifExistCall(onChange, date);
       return;
     }
 
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(base.clone().year(parseInt(value, 10)));
+      setBase(dayjs(base).year(parseInt(value, 10)));
       this.setState({
         viewMode: IDatePicker.ViewMode.MONTH,
       });
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      const month = moment()
-        .month(value)
-        .format('M');
-      setBase(base.clone().month(parseInt(month, 10) - 1));
+      setBase(dayjs(base).month(parseInt(value, 10)));
       this.setState({
         viewMode: IDatePicker.ViewMode.DAY,
       });
     } else {
-      const date = current.date(parseInt(value, 10));
+      const date = dayjs(current).date(parseInt(value, 10));
       ifExistCall(onChange, date);
     }
   };
@@ -116,19 +116,19 @@ class CalendarContainer extends React.Component<Props, State> {
   public handleBase = (method: string) => () => {
     const { base, setBase } = this.props;
     const { viewMode } = this.state;
-    const clone = base.clone();
+    const date = dayjs(base);
     if (viewMode === IDatePicker.ViewMode.YEAR) {
-      setBase(clone[method](10, 'years'));
+      setBase(date[method](10, 'year'));
     } else if (viewMode === IDatePicker.ViewMode.MONTH) {
-      setBase(clone[method](1, 'years'));
+      setBase(date[method](1, 'year'));
     } else {
-      setBase(clone[method](1, 'months'));
+      setBase(date[method](1, 'month'));
     }
   };
 
   public handleToday = () => {
     const { setBase } = this.props;
-    setBase(moment());
+    setBase(dayjs());
   };
 
   public render() {
@@ -163,13 +163,7 @@ class CalendarContainer extends React.Component<Props, State> {
           title={this.getHeaderTitle()}
         />
         {showToday && (
-          <TodayPanel
-            today={moment()
-              .locale(locale)
-              .format('LL')}
-            onClick={this.handleToday}
-            show={showToday}
-          />
+          <TodayPanel today={getToday(locale)} onClick={this.handleToday} show={showToday} />
         )}
         <CalendarBody
           viewMode={this.state.viewMode}

@@ -34,13 +34,11 @@ React DatePicker
 
 ![datepicker](https://user-images.githubusercontent.com/2585676/52909193-a8992400-32c7-11e9-9266-7735c0e6e705.gif)
 
+
 ### RangeDatePicker 
 
 ![rangedatepicker](https://user-images.githubusercontent.com/2585676/52909117-d7ae9600-32c5-11e9-902a-4df671e82611.gif)
 
-### TimePicker
-
-![timepicker](https://user-images.githubusercontent.com/2585676/52909206-fd3c9f00-32c7-11e9-983e-94594c9847f4.gif)
 
 [Demo in Storybook](https://y0c.github.io/react-datepicker)
 
@@ -51,7 +49,6 @@ React DatePicker
 * RangeDatePicker
 * DatePicker
 * Standalone Calendar
-* TimePicker
 
 The components that you can use are as follows: If you want to configure the `DatePicker` yourself, you can configure it any way you want through the `Default Calendar component`.
 
@@ -63,11 +60,13 @@ The components that you can use are as follows: If you want to configure the `Da
 
 ## 📦 Dependency 
 
-> In the next version v1.0.0, moment.js will be replaced by day.js or date-fns
+* Moment.js
 
-* [Moment](https://momentjs.com)
+In previous versions, moment.js were used. but now it is changed to `Day.js` to because of bundle size issue (#14)
 
-`Moment` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use moment library to globalize and control date. You can check the locale list through this [link](https://github.com/moment/moment/tree/develop/locale).
+* [Day.js](https://github.com/iamkun/dayjs)
+
+`Day.js` is a javascript library for Parse, validate, manipulate, and display dates and times. this component use `Day.js` library to globalize and control date. You can check the locale list through this [link](https://github.com/iamkun/dayjs/tree/dev/src/locale).
 
 ## 📲 Installation 
 
@@ -89,25 +88,54 @@ import { DatePicker } from '@y0c/react-datepicker';
 // You can customize style by copying asset folder.
 import '@y0c/react-datepicker/assets/styles/calendar.scss';
 
-// Please include the locale you want to use.
-// and delivery props to calendar component 
-// See locale list https://github.com/moment/moment/tree/develop/locale
-import 'moment/locale/ko';
-
 class DatePickerExample extends Component {
 
   onChange = (date) => {
+    // Day.js object
     console.log(date);
+
+    // to normal Date object
+    console.log(date.toDate());
   }
   
   render() {
     return (
-      <DatePicker locale="ko" onChange={this.onChange}/>
+      <DatePicker onChange={this.onChange}/>
     )
   }
 }
 ```
+
 You can find more Exmaples and Demo in story book link
+
+## 🌎 i18n
+
+Features for i18n are provided by Day.js by default.
+
+see locale list https://github.com/iamkun/dayjs/tree/dev/src/
+
+and you can customize the locale object
+
+```javascript
+// use day.js locale
+import 'dayjs/locale/ko'
+
+// delivery prop locale string  
+<DatePicker locale="ko" />
+
+// or define customize locale object 
+const locale = {
+  name: 'ko',
+  weekdays: '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
+  weekdaysShort: '일_월_화_수_목_금_토'.split('_'),
+  months: '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+};
+
+// delivery propr locale object
+<DatePicker locale={locale} />
+```
+
+Defaults locale `en`
 
 ### 🎨 Themeing
 
@@ -166,6 +194,10 @@ Please fork and use [https://codesandbox.io/s/pw6n17pk57](https://codesandbox.io
 
 * Open a new issue(Bug or Feature) on [Github](https://github.com/y0c/react-datepicker/issues/new/choose)
 * Join the [Gitter room](https://gitter.im/react-datepicker/community) to chat with other developers.
+
+## 👨‍👦‍👦 Contribution 
+
+Issue and Pull Request are always welcome! 
 
 ## 📝 License 
 MIT

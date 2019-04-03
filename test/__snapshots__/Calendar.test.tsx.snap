@@ -12,9 +12,9 @@ exports[`<Calendar/> redners with no props 1`] = `
       key="0"
     >
       <CalendarContainer
-        base={"2018-05-01T00:00:00.000Z"}
-        current={"2018-05-01T00:00:00.000Z"}
-        locale="en-ca"
+        base={"2018-04-30T15:00:00.000Z"}
+        current={"2018-04-30T15:00:00.000Z"}
+        locale="en"
         nextIcon={true}
         prevIcon={true}
         setBase={[Function]}

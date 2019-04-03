@@ -1,18 +1,15 @@
 import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
-import * as sinon from 'sinon';
 import Calendar, { Props, State } from '../src/components/Calendar';
 import CalendarContainer from '../src/components/CalendarContainer';
 
 describe('<Calendar/>', () => {
   // 20180501
-  const mockMoment = moment.unix(1525132800);
   let shallowComponent: ShallowWrapper<React.Component<Props, State>>;
   let mountComponent: ReactWrapper<Props, State>;
-  const base = mockMoment;
   const defaultProps = {
-    base,
+    base: dayjs(new Date(2018, 4, 1)),
   };
 
   it('redners with no props', () => {
@@ -65,6 +62,6 @@ describe('<Calendar/>', () => {
       .at(1)
       .simulate('click');
 
-    expect(mountComponent.state().base.format('MM')).toEqual('02');
+    expect(dayjs(mountComponent.state().base).format('MM')).toEqual('02');
   });
 });

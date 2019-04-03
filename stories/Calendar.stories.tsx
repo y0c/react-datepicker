@@ -1,10 +1,12 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import * as moment from 'moment';
-import Calendar from '../src/components/Calendar';
+import * as dayjs from 'dayjs';
 import CalendarSelectedController from '../examples/CalendarSelectedController';
 import { number } from '@storybook/addon-knobs';
 import './css/custom.css';
+import 'dayjs/locale/ko';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/ja';
 
 storiesOf('Calendar', module)
   .add('default', () => {
@@ -28,6 +30,18 @@ storiesOf('Calendar', module)
       </div>
     );
   })
+  .add('custom locale object', () => {
+    return (
+      <CalendarSelectedController
+        locale={{
+          name: 'ko',
+          weekdays: '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
+          weekdaysShort: '일_월_화_수_목_금_토'.split('_'),
+          months: '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+        }}
+      />
+    );
+  })
   .add('todayPanel', () => {
     return <CalendarSelectedController showToday={true} />;
   })
@@ -36,8 +50,8 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController showMonthCnt={showMontCnt} />;
   })
   .add('disableDay', () => {
-    const disableDay = (date: moment.Moment) => {
-      return date.date() < 7;
+    const disableDay = (date: dayjs.Dayjs) => {
+      return dayjs(date).date() < 7;
     };
     return <CalendarSelectedController disableDay={disableDay} />;
   })
@@ -48,14 +62,14 @@ storiesOf('Calendar', module)
     return <CalendarSelectedController multiple={true} />;
   })
   .add('custom day class', () => {
-    const customDayClass = (date: moment.Moment) => {
+    const customDayClass = (date: dayjs.Dayjs) => {
       // for test (year, month remove)
       const classMap = {
         '01': 'custom-class',
         '02': 'day-test1',
       };
 
-      return classMap[date.format('DD')];
+      return classMap[dayjs(date).format('DD')];
     };
     return (
       <div>
@@ -65,14 +79,14 @@ storiesOf('Calendar', module)
     );
   })
   .add('custom day text', () => {
-    const customDayText = (date: moment.Moment) => {
+    const customDayText = (date: dayjs.Dayjs) => {
       // for test (year, month remove)
       const classMap = {
         '01': '첫째날',
         '02': '둘째날',
       };
 
-      return classMap[date.format('DD')];
+      return classMap[dayjs(date).format('DD')];
     };
     return <CalendarSelectedController customDayText={customDayText} />;
   });

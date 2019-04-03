@@ -1,22 +1,25 @@
 import { mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import * as React from 'react';
 import * as sinon from 'sinon';
+
+import 'dayjs/locale/en';
+import 'dayjs/locale/ko';
 
 import CalendarContainer, { Props, State } from '../src/components/CalendarContainer';
 import { IDatePicker } from '../src/common/@types';
 
 describe('<CalendarContainer/>', () => {
-  const mockMoment = moment.unix(1543622400);
-  let base = mockMoment;
-  const setBase = (val: moment.Moment) => {
+  const current = dayjs(new Date(2018, 11, 5));
+  let base = current;
+  const setBase = (val: dayjs.Dayjs) => {
     base = val;
   };
   const defaultProps = {
     base,
     setBase,
-    current: mockMoment,
+    current,
   };
 
   let shallowComponent: ShallowWrapper<React.Component<Props>>;
@@ -42,7 +45,7 @@ describe('<CalendarContainer/>', () => {
     let ko: ReactWrapper<Props>;
 
     beforeEach(() => {
-      en = mount(<CalendarContainer {...defaultProps} locale="en-ca" />);
+      en = mount(<CalendarContainer {...defaultProps} locale="en" />);
       ko = mount(<CalendarContainer {...defaultProps} locale="ko" />);
     });
 
@@ -75,19 +78,19 @@ describe('<CalendarContainer/>', () => {
         viewMode: IDatePicker.ViewMode.DAY,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
-      expect(base.format('MM')).toEqual('11');
+      expect(dayjs(base).format('MM')).toEqual('11');
 
       mountComponent.setState({
         viewMode: IDatePicker.ViewMode.MONTH,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
-      expect(base.format('YYYY')).toEqual('2017');
+      expect(dayjs(base).format('YYYY')).toEqual('2017');
 
       mountComponent.setState({
         viewMode: IDatePicker.ViewMode.YEAR,
       });
       mountComponent.find('.calendar__head--prev > button').simulate('click');
-      expect(base.format('YYYY')).toEqual('2008');
+      expect(dayjs(base).format('YYYY')).toEqual('2008');
     });
   });
 
@@ -100,7 +103,7 @@ describe('<CalendarContainer/>', () => {
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       mountComponent.find('.calendar__head--prev > button').simulate('click');
       mountComponent.find('.calendar__panel--today h2').simulate('click');
-      expect(base.format('YYYYMMDD')).toEqual(moment().format('YYYYMMDD'));
+      expect(dayjs(base).format('YYYYMMDD')).toEqual(dayjs().format('YYYYMMDD'));
     });
   });
 
@@ -127,9 +130,13 @@ describe('<CalendarContainer/>', () => {
   describe('handle change test', () => {
     it('should showMontCnt > 1 onChange call', () => {
       const onChange = sinon.spy();
-      const mockDate = moment.unix(1525132800);
       mountComponent = mount(
-        <CalendarContainer {...defaultProps} base={mockDate} showMonthCnt={2} onChange={onChange} />
+        <CalendarContainer
+          {...defaultProps}
+          base={dayjs(new Date(2018, 12, 4))}
+          showMonthCnt={2}
+          onChange={onChange}
+        />
       );
 
       // empty date click
@@ -165,7 +172,7 @@ describe('<CalendarContainer/>', () => {
           .at(6)
           .simulate('click');
 
-        expect(base.format('YYYY')).toEqual('2020');
+        expect(dayjs(base).format('YYYY')).toEqual('2020');
         expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.MONTH);
       });
 
@@ -173,13 +180,12 @@ describe('<CalendarContainer/>', () => {
         mountComponent.setState({
           viewMode: IDatePicker.ViewMode.MONTH,
         });
-
         mountComponent
           .find('td')
           .at(1)
           .simulate('click');
 
-        expect(base.format('MM')).toEqual('02');
+        expect(dayjs(base).format('MM')).toEqual('02');
         expect(mountComponent.state().viewMode).toEqual(IDatePicker.ViewMode.DAY);
       });
 

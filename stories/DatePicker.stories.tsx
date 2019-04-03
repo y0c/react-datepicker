@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import DatePicker from '../src/components/DatePicker';
@@ -8,7 +8,7 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 
 const defaultProps = {
   onChange: action('onChange'),
-  locale: 'en-ca',
+  locale: 'en',
 };
 storiesOf('DatePicker', module)
   .addDecorator(LayoutDecorator)
@@ -18,6 +18,9 @@ storiesOf('DatePicker', module)
   .add('portal version', () => <DatePicker {...defaultProps} portal />)
   .add('includeTime', () => {
     return <DatePicker {...defaultProps} includeTime />;
+  })
+  .add('showTimeOnly', () => {
+    return <DatePicker {...defaultProps} showTimeOnly />;
   })
   .add('dateFormat', () => {
     return <DatePicker {...defaultProps} dateFormat={text('dateformat', 'YYYY/MM/DD')} />;
