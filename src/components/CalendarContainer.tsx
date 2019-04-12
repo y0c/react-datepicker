@@ -131,53 +131,66 @@ class CalendarContainer extends React.Component<Props, State> {
     setBase(dayjs());
   };
 
-  public render() {
+  public renderCalendarHead = () => {
+    const { prevIcon, nextIcon } = this.props;
+    return (
+      <CalendarHead
+        onPrev={this.handleBase('subtract')}
+        onNext={this.handleBase('add')}
+        prevIcon={prevIcon}
+        nextIcon={nextIcon}
+        onTitleClick={this.handleTitleClick}
+        title={this.getHeaderTitle()}
+      />
+    );
+  };
+
+  public renderTodayPane = () => {
+    const { showToday, locale = DatePickerDefaults.locale } = this.props;
+    return <TodayPanel today={getToday(locale)} onClick={this.handleToday} show={showToday} />;
+  };
+
+  public renderCalendarBody = () => {
     const {
       customDayClass,
       customDayText,
       disableDay,
       selected,
-      showToday,
       startDay,
       endDay,
-      prevIcon,
-      nextIcon,
-      show,
       onMouseOver,
       current,
       locale = DatePickerDefaults.locale,
     } = this.props;
 
+    return (
+      <CalendarBody
+        viewMode={this.state.viewMode}
+        current={current}
+        selected={selected}
+        startDay={startDay}
+        endDay={endDay}
+        disableDay={disableDay}
+        onClick={this.handleChange}
+        onMouseOver={onMouseOver}
+        customDayClass={customDayClass}
+        customDayText={customDayText}
+        locale={locale}
+      />
+    );
+  };
+
+  public render() {
+    const { show, showToday } = this.props;
     const calendarClass = classNames('calendar__container', {
       'calendar--show': show,
     });
 
     return (
       <div className={calendarClass}>
-        <CalendarHead
-          onPrev={this.handleBase('subtract')}
-          onNext={this.handleBase('add')}
-          prevIcon={prevIcon}
-          nextIcon={nextIcon}
-          onTitleClick={this.handleTitleClick}
-          title={this.getHeaderTitle()}
-        />
-        {showToday && (
-          <TodayPanel today={getToday(locale)} onClick={this.handleToday} show={showToday} />
-        )}
-        <CalendarBody
-          viewMode={this.state.viewMode}
-          current={current}
-          selected={selected}
-          startDay={startDay}
-          endDay={endDay}
-          disableDay={disableDay}
-          onClick={this.handleChange}
-          onMouseOver={onMouseOver}
-          customDayClass={customDayClass}
-          customDayText={customDayText}
-          locale={locale}
-        />
+        {this.renderCalendarHead()}
+        {showToday && this.renderTodayPane()}
+        {this.renderCalendarBody()}
       </div>
     );
   }
