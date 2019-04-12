@@ -159,6 +159,25 @@ describe('<DatePicker/>', () => {
         pickerShow(mountComponent);
       });
 
+      it('should set new date when state date is null', () => {
+        mountComponent = mount(<DatePicker includeTime />);
+        mountComponent.setState({
+          tabValue: TabValue.TIME,
+        });
+
+        pickerShow(mountComponent);
+        handleClick('up', 0);
+
+        const date = mountComponent.state().date;
+
+        expect(date).toBeDefined();
+        if (date) {
+          expect(date.format(DatePickerDefaults.dateFormat)).toBe(
+            dayjs().format(DatePickerDefaults.dateFormat)
+          );
+        }
+      });
+
       it('should time change set date & input value correctly', () => {
         mountComponent = mount(<DatePicker initialDate={dayjs('201904032320')} includeTime />);
         mountComponent.setState({
@@ -167,7 +186,10 @@ describe('<DatePicker/>', () => {
 
         pickerShow(mountComponent);
         handleClick('up', 0);
-        expect(mountComponent.state('date').format('YYYYMMDDHHmm')).toBe('201904032320');
+        const date = mountComponent.state().date;
+        if (date) {
+          expect(date.format('YYYYMMDDHHmm')).toBe('201904032320');
+        }
       });
 
       it('should fire onChange Event', () => {
