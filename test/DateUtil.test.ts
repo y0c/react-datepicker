@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { getDayMatrix, isDayEqual, isDayRange } from '../src/utils/DateUtil';
+import { formatDate, isDayEqual, isDayRange } from '../src/utils/DateUtil';
 
 describe('DateUtil', () => {
   describe('isDayEqual', () => {
@@ -73,6 +73,17 @@ describe('DateUtil', () => {
 
       // then
       expect(isRange).toBeTruthy();
+    });
+  });
+
+  describe('formatDate', () => {
+    it('should return empty value when date is null', () => {
+      expect(formatDate(undefined, 'YYYY-MM-DD')).toBe('');
+    });
+
+    it('should return formattedValue value when date is not null', () => {
+      const date = dayjs('20181201');
+      expect(formatDate(date, 'YYYY-MM-DD')).toBe('2018-12-01');
     });
   });
 });

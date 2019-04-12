@@ -50,3 +50,8 @@ export const isDayRange = (date: dayjs.Dayjs, start?: dayjs.Dayjs, end?: dayjs.D
 
   return isDayAfter(date, start) && isDayBefore(date, end);
 };
+
+export const formatDate = (date: dayjs.Dayjs | undefined, format: string) => {
+  if (!date) return '';
+  return date.format(format);
+};
