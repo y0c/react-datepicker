@@ -245,12 +245,13 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public render() {
-    const { portal, direction, disabled } = this.props;
+    const { portal, direction, disabled, readOnly } = this.props;
 
     return (
       <Picker
         portal={portal}
         direction={direction}
+        readOnly={readOnly}
         disabled={disabled}
         renderTrigger={() => this.renderRangePickerInput()}
         renderContents={({ actions }) => this.renderCalendar(actions)}

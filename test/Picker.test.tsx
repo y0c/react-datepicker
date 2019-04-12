@@ -28,6 +28,12 @@ describe('<Picker/>', () => {
       expect(mountComponent.state('show')).toBeFalsy();
     });
 
+    it('shoudl prop disabled click -> dilaog show not working', () => {
+      mountComponent = mount(<Picker {...defaultProps} readOnly />);
+      mountComponent.find('.picker__trigger').simulate('click');
+      expect(mountComponent.state('show')).toBeFalsy();
+    });
+
     it('should show state & backdrop click -> hide dialog', () => {
       mountComponent.setState({
         show: true,
