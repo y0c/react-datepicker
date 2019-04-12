@@ -19,6 +19,24 @@ interface CalendarBodyProps {
 }
 type Props = DayViewProps & CalendarBodyProps;
 
+const YEAR_VIEW_CLASS = 'calendar__year';
+const MONTH_VIEW_CLASS = 'calendar__month';
+
+const buildMatrixView = (
+  matrix: string[][],
+  className: string,
+  onClick: (key: number, value: string) => () => void
+) => {
+  return (
+    <TableMatrixView
+      matrix={matrix}
+      cell={(value: string, key: number) => (
+        <TableCell key={key} className={className} text={value} onClick={onClick(key, value)} />
+      )}
+    />
+  );
+};
+
 class CalendarBody extends React.Component<Props> {
   public static defaultProps = {
     viewMode: IDatePicker.ViewMode.DAY,
@@ -28,31 +46,15 @@ class CalendarBody extends React.Component<Props> {
   public render() {
     const { current, onClick, locale } = this.props;
     const viewMap = {
-      [IDatePicker.ViewMode.YEAR]: (
-        <TableMatrixView
-          matrix={getYearMatrix(dayjs(current).year())}
-          cell={(value: string, key: number) => (
-            <TableCell
-              key={key}
-              className="calendar__year"
-              text={value}
-              onClick={() => onClick(value)}
-            />
-          )}
-        />
+      [IDatePicker.ViewMode.YEAR]: buildMatrixView(
+        getYearMatrix(dayjs(current).year()),
+        YEAR_VIEW_CLASS,
+        (_, v) => () => onClick(v)
       ),
-      [IDatePicker.ViewMode.MONTH]: (
-        <TableMatrixView
-          matrix={getMonthMatrix(locale)}
-          cell={(value: string, key: number) => (
-            <TableCell
-              key={key}
-              className="calendar__month"
-              text={value}
-              onClick={() => onClick(String(key))}
-            />
-          )}
-        />
+      [IDatePicker.ViewMode.MONTH]: buildMatrixView(
+        getMonthMatrix(locale),
+        MONTH_VIEW_CLASS,
+        (k, _) => () => onClick(String(k))
       ),
       [IDatePicker.ViewMode.DAY]: <DayView {...this.props} />,
     };

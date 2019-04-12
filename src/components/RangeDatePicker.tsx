@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as dayjs from 'dayjs';
-import { isDayAfter, isDayBefore, isDayEqual, isDayRange } from '../utils/DateUtil';
+import { isDayAfter, isDayBefore, isDayEqual, isDayRange, formatDate } from '../utils/DateUtil';
 import { DatePickerDefaults } from '../common/Constant';
 import Picker, { PickerProps, PickerAction } from './Picker';
 import RangePickerInput, { FieldType, InputProps } from './RangePickerInput';
@@ -64,8 +64,8 @@ class RangeDatePicker extends React.Component<Props, State> {
     this.state = {
       start,
       end,
-      startValue: start ? dayjs(start).format(dateFormat) : '',
-      endValue: end ? dayjs(end).format(dateFormat) : '',
+      startValue: formatDate(start, dateFormat),
+      endValue: formatDate(end, dateFormat),
     };
   }
 
@@ -100,8 +100,8 @@ class RangeDatePicker extends React.Component<Props, State> {
         ...this.state,
         start: startDate,
         end: endDate,
-        startValue: startDate ? dayjs(startDate).format(dateFormat) : '',
-        endValue: endDate ? dayjs(endDate).format(dateFormat) : '',
+        startValue: formatDate(startDate, dateFormat),
+        endValue: formatDate(endDate, dateFormat),
       },
       () => {
         if (this.state.start && this.state.end) {
@@ -155,8 +155,8 @@ class RangeDatePicker extends React.Component<Props, State> {
       ...this.state,
       start: startDate,
       end: endDate,
-      startValue: startDate ? dayjs(startDate).format(dateFormat) : '',
-      endValue: endDate ? dayjs(endDate).format(dateFormat) : '',
+      startValue: formatDate(startDate, dateFormat),
+      endValue: formatDate(endDate, dateFormat),
     });
   };
 
