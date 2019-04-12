@@ -21,6 +21,7 @@ export interface PickerProps {
 }
 
 export interface Props {
+  readOnly?: boolean;
   disabled?: boolean;
   className?: string;
   renderTrigger: (props: PickerRenderProps) => JSX.Element;
@@ -50,8 +51,8 @@ class Picker extends React.Component<Props & PickerProps, State> {
   }
 
   public showContents = () => {
-    const { portal, disabled } = this.props;
-    if (disabled) return;
+    const { portal, disabled, readOnly } = this.props;
+    if (disabled || readOnly) return;
 
     this.setState(
       {

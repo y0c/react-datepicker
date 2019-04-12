@@ -15,6 +15,9 @@ storiesOf('DatePicker', module)
   .add('default', () => {
     return <DatePicker {...defaultProps} />;
   })
+  .add('initialDate', () => {
+    return <DatePicker initialDate={dayjs()} />;
+  })
   .add('portal version', () => <DatePicker {...defaultProps} portal />)
   .add('includeTime', () => {
     return <DatePicker {...defaultProps} includeTime />;

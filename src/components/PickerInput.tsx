@@ -52,42 +52,52 @@ class PickerInput extends React.Component<Props> {
     e.stopPropagation();
   };
 
-  public render() {
+  public renderInput = () => {
     const {
       readOnly = false,
       disabled = false,
       value = '',
-      clear,
       icon,
       onChange,
       onClick,
       onBlur,
-      className,
       placeholder,
     } = this.props;
+
+    return (
+      <input
+        ref={this.inputRef}
+        className="picker-input__text"
+        type="text"
+        value={value}
+        readOnly={readOnly}
+        disabled={disabled}
+        onChange={onChange}
+        onClick={onClick}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        style={{
+          paddingLeft: icon ? '32px' : '10px',
+        }}
+      />
+    );
+  };
+
+  public renderClear = () => {
+    return (
+      <span className="picker-input__clear" onClick={this.handleClear}>
+        <SVGIcon id="clear" />
+      </span>
+    );
+  };
+
+  public render() {
+    const { clear, icon, className } = this.props;
     return (
       <div className={classNames('picker-input', className)}>
         {icon && <span className="picker-input__icon">{icon}</span>}
-        <input
-          ref={this.inputRef}
-          className="picker-input__text"
-          type="text"
-          value={value}
-          readOnly={readOnly}
-          disabled={disabled}
-          onChange={onChange}
-          onClick={onClick}
-          onBlur={onBlur}
-          placeholder={placeholder}
-          style={{
-            paddingLeft: icon ? '32px' : '10px',
-          }}
-        />
-        {clear && (
-          <span className="picker-input__clear" onClick={this.handleClear}>
-            <SVGIcon id="clear" />
-          </span>
-        )}
+        {this.renderInput()}
+        {clear && this.renderClear()}
       </div>
     );
   }

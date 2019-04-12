@@ -28,7 +28,7 @@ export const getMonthMatrix = (locale: IDatePicker.Locale) => {
   return chunk(getMonthShort(locale), 3);
 };
 
-export const getYearMatrix = (year: number) => {
+export const getYearMatrix = (year: number): string[][] => {
   return chunk(range(year - 4, year + 5).map(v => `${v}`), 3);
 };
 
@@ -49,4 +49,9 @@ export const isDayRange = (date: dayjs.Dayjs, start?: dayjs.Dayjs, end?: dayjs.D
   if (!start || !end) return false;
 
   return isDayAfter(date, start) && isDayBefore(date, end);
+};
+
+export const formatDate = (date: dayjs.Dayjs | undefined, format: string) => {
+  if (date === undefined) return '';
+  return dayjs(date).format(format);
 };
