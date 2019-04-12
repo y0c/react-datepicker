@@ -7,6 +7,7 @@ import TimeContainer from './TimeContainer';
 import Picker, { PickerProps, PickerAction } from './Picker';
 import { Omit, Merge } from '../utils/TypeUtil';
 import { ifExistCall } from '../utils/FunctionUtil';
+import { formatDate } from '../utils/DateUtil';
 import { DatePickerDefaults } from '../common/Constant';
 import PickerInput, { Props as InputProps } from './PickerInput';
 import SVGIcon from './SVGIcon';
@@ -24,7 +25,7 @@ interface DatePickerProps {
   /** show time only */
   showTimeOnly?: boolean;
   /** Initial display date */
-  initialDate: dayjs.Dayjs;
+  initialDate?: dayjs.Dayjs;
   /** Override InputComponent */
   inputComponent?: (props: InputProps) => JSX.Element;
   /** DatePicker value change Event */
@@ -35,7 +36,7 @@ interface DatePickerProps {
 
 export interface State {
   tabValue: TabValue;
-  date: dayjs.Dayjs;
+  date?: dayjs.Dayjs;
   inputValue: string;
   selected: dayjs.Dayjs[];
 }
@@ -53,7 +54,6 @@ export type Props = DatePickerProps & Omit<InputProps, 'onChange'> & CalendarPro
 class DatePicker extends React.Component<Props, State> {
   public static defaultProps = {
     includeTime: false,
-    initialDate: dayjs(),
     showMonthCnt: 1,
     locale: DatePickerDefaults.locale,
     portal: false,
@@ -64,15 +64,23 @@ class DatePicker extends React.Component<Props, State> {
     super(props);
     dayjs.extend(customParseFormat);
     const { initialDate, includeTime, showTimeOnly } = this.props;
-    const date = initialDate;
+    const selected = [];
+    let date;
+
+    if (initialDate) {
+      date = initialDate;
+      selected.push(date);
+    }
+
     if (includeTime && showTimeOnly) {
       throw new Error('incldueTime & showTimeOnly cannot be used together');
     }
+
     this.state = {
       date,
+      selected,
       tabValue: TabValue.DATE,
-      inputValue: date.format(this.getDateFormat()),
-      selected: [date],
+      inputValue: formatDate(date, this.getDateFormat()),
     };
   }
 
@@ -108,6 +116,12 @@ class DatePicker extends React.Component<Props, State> {
   public handleTimeChange = (hour: number, minute: number) => {
     const { onChange } = this.props;
     let date = this.state.date;
+    let selected = this.state.selected;
+
+    if (!date) {
+      date = dayjs();
+      selected = [date];
+    }
 
     date = date.hour(hour).minute(minute);
     const inputValue = date.format(this.getDateFormat());
@@ -117,6 +131,7 @@ class DatePicker extends React.Component<Props, State> {
     this.setState({
       ...this.state,
       date,
+      selected,
       inputValue,
     });
   };
@@ -225,7 +240,7 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderTime = (): JSX.Element | null => {
-    const { date } = this.state;
+    const date = this.state.date || dayjs();
 
     return (
       <TimeContainer hour={date.hour()} minute={date.minute()} onChange={this.handleTimeChange} />
@@ -255,12 +270,13 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public render() {
-    const { includeTime, portal, direction, disabled } = this.props;
+    const { includeTime, portal, direction, disabled, readOnly } = this.props;
 
     return (
       <Picker
         portal={portal}
         direction={direction}
+        readOnly={readOnly}
         disabled={disabled}
         className={CX({ include__time: includeTime })}
         renderTrigger={() => this.renderInputComponent()}
