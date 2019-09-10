@@ -179,18 +179,19 @@ class DatePicker extends React.Component<Props, State> {
   };
 
   public renderInputComponent = (): JSX.Element => {
-    const { inputComponent, readOnly, disabled, clear, autoFocus, showDefaultIcon } = this.props;
+    const { inputComponent, readOnly, disabled, clear, autoFocus, showDefaultIcon, placeholder } = this.props;
     const { inputValue } = this.state;
     const inputProps = {
       readOnly,
       autoFocus,
       disabled,
       clear,
+      placeholder,
       onChange: this.handleInputChange,
       onClear: this.handleInputClear,
       onBlur: this.handleInputBlur,
       value: inputValue,
-      icon: showDefaultIcon ? <SVGIcon id="calendar" /> : undefined,
+      icon: showDefaultIcon ? <SVGIcon id="calendar" /> : undefined
     };
     return inputComponent ? inputComponent({ ...inputProps }) : <PickerInput {...inputProps} />;
   };

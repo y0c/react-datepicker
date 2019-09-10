@@ -37,6 +37,9 @@ storiesOf('DatePicker', module)
         <DatePicker {...defaultProps} direction={0} />
       </div>
     );
+  })
+  .add('placeholder', () => {
+    return <DatePicker {...defaultProps} placeholder="Select date" />;
   });
 
 storiesOf('DatePicker - Input Props', module)
