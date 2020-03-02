@@ -7,7 +7,7 @@ import * as weekday from 'dayjs/plugin/weekday';
 
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
-dayjs.extend(weekday)
+dayjs.extend(weekday);
 
 export const getMonthShort = (locale: IDatePicker.Locale) => {
   dayjs.locale(locale);
