@@ -3,9 +3,11 @@ import { IDatePicker } from '../common/@types';
 import { range } from '../utils/ArrayUtil';
 import * as localeData from 'dayjs/plugin/localeData';
 import * as localizedFormat from 'dayjs/plugin/localizedFormat';
+import * as weekday from 'dayjs/plugin/weekday';
 
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
+dayjs.extend(weekday)
 
 export const getMonthShort = (locale: IDatePicker.Locale) => {
   dayjs.locale(locale);
@@ -21,7 +23,7 @@ export const getWeekDays = (locale: IDatePicker.Locale) => {
   return range(7).map(v =>
     dayjs()
       .localeData()
-      .weekdaysShort(dayjs().day(v))
+      .weekdaysShort(dayjs().weekday(v))
   );
 };
 
