@@ -18,7 +18,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, onB
   return (
     <div className="time-input">
       <div className="time-input__up">
-        <button onClick={onUp}>
+        <button onClick={onUp} type="button">
           <SVGIcon id="up" />
         </button>
       </div>
@@ -26,7 +26,7 @@ const TimeInput: React.FunctionComponent<Props> = ({ onUp, onDown, onChange, onB
         <input type="text" value={value} onChange={onChange} onBlur={onBlur} />
       </div>
       <div className="time-input__down">
-        <button onClick={onDown}>
+        <button onClick={onDown} type="button">
           <SVGIcon id="down" />
         </button>
       </div>
