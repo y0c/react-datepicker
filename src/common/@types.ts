@@ -1,5 +1,5 @@
 export namespace IDatePicker {
-  export type Locale = string | ILocale;
+  export type Locale = any;
   export enum PickerDirection {
     TOP,
     BOTTOM,
