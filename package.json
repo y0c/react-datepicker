@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "dayjs": "^1.8.12",
+    "dayjs": "^1.8.21",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
