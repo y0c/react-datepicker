@@ -20,7 +20,9 @@
     "bump:minor": "yarn version --minor",
     "bump:major": "yarn version --major",
     "prepublish": "yarn lint && yarn test",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "test:unit:output": "yarn test --json --outputFile=.jest.test.result.json",
+    "start": "yarn test:unit:output && start-storybook -p 6006"
   },
   "lint-staged": {
     "{src}/**/*.ts*": [
@@ -34,7 +36,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "dayjs": "^1.8.12",
+    "dayjs": "^1.8.21",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
