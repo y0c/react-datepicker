@@ -47,17 +47,17 @@ exports[`<TableMatrixView/> props matrix correctly 1`] = `
       key="1"
     >
       <td
-        key="1"
-      >
-        value
-      </td>
-      <td
-        key="2"
-      >
-        value
-      </td>
-      <td
         key="3"
+      >
+        value
+      </td>
+      <td
+        key="4"
+      >
+        value
+      </td>
+      <td
+        key="5"
       >
         value
       </td>
@@ -66,17 +66,17 @@ exports[`<TableMatrixView/> props matrix correctly 1`] = `
       key="2"
     >
       <td
-        key="2"
+        key="6"
       >
         value
       </td>
       <td
-        key="3"
+        key="7"
       >
         value
       </td>
       <td
-        key="4"
+        key="8"
       >
         value
       </td>
@@ -132,17 +132,17 @@ exports[`<TableMatrixView/> render with no props 1`] = `
       key="1"
     >
       <td
-        key="1"
-      >
-        value
-      </td>
-      <td
-        key="2"
-      >
-        value
-      </td>
-      <td
         key="3"
+      >
+        value
+      </td>
+      <td
+        key="4"
+      >
+        value
+      </td>
+      <td
+        key="5"
       >
         value
       </td>
@@ -151,17 +151,17 @@ exports[`<TableMatrixView/> render with no props 1`] = `
       key="2"
     >
       <td
-        key="2"
+        key="6"
       >
         value
       </td>
       <td
-        key="3"
+        key="7"
       >
         value
       </td>
       <td
-        key="4"
+        key="8"
       >
         value
       </td>
