@@ -8,6 +8,32 @@ import LayoutDecorator from './decorator/LayoutDecorator';
 storiesOf('RangeDatePicker', module)
   .addDecorator(LayoutDecorator)
   .add('default', () => <RangeDatePicker />)
+  .add('with custom header format', () => <RangeDatePicker format={'MMMM YYYY'} />)
+  .add('with custom icon between input triggers', () => {
+    return (
+      <RangeDatePicker
+        icon={
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            -
+          </div>
+        }
+      />)
+  })
+  .add('with custom prev and next icons', () => {
+    return (
+      <RangeDatePicker
+        prevIcon={
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            -
+          </div>
+        }
+        nextIcon={
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            +
+          </div>
+        }
+      />)
+  })
   .add('initial Start & End Date', () => {
     return (
       <RangeDatePicker initialStartDate={dayjs().subtract(7, 'day')} initialEndDate={dayjs()} />

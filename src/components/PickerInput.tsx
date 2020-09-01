@@ -27,6 +27,12 @@ export interface Props {
   className?: string;
   /** Picker Input Placeholder */
   placeholder?: string;
+  /** input custom styles */
+  inputStyles?: {
+    [style: string]: string
+  }
+  /** input clear icon */
+  clearIcon?: React.ReactNode;
 }
 
 class PickerInput extends React.Component<Props> {
@@ -62,6 +68,7 @@ class PickerInput extends React.Component<Props> {
       onClick,
       onBlur,
       placeholder,
+      inputStyles = {},
     } = this.props;
 
     return (
@@ -78,13 +85,15 @@ class PickerInput extends React.Component<Props> {
         placeholder={placeholder}
         style={{
           paddingLeft: icon ? '32px' : '10px',
+          ...inputStyles
         }}
       />
     );
   };
 
   public renderClear = () => {
-    return (
+    const { clearIcon } = this.props;
+    return clearIcon ? clearIcon : (
       <span className="picker-input__clear" onClick={this.handleClear}>
         <SVGIcon id="clear" />
       </span>

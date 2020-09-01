@@ -22,7 +22,7 @@ const TableMatrixView: React.FunctionComponent<Props> = ({ className, matrix, ce
       )}
       <tbody>
         {matrix.map((row, i) => (
-          <tr key={i}>{row.map((v, j) => cell(v, i + j))}</tr>
+          <tr key={i}>{row.map((v, j) => cell(v, i * matrix[i].length + j))}</tr>
         ))}
       </tbody>
     </table>
