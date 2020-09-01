@@ -16,13 +16,19 @@ interface CalendarContainerProps {
   /** Calendar Show or Hide */
   show?: boolean;
   /** PrevIcon Show or Hide */
-  prevIcon?: boolean;
+  shouldShowPrevIcon?: boolean;
   /** NextIcon Show or Hide */
-  nextIcon?: boolean;
+  shouldShowNextIcon?: boolean;
   /** Event for Calendar day click */
   onChange?: (date: dayjs.Dayjs) => void;
   /** TodayPanel show or hide */
   showToday?: boolean;
+  /** Format of calendar header title */
+  format?: string;
+  /** Custom prevIcon */
+  prevIcon?: React.ReactNode;
+  /** Custom nextIcon */
+  nextIcon?: React.ReactNode;
 }
 
 interface PrivateProps {
@@ -61,12 +67,12 @@ class CalendarContainer extends React.Component<Props, State> {
   }
 
   public getHeaderTitle = () => {
-    const { current } = this.props;
+    const { current, format = 'YYYY.MM' } = this.props;
     const year = dayjs(current).year();
     return {
       [IDatePicker.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [IDatePicker.ViewMode.MONTH]: `${year}`,
-      [IDatePicker.ViewMode.DAY]: dayjs(current).format('YYYY.MM'),
+      [IDatePicker.ViewMode.DAY]: dayjs(current).format(format),
     }[this.state.viewMode];
   };
 
@@ -132,15 +138,17 @@ class CalendarContainer extends React.Component<Props, State> {
   };
 
   public renderCalendarHead = () => {
-    const { prevIcon, nextIcon } = this.props;
+    const { shouldShowPrevIcon, shouldShowNextIcon, prevIcon, nextIcon } = this.props;
     return (
       <CalendarHead
         onPrev={this.handleBase('subtract')}
         onNext={this.handleBase('add')}
-        prevIcon={prevIcon}
-        nextIcon={nextIcon}
+        shouldShowPrevIcon={shouldShowPrevIcon}
+        shouldShowNextIcon={shouldShowNextIcon}
         onTitleClick={this.handleTitleClick}
         title={this.getHeaderTitle()}
+        prevIcon={prevIcon}
+        nextIcon={nextIcon}
       />
     );
   };

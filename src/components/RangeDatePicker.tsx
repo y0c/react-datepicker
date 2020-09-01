@@ -198,7 +198,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public renderRangePickerInput = () => {
-    const { startPlaceholder, endPlaceholder, readOnly, disabled, clear, onChange } = this.props;
+    const { startPlaceholder, endPlaceholder, readOnly, disabled, clear, icon } = this.props;
     const { startValue, endValue } = this.state;
     return (
       <RangePickerInput
@@ -212,12 +212,13 @@ class RangeDatePicker extends React.Component<Props, State> {
         onChange={this.handleInputChange}
         onBlur={this.handleInputBlur}
         onClear={this.handleInputClear}
+        icon={icon}
       />
     );
   };
 
   public renderCalendar = (actions: PickerAction) => {
-    const { showMonthCnt, initialDate, wrapper } = this.props;
+    const { showMonthCnt, initialDate, wrapper, format, prevIcon, nextIcon } = this.props;
     const { start, end } = this.state;
     let component: JSX.Element;
 
@@ -232,6 +233,9 @@ class RangeDatePicker extends React.Component<Props, State> {
         onMouseOver={this.handleMouseOver}
         customDayText={this.handleCalendarText}
         customDayClass={this.handleCalendarClass}
+        format={format}
+        prevIcon={prevIcon}
+        nextIcon={nextIcon}
       />
     );
 

@@ -31,6 +31,8 @@ export type InputProps = Merge<
     startPlaceholder?: string;
     /** end input placeholder */
     endPlaceholder?: string;
+    /** Custom icon between input triggers */
+    icon?: React.ReactNode;
   }
 >;
 
@@ -73,12 +75,15 @@ class RangePickerInput extends React.Component<Props> {
   };
 
   public render() {
+    const { icon } = this.props;
     return (
       <div className="range-picker-input">
         <span className="range-picker-input__start">{this.renderStartInput()}</span>
-        <span className="range-picker-input__icon">
-	        <SVGIcon id="right-arrow"/>
-        </span>
+        {icon ? icon : (
+          <span className="range-picker-input__icon">
+            <SVGIcon id="right-arrow"/>
+          </span>
+        )}
         <span className="range-picker-input__end">{this.renderEndInput()}</span>
       </div>
     );
