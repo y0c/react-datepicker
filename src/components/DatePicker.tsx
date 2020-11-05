@@ -212,6 +212,7 @@ class DatePicker extends React.Component<Props, State> {
           active: tabValue === type,
         })}
         onClick={this.handleTab(type)}
+        type="button"
       >
         <SVGIcon id={icon} />
         {label}

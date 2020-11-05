@@ -32,7 +32,7 @@ const CalendarHead: React.FunctionComponent<Props> = ({
     <div className="calendar__head">
       <div className="calendar__head--prev">
         {prevIcon && (
-          <button onClick={onPrev} className="calendar__head--button">
+          <button onClick={onPrev} className="calendar__head--button" type="button">
 	          <SVGIcon id="left-arrow"/>
           </button>
         )}
@@ -42,7 +42,7 @@ const CalendarHead: React.FunctionComponent<Props> = ({
       </h2>
       <div className="calendar__head--next">
         {nextIcon && (
-          <button onClick={onNext} className="calendar__head--button">
+          <button onClick={onNext} className="calendar__head--button" type="button">
 	          <SVGIcon id="right-arrow"/>
           </button>
         )}
