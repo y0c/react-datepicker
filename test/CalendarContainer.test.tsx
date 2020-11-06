@@ -66,6 +66,32 @@ describe('<CalendarContainer/>', () => {
     });
   });
 
+  describe('prop: monthNameOnHeader', () => {
+    let component: ReactWrapper<Props>;
+    let componentNameOnHeader: ReactWrapper<Props>;
+
+    beforeEach(() => {
+      component = mount(
+        <CalendarContainer {...defaultProps} />
+      );
+      componentNameOnHeader = mount(
+        <CalendarContainer {...defaultProps} monthNameOnHeader />
+      );
+    });
+
+    it('should not change format of calendar header', () => {
+      expect(
+        component.find('.calendar__head--title').first().text()
+      ).toEqual('2018.12');
+    });
+
+    it('should change format of calendar header', () => {
+      expect(
+        componentNameOnHeader.find('.calendar__head--title').first().text()
+      ).toEqual('Dec, 2018');
+    });
+  });
+
   describe('handle base test(onPrev, onNext)', () => {
     beforeEach(() => {
       mountComponent = mount(

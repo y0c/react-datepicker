@@ -49,6 +49,9 @@ storiesOf('Calendar', module)
     const showMontCnt = number('showMonthCnt', 2);
     return <CalendarSelectedController showMonthCnt={showMontCnt} />;
   })
+  .add('monthNameOnHeader', () => {
+    return <CalendarSelectedController monthNameOnHeader />
+  })
   .add('disableDay', () => {
     const disableDay = (date: dayjs.Dayjs) => {
       return dayjs(date).date() < 7;

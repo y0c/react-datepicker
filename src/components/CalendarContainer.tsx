@@ -23,6 +23,8 @@ interface CalendarContainerProps {
   onChange?: (date: dayjs.Dayjs) => void;
   /** TodayPanel show or hide */
   showToday?: boolean;
+  /** Change calendar header format to monthName, year */
+  monthNameOnHeader?: boolean;
 }
 
 interface PrivateProps {
@@ -60,13 +62,22 @@ class CalendarContainer extends React.Component<Props, State> {
     super(props);
   }
 
+  private formatHeaderTitle = (current: dayjs.Dayjs) => {    
+    if (this.props.monthNameOnHeader) {
+      return dayjs(current).format('MMM, YYYY');
+    }
+
+    return dayjs(current).format('YYYY.MM');
+  }
+
   public getHeaderTitle = () => {
+
     const { current } = this.props;
     const year = dayjs(current).year();
     return {
       [IDatePicker.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [IDatePicker.ViewMode.MONTH]: `${year}`,
-      [IDatePicker.ViewMode.DAY]: dayjs(current).format('YYYY.MM'),
+      [IDatePicker.ViewMode.DAY]: this.formatHeaderTitle(current),
     }[this.state.viewMode];
   };
 
