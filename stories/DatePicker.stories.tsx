@@ -31,6 +31,9 @@ storiesOf('DatePicker', module)
   .add('showMonthCnt', () => {
     return <DatePicker {...defaultProps} showMonthCnt={2} />;
   })
+  .add('monthNameOnHeader', () => {
+    return <DatePicker {...defaultProps} monthNameOnHeader />;
+  })
   .add('onTop', () => {
     return (
       <div style={{ paddingTop: '300px' }}>
