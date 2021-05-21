@@ -116,4 +116,20 @@ storiesOf('Calendar', module)
         }}
       />
     );
+  })
+  .add('custom prev/next icon', () => {
+    return (
+      <CalendarSelectedController
+        prevIcon={props => (
+          <button {...props} type="button" style={{ color: '#fff' }}>
+            &lt;
+          </button>
+        )}
+        nextIcon={props => (
+          <button {...props} type="button" style={{ color: '#fff' }}>
+            &gt;
+          </button>
+        )}
+      />
+    );
   });
