@@ -3,7 +3,7 @@ import * as dayjs from 'dayjs';
 import * as React from 'react';
 import { IDatePicker } from '../common/@types';
 import CalendarBody from './CalendarBody';
-import CalendarHead from './CalendarHead';
+import CalendarHead, { HeaderButtonProps } from './CalendarHead';
 import { Props as DayViewProps } from './DayView';
 import TodayPanel from './TodayPanel';
 import { ifExistCall } from '../utils/FunctionUtil';
@@ -16,9 +16,9 @@ interface CalendarContainerProps {
   /** Calendar Show or Hide */
   show?: boolean;
   /** PrevIcon Show or Hide */
-  prevIcon?: boolean;
+  prevIcon?: ((props: HeaderButtonProps) => JSX.Element) | boolean;
   /** NextIcon Show or Hide */
-  nextIcon?: boolean;
+  nextIcon?: ((props: HeaderButtonProps) => JSX.Element) | boolean;
   /** Event for Calendar day click */
   onChange?: (date: dayjs.Dayjs) => void;
   /** TodayPanel show or hide */

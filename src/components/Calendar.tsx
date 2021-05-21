@@ -33,7 +33,7 @@ class Calendar extends React.Component<Props, State> {
   };
 
   public render() {
-    const { showMonthCnt } = this.props;
+    const { showMonthCnt, prevIcon, nextIcon } = this.props;
     const { base } = this.state;
 
     return (
@@ -45,8 +45,8 @@ class Calendar extends React.Component<Props, State> {
                 {...this.props}
                 base={this.state.base}
                 current={dayjs(base).add(idx, 'month')}
-                prevIcon={idx === 0}
-                nextIcon={idx === showMonthCnt! - 1}
+                prevIcon={idx === 0 && (prevIcon === undefined ? true : prevIcon)}
+                nextIcon={idx === showMonthCnt! - 1 && (nextIcon === undefined ? true : nextIcon)}
                 setBase={this.setBase}
               />
             </div>
