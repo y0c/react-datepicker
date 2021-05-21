@@ -7,6 +7,7 @@ import './css/custom.css';
 import 'dayjs/locale/ko';
 import 'dayjs/locale/zh-cn';
 import 'dayjs/locale/ja';
+import { IDatePicker } from '../src/common/@types';
 
 storiesOf('Calendar', module)
   .add('default', () => {
@@ -89,4 +90,46 @@ storiesOf('Calendar', module)
       return classMap[dayjs(date).format('DD')];
     };
     return <CalendarSelectedController customDayText={customDayText} />;
+  })
+  .add('custom header title', () => {
+    const customDayText = (date: dayjs.Dayjs) => {
+      // for test (year, month remove)
+      const classMap = {
+        '01': '첫째날',
+        '02': '둘째날',
+      };
+
+      return classMap[dayjs(date).format('DD')];
+    };
+    return (
+      <CalendarSelectedController
+        formatHeaderTitle={(viewMode, current) => {
+          const year = current.year();
+          if (viewMode === IDatePicker.ViewMode.YEAR) {
+            return `${year - 4} - ${year + 5}`;
+          } else if (viewMode === IDatePicker.ViewMode.MONTH) {
+            return `${year}`;
+          } else if (viewMode === IDatePicker.ViewMode.DAY) {
+            return current.format('YYYY/MM');
+          }
+          return '';
+        }}
+      />
+    );
+  })
+  .add('custom prev/next icon', () => {
+    return (
+      <CalendarSelectedController
+        prevIcon={props => (
+          <button {...props} type="button" style={{ color: '#fff' }}>
+            &lt;
+          </button>
+        )}
+        nextIcon={props => (
+          <button {...props} type="button" style={{ color: '#fff' }}>
+            &gt;
+          </button>
+        )}
+      />
+    );
   });
