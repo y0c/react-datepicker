@@ -19,7 +19,7 @@ interface RangePickerInputProps {
   /** RangePickerInput Blur event field type is start or end */
   onBlur?: (fieldType: FieldType, value: string) => void;
   /** RangePickerInput click event field type is start or end */
-  onClick?: (fieldTyp: FieldType) => void;
+  onClick?: (fieldType: FieldType) => void;
   /** RangePickerInput clear event */
   onClear?: (fieldType: FieldType) => void;
 }

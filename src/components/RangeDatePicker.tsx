@@ -25,6 +25,7 @@ interface RangeDatePickerProps {
   endText: string;
   /** calendar wrapping element */
   wrapper?: (calendar: JSX.Element) => JSX.Element;
+  onClear?: (fieldType: FieldType) => void;
 }
 
 export interface State {
@@ -182,6 +183,10 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public handleInputClear = (fieldType: FieldType) => {
+    const { onClear } = this.props;
+
+    ifExistCall(onClear, fieldType);
+
     if (fieldType === FieldType.START) {
       this.setState({
         ...this.state,
@@ -198,7 +203,7 @@ class RangeDatePicker extends React.Component<Props, State> {
   };
 
   public renderRangePickerInput = () => {
-    const { startPlaceholder, endPlaceholder, readOnly, disabled, clear, onChange } = this.props;
+    const { startPlaceholder, endPlaceholder, readOnly, disabled, clear } = this.props;
     const { startValue, endValue } = this.state;
     return (
       <RangePickerInput
