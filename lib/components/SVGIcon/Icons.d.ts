@@ -1,0 +1,10 @@
+import * as React from 'react';
+import { IDatePicker } from '../../common/@types';
+declare const Calendar: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const Clear: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const LeftArrow: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const RightArrow: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const Time: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const Up: React.FunctionComponent<IDatePicker.SVGIconProps>;
+declare const Down: React.FunctionComponent<IDatePicker.SVGIconProps>;
+export { Calendar, Clear, LeftArrow, RightArrow, Time, Up, Down };
