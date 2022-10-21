@@ -3,6 +3,8 @@ import { IDatePicker } from '../common/@types';
 import * as dayjs from 'dayjs';
 import { getMonthShort } from './LocaleUtil';
 
+const euOffset: number = 1; // ashik
+
 export const getDayMatrix = (year: number, month: number): string[][] => {
   const date = dayjs()
     .year(year)
@@ -11,7 +13,8 @@ export const getDayMatrix = (year: number, month: number): string[][] => {
   const startOfMonth = date.startOf('month').date();
   const endOfMonth = date.endOf('month').date();
 
-  const startDay = date.startOf('month').day();
+  /** The reason for the modular is that if the startday is -1 we want it to be 6 */
+  const startDay = (date.startOf('month').day() - euOffset + 7) % 7;
   const remain = (startDay + endOfMonth) % 7;
 
   return chunk(
