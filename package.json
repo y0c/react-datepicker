@@ -1,6 +1,6 @@
 {
-  "name": "@indpro-blr/react-datepicker",
-  "version": "1.0.4",
+  "name": "indproblr-react-datepicker",
+  "version": "1.0.7",
   "description": "Flexible, Reusable, Mobile friendly DatePicker Component",
   "author": "y0c",
   "license": "MIT",

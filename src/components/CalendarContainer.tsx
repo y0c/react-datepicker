@@ -61,12 +61,12 @@ class CalendarContainer extends React.Component<Props, State> {
   }
 
   public getHeaderTitle = () => {
-    const { current } = this.props;
+    const { current,locale } = this.props;
     const year = dayjs(current).year();
     return {
       [IDatePicker.ViewMode.YEAR]: `${year - 4} - ${year + 5}`,
       [IDatePicker.ViewMode.MONTH]: `${year}`,
-      [IDatePicker.ViewMode.DAY]: dayjs(current).format('YYYY.MM'),
+      [IDatePicker.ViewMode.DAY]: dayjs(current).locale(locale).format('YYYY MMMM'),
     }[this.state.viewMode];
   };
 
